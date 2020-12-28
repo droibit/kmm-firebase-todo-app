@@ -1,0 +1,19 @@
+# file options
+
+--exclude Carthage,Pods,TodoApp/DI/NeedleGenerated.swift,TodoApp/Resources/Generated
+
+# format options
+--allman false
+--header ignore
+--indent 4
+--importgrouping alphabetized
+--maxwidth 200
+--self remove
+--stripunusedargs closure-only
+--swiftversion 5.3
+--wraparguments preserve
+--wrapcollections preserve
+
+# rules
+--disable strongOutlets
+--enable isEmpty

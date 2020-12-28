@@ -1,0 +1,27 @@
+# Local configuration file (sdk path, etc)
+local.properties
+
+# Intellij project files
+*.iml
+*.ipr
+*.iws
+.idea/*
+!.idea/runConfigurations/
+!.idea/codeStyles/
+!.idea/inspectionProfiles/
+
+# Android Studio files
+/captures
+.externalNativeBuild/
+projectFilesBackup/
+.cxx
+
+# Gradle files
+/.gradle
+/build
+
+# Android app
+*.apk
+*.aab
+
+.DS_Store

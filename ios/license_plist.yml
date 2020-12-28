@@ -1,0 +1,4 @@
+exclude:
+  - SwiftFormat
+  - SwiftLint
+  - xcodegen
