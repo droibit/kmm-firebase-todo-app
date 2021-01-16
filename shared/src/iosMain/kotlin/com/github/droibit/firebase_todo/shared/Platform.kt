@@ -1,6 +1,5 @@
 package com.github.droibit.firebase_todo.shared
 
-
 import platform.UIKit.UIDevice
 
 actual class Platform actual constructor() {
