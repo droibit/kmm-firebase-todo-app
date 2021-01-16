@@ -6,21 +6,34 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 buildscript {
     repositories {
-        gradlePluginPortal()
         jcenter()
         google()
-        mavenCentral()
     }
     dependencies {
         classpath(Deps.Plugins.kotlin)
         classpath(Deps.Plugins.android)
+        classpath(Deps.Plugins.googleServices)
     }
 }
 
-allprojects {
+plugins {
+    id(Deps.Plugins.Spotless.id) version Deps.Plugins.Spotless.version
+}
+
+subprojects {
     repositories {
         google()
         jcenter()
+    }
+
+    apply(plugin = "com.diffplug.spotless")
+
+    spotless {
+        kotlin {
+            target("**/*.kt")
+            targetExclude("$buildDir/**/*.kt")
+            ktlint(Deps.Version.ktlint)
+        }
     }
 
     plugins.whenPluginAdded {

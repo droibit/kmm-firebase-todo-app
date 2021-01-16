@@ -2,6 +2,7 @@ import org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTarget
 
 plugins {
     kotlin("multiplatform")
+    kotlin("kapt")
     id("com.android.library")
 }
 
@@ -15,7 +16,18 @@ kotlin {
         }
     }
     sourceSets {
-        val commonMain by getting
+        val commonMain by getting {
+            dependencies {
+                implementation(Deps.Coroutines.core)
+
+                implementation(Deps.Stately.common)
+                implementation(Deps.Stately.isolate)
+
+                implementation(Deps.Firebase.auth)
+                implementation(Deps.Firebase.firestore)
+                implementation(Deps.Firebase.functions)
+            }
+        }
         val commonTest by getting {
             dependencies {
                 implementation(kotlin("test-common"))
@@ -24,17 +36,24 @@ kotlin {
         }
         val androidMain by getting {
             dependencies {
+                implementation(Deps.Coroutines.android)
+                implementation(Deps.Dagger.hilt)
             }
         }
         val androidTest by getting {
             dependencies {
                 implementation(kotlin("test-junit"))
-                implementation("junit:junit:4.13")
+                implementation(Deps.Test.junit)
             }
         }
         val iosMain by getting
         val iosTest by getting
     }
+}
+
+// ref. https://www.reddit.com/r/Kotlin/comments/ack2r6/problem_using_kapt_in_a_multiplatform_project/
+dependencies {
+    "kapt"(Deps.Dagger.compiler)
 }
 
 android {
@@ -60,6 +79,10 @@ android {
     }
 
     sourceSets["main"].manifest.srcFile("src/androidMain/AndroidManifest.xml")
+}
+
+kapt {
+    correctErrorTypes = true
 }
 
 val packForXcode by tasks.creating(Sync::class) {
