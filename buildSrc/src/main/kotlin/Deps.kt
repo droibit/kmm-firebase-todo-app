@@ -3,6 +3,7 @@ object Deps {
         const val kotlin = "org.jetbrains.kotlin:kotlin-gradle-plugin:1.4.21"
         const val android = "com.android.tools.build:gradle:4.2.0-beta03"
         const val googleServices = "com.google.gms:google-services:4.3.4"
+        const val daggerHilt = "com.google.dagger:hilt-android-gradle-plugin:${Dagger.version}"
         const val spotless = "com.diffplug.spotless:spotless-plugin-gradle:5.9.0"
 
         object Spotless {
@@ -31,7 +32,7 @@ object Deps {
     }
 
     object Dagger {
-        private const val version = "2.31-alpha"
+        internal const val version = "2.31-alpha"
         const val hilt = "com.google.dagger:hilt-android:$version"
         const val compiler = "com.google.dagger:hilt-android-compiler:$version"
     }

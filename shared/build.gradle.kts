@@ -4,6 +4,7 @@ plugins {
     kotlin("multiplatform")
     kotlin("kapt")
     id("com.android.library")
+    id("dagger.hilt.android.plugin")
 }
 
 kotlin {

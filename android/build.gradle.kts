@@ -1,6 +1,9 @@
 plugins {
     id("com.android.application")
     kotlin("android")
+    kotlin("kapt")
+    id("dagger.hilt.android.plugin")
+    // id("com.google.gms.google-services")
 }
 
 android {
@@ -28,7 +31,12 @@ android {
 dependencies {
     implementation(project(":shared"))
 
+    implementation(Deps.Coroutines.core)
+
     implementation(Deps.Androidx.appCompat)
     implementation(Deps.Androidx.constraintLayout)
     implementation(Deps.materialDesign)
+
+    implementation(Deps.Dagger.hilt)
+    "kapt"(Deps.Dagger.compiler)
 }

@@ -6,12 +6,13 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 buildscript {
     repositories {
-        jcenter()
         google()
+        jcenter()
     }
     dependencies {
         classpath(Deps.Plugins.kotlin)
         classpath(Deps.Plugins.android)
+        classpath(Deps.Plugins.daggerHilt)
         classpath(Deps.Plugins.googleServices)
     }
 }
