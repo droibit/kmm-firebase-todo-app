@@ -66,6 +66,7 @@ android {
         versionCode = 1
         versionName = "1.0"
 
+        resConfigs("en", "ja")
         consumerProguardFiles("consumer-rules.pro")
     }
 

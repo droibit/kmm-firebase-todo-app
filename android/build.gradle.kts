@@ -15,6 +15,9 @@ android {
         targetSdkVersion(BuildConfig.targetSdkVersion)
         versionCode = 1
         versionName = "1.0"
+
+        resConfigs("en", "ja")
+        vectorDrawables.useSupportLibrary = true
     }
 
     buildTypes {
