@@ -38,10 +38,14 @@ object Deps {
     }
 
     object Firebase {
-        private const val version = "1.2.0"
-        const val auth = "dev.gitlive:firebase-auth:$version"
-        const val firestore = "dev.gitlive:firebase-firestore:$version"
-        const val functions = "dev.gitlive:firebase-functions:$version"
+        object MPP {
+            private const val version = "1.2.0"
+            const val auth = "dev.gitlive:firebase-auth:$version"
+            const val firestore = "dev.gitlive:firebase-firestore:$version"
+            const val functions = "dev.gitlive:firebase-functions:$version"
+        }
+
+        const val analytics = "com.google.firebase:firebase-analytics-ktx:17.3.0"
     }
 
     const val materialDesign = "com.google.android.material:material:1.3.0-rc01"

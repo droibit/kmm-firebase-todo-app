@@ -24,9 +24,9 @@ kotlin {
                 implementation(Deps.Stately.common)
                 implementation(Deps.Stately.isolate)
 
-                implementation(Deps.Firebase.auth)
-                implementation(Deps.Firebase.firestore)
-                implementation(Deps.Firebase.functions)
+                implementation(Deps.Firebase.MPP.auth)
+                implementation(Deps.Firebase.MPP.firestore)
+                implementation(Deps.Firebase.MPP.functions)
             }
         }
         val commonTest by getting {

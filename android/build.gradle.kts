@@ -3,7 +3,7 @@ plugins {
     kotlin("android")
     kotlin("kapt")
     id("dagger.hilt.android.plugin")
-    // id("com.google.gms.google-services")
+    id("com.google.gms.google-services")
 }
 
 android {
@@ -26,6 +26,19 @@ android {
             )
         }
     }
+
+    signingConfigs {
+        getByName("debug") {
+            storeFile = rootProject.file("keystore/debug.keystore")
+        }
+    }
+
+    packagingOptions {
+        exclude("kotlin/**")
+        exclude("**/*.kotlin_metadata")
+        exclude("META-INF/*.kotlin_module")
+        exclude("META-INF/*.version")
+    }
 }
 
 dependencies {
@@ -36,6 +49,8 @@ dependencies {
     implementation(Deps.Androidx.appCompat)
     implementation(Deps.Androidx.constraintLayout)
     implementation(Deps.materialDesign)
+
+    implementation(Deps.Firebase.analytics)
 
     implementation(Deps.Dagger.hilt)
     "kapt"(Deps.Dagger.compiler)
