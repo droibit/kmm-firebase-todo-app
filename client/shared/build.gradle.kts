@@ -11,8 +11,17 @@ kotlin {
     android()
     ios {
         binaries {
+            // ref. https://github.com/GitLiveApp/firebase-kotlin-sdk/issues/111#issuecomment-738772372
             framework {
                 baseName = "Shared"
+                transitiveExport = true
+
+                linkerOpts("-F${rootProject.projectDir}/ios/Carthage/Build/iOS/")
+                linkerOpts("-ObjC")
+
+                // MEMO: Export dependencies if needed
+                // https://kotlinlang.org/docs/reference/mpp-build-native-binaries.html#export-dependencies-to-binaries
+                // export(Deps.Firebase.MPP.app)
             }
         }
     }
@@ -23,7 +32,7 @@ kotlin {
 
                 implementation(Deps.Stately.common)
                 implementation(Deps.Stately.isolate)
-
+                
                 implementation(Deps.Firebase.MPP.auth)
                 implementation(Deps.Firebase.MPP.firestore)
                 implementation(Deps.Firebase.MPP.functions)

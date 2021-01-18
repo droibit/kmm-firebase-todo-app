@@ -40,6 +40,7 @@ object Deps {
     object Firebase {
         object MPP {
             private const val version = "1.2.0"
+            const val app = "dev.gitlive:firebase-app:$version"
             const val auth = "dev.gitlive:firebase-auth:$version"
             const val firestore = "dev.gitlive:firebase-firestore:$version"
             const val functions = "dev.gitlive:firebase-functions:$version"

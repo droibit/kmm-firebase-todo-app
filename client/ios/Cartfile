@@ -1,1 +1,5 @@
 github "https://github.com/uber/needle.git" == 0.17.1
+binary "https://dl.google.com/dl/firebase/ios/carthage/FirebaseAnalyticsBinary.json" == 7.4.0
+binary "https://dl.google.com/dl/firebase/ios/carthage/FirebaseAuthBinary.json" == 7.4.0
+binary "https://dl.google.com/dl/firebase/ios/carthage/FirebaseFirestoreBinary.json" == 7.4.0
+binary "https://dl.google.com/dl/firebase/ios/carthage/FirebaseFunctionsBinary.json" == 7.4.0

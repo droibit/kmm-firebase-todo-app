@@ -91,3 +91,6 @@ NeedleGenerated.swift
 
 # LicensePlist
 com.mono0926.LicensePlist.Output/
+
+# Firebase
+GoogleService-Info.plist

@@ -8,6 +8,7 @@ options:
 settings:
   base:
     SWIFT_VERSION: 5.0
+    OTHER_LDFLAGS: $(inherited) $(OTHER_LDFLAGS) -ObjC
 
 targets:
   TodoApp:
@@ -27,7 +28,10 @@ targets:
           - "**/.gitignore"      
       - path: TodoApp/DI/NeedleGenerated.swift
         optional: true
-        createIntermediateGroups: true       
+        createIntermediateGroups: true
+      - path: TodoApp/Resources/Google/GoogleService-Info.plist
+        optional: true
+        createIntermediateGroups: true
     dependencies:
       - carthage: NeedleFoundation
       - framework: $SRCROOT/../shared/build/xcode-frameworks/Shared.framework
@@ -50,6 +54,14 @@ schemes:
     build:
       targets:
         TodoApp: all
+      # ref. https://github.com/firebase/firebase-ios-sdk/issues/6472  
+      postActions:      
+        - script: rm -rf "${TARGET_BUILD_DIR}/${PRODUCT_NAME}.app/Frameworks/FirebaseAnalytics.framework" &&
+                  rm -rf "${TARGET_BUILD_DIR}/${PRODUCT_NAME}.app/Frameworks/GoogleAppMeasurement.framework" &&
+                  rm -rf "${TARGET_BUILD_DIR}/${PRODUCT_NAME}.app/PlugIns/FirebaseAnalytics.framework" &&
+                  rm -rf "${TARGET_BUILD_DIR}/${PRODUCT_NAME}.app/PlugIns/GoogleAppMeasurement.framework" &&
+          name: Remove Firebase frameworks
+          settingsTarget: TodoApp
     run:
       config: Debug
     test:
