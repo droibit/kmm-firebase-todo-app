@@ -49,11 +49,16 @@ object Deps {
         const val analytics = "com.google.firebase:firebase-analytics-ktx:17.3.0"
     }
 
-    const val materialDesign = "com.google.android.material:material:1.3.0-rc01"
+    object PlayServices {
+        const val auth = "com.google.android.gms:play-services-auth:19.0.0"
+    }
 
     object Test {
         const val junit = "junit:junit:4.13.1"
     }
+
+    const val materialDesign = "com.google.android.material:material:1.3.0-rc01"
+    const val napier = "com.github.aakira:napier:"
 
     object Version {
         const val ktlint = "0.40.0"

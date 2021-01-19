@@ -53,6 +53,7 @@ dependencies {
     implementation(Deps.Androidx.constraintLayout)
     implementation(Deps.materialDesign)
 
+    implementation(Deps.PlayServices.auth)
     implementation(Deps.Firebase.analytics)
 
     implementation(Deps.Dagger.hilt)
