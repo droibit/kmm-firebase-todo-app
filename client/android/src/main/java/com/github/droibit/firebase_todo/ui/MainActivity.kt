@@ -1,8 +1,9 @@
-package com.github.droibit.firebase_todo
+package com.github.droibit.firebase_todo.ui
 
 import android.os.Bundle
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import com.github.droibit.firebase_todo.R
 import com.github.droibit.firebase_todo.shared.Greeting
 
 fun greet(): String {
