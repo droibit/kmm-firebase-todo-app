@@ -59,7 +59,7 @@ object Deps {
     }
 
     const val materialDesign = "com.google.android.material:material:1.3.0-rc01"
-    const val napier = "com.github.aakira:napier:"
+    const val napier = "com.github.aakira:napier:1.4.1"
 
     object Version {
         const val ktlint = "0.40.0"

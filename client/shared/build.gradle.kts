@@ -19,9 +19,8 @@ kotlin {
                 linkerOpts("-F${rootProject.projectDir}/ios/Carthage/Build/iOS/")
                 linkerOpts("-ObjC")
 
-                // MEMO: Export dependencies if needed
                 // https://kotlinlang.org/docs/reference/mpp-build-native-binaries.html#export-dependencies-to-binaries
-                // export(Deps.Firebase.MPP.app)
+                export(Deps.napier)
             }
         }
     }
@@ -36,6 +35,8 @@ kotlin {
                 implementation(Deps.Firebase.MPP.auth)
                 implementation(Deps.Firebase.MPP.firestore)
                 implementation(Deps.Firebase.MPP.functions)
+
+                api(Deps.napier)
             }
         }
         val commonTest by getting {
