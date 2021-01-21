@@ -18,6 +18,7 @@
         <item name="android:colorBackground">@color/white_50</item>
         <item name="colorSurface">@color/white_50</item>
         <item name="colorError">@color/red_600</item>
+
         <!--"On" colors define how text, icons and strokes are colored in relation to the surface-->
         <!--on which they appear.-->
         <item name="colorOnPrimary">@color/white_50</item>
@@ -25,6 +26,21 @@
         <item name="colorOnBackground">@color/black_900</item>
         <item name="colorOnSurface">@color/black_900</item>
         <item name="colorOnError">@color/white_50</item>
+
+        <!--Material type attributes-->
+        <item name="textAppearanceHeadline1">@style/TextAppearance.TodoApp.Headline1</item>
+        <item name="textAppearanceHeadline2">@style/TextAppearance.TodoApp.Headline2</item>
+        <item name="textAppearanceHeadline3">@style/TextAppearance.TodoApp.Headline3</item>
+        <item name="textAppearanceHeadline4">@style/TextAppearance.TodoApp.Headline4</item>
+        <item name="textAppearanceHeadline5">@style/TextAppearance.TodoApp.Headline5</item>
+        <item name="textAppearanceHeadline6">@style/TextAppearance.TodoApp.Headline6</item>
+        <item name="textAppearanceSubtitle1">@style/TextAppearance.TodoApp.Subtitle1</item>
+        <item name="textAppearanceSubtitle2">@style/TextAppearance.TodoApp.Subtitle2</item>
+        <item name="textAppearanceBody1">@style/TextAppearance.TodoApp.Body1</item>
+        <item name="textAppearanceBody2">@style/TextAppearance.TodoApp.Body2</item>
+        <item name="textAppearanceButton">@style/TextAppearance.TodoApp.Button</item>
+        <item name="textAppearanceCaption">@style/TextAppearance.TodoApp.Caption</item>
+        <item name="textAppearanceOverline">@style/TextAppearance.TodoApp.Overline</item>
     </style>
 
     <!--
