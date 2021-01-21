@@ -12,11 +12,15 @@
         android:supportsRtl="false"
         android:theme="@style/Theme.TodoApp"
         tools:ignore="MissingApplicationIcon">
-        <activity android:name=".ui.MainActivity">
+        <activity android:name=".ui.onboarding.OnBoardingActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <activity
+            android:name=".ui.main.MainActivity"
+            android:exported="false" />
     </application>
 </manifest>

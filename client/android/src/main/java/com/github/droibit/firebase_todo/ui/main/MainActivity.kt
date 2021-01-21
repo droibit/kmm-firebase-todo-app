@@ -1,21 +1,20 @@
-package com.github.droibit.firebase_todo.ui
+package com.github.droibit.firebase_todo.ui.main
 
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
-import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.github.droibit.firebase_todo.R
-import com.github.droibit.firebase_todo.shared.Greeting
+import dagger.hilt.android.AndroidEntryPoint
 
-fun greet(): String {
-    return Greeting().greeting()
-}
-
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+    }
 
-        val tv: TextView = findViewById(R.id.text_view)
-        tv.text = greet()
+    companion object {
+        fun createIntent(context: Context): Intent = Intent(context, MainActivity::class.java)
     }
 }
