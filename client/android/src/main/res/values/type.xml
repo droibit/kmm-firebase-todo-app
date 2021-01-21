@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <style name="TextAppearance.TodoApp.Headline1" parent="TextAppearance.MaterialComponents.Headline1">
-        <item name="android:textColor">@color/material_on_surface_emphasis_medium</item>
+        <item name="android:textColor">@color/material_on_surface_emphasis_high_type</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">100sp</item>
     </style>
 
     <style name="TextAppearance.TodoApp.Headline2" parent="TextAppearance.MaterialComponents.Headline2">
