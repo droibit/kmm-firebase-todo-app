@@ -5,6 +5,7 @@ object Deps {
         const val googleServices = "com.google.gms:google-services:4.3.4"
         const val daggerHilt = "com.google.dagger:hilt-android-gradle-plugin:${Dagger.version}"
         const val spotless = "com.diffplug.spotless:spotless-plugin-gradle:5.9.0"
+        const val navSafeArgs = "androidx.navigation:navigation-safe-args-gradle-plugin:${Androidx.Navigation.version}"
 
         object Spotless {
             const val id = "com.diffplug.spotless"
@@ -26,10 +27,25 @@ object Deps {
     }
 
     object Androidx {
+        const val core = "androidx.core:core-ktx:1.5.0-beta01"
         const val activity = "androidx.activity:activity-ktx:1.2.0-rc01"
         const val fragment = "androidx.fragment:fragment-ktx:1.3.0-rc01"
         const val appCompat = "androidx.appcompat:appcompat:1.3.0-beta01"
         const val constraintLayout = "androidx.constraintlayout:constraintlayout:2.0.4"
+        const val recyclerView = "androidx.recyclerview:recyclerview:1.2.0-beta01"
+
+        object Navigation {
+            internal const val version = "2.3.2"
+            const val runtime = "androidx.navigation:navigation-runtime-ktx:$version"
+            const val fragment = "androidx.navigation:navigation-fragment-ktx:$version"
+            const val ui = "androidx.navigation:navigation-ui-ktx:$version"
+        }
+
+        object Lifecycle {
+            private const val version = "2.3.0-rc01"
+            const val liveData = "androidx.lifecycle:lifecycle-livedata-ktx:$version"
+            const val viewModel = "androidx.navigation:navigation-fragment-ktx:$version"
+        }
     }
 
     object Dagger {

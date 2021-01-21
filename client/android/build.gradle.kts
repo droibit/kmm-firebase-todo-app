@@ -3,6 +3,7 @@ plugins {
     kotlin("android")
     kotlin("kapt")
     id("dagger.hilt.android.plugin")
+    id("androidx.navigation.safeargs.kotlin")
     id("com.google.gms.google-services")
 }
 
@@ -52,9 +53,19 @@ dependencies {
     implementation(project(":shared"))
 
     implementation(Deps.Coroutines.core)
+    implementation(Deps.Coroutines.android)
 
+    implementation(Deps.Androidx.core)
+    implementation(Deps.Androidx.activity)
     implementation(Deps.Androidx.appCompat)
+    implementation(Deps.Androidx.fragment)
+    implementation(Deps.Androidx.Navigation.runtime)
+    implementation(Deps.Androidx.Navigation.fragment)
+    implementation(Deps.Androidx.Navigation.ui)
+    implementation(Deps.Androidx.Lifecycle.liveData)
+    implementation(Deps.Androidx.Lifecycle.viewModel)
     implementation(Deps.Androidx.constraintLayout)
+    implementation(Deps.Androidx.recyclerView)
     implementation(Deps.materialDesign)
 
     implementation(Deps.PlayServices.auth)

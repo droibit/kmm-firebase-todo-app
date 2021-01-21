@@ -47,7 +47,6 @@ kotlin {
         }
         val androidMain by getting {
             dependencies {
-                implementation(Deps.Coroutines.android)
                 implementation(Deps.Dagger.hilt)
             }
         }

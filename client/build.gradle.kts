@@ -13,6 +13,7 @@ buildscript {
         classpath(Deps.Plugins.kotlin)
         classpath(Deps.Plugins.android)
         classpath(Deps.Plugins.daggerHilt)
+        classpath(Deps.Plugins.navSafeArgs)
         classpath(Deps.Plugins.googleServices)
     }
 }
