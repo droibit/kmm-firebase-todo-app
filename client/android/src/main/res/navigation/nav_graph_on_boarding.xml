@@ -9,5 +9,13 @@
         android:id="@+id/entryPointFragment"
         android:name="com.github.droibit.firebase_todo.ui.onboarding.entrypoint.EntryPointFragment"
         android:label="EntryPointFragment">
+        <action
+            android:id="@+id/toSignIn"
+            app:destination="@id/signInFragment"
+            app:popUpTo="@id/nav_graph_on_boarding" />
     </fragment>
+    <fragment
+        android:id="@+id/signInFragment"
+        android:name="com.github.droibit.firebase_todo.ui.onboarding.signin.SignInFragment"
+        android:label="SignInFragment" />
 </navigation>
