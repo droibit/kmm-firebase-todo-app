@@ -32,7 +32,7 @@ kotlin {
                 implementation(Deps.Stately.common)
                 implementation(Deps.Stately.isolate)
                 
-                implementation(Deps.Firebase.MPP.auth)
+                api(Deps.Firebase.MPP.auth)
                 implementation(Deps.Firebase.MPP.firestore)
                 implementation(Deps.Firebase.MPP.functions)
 
