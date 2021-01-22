@@ -5,6 +5,8 @@
 //  Created by Shinya Kumagai on 2021/01/18.
 //
 
+import Firebase
+import GoogleSignIn
 import Shared
 import UIKit
 
@@ -14,7 +16,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             BootstrapKt.bootstrap(debuggable: true)
         #else
             BootstrapKt.bootstrap(debuggable: false)
-        #endif        
+        #endif
+
+        GIDSignIn.sharedInstance()?.clientID = FirebaseApp.app()?.options.clientID
+
         return true
     }
 }
