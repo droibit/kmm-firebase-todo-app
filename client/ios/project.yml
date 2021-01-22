@@ -32,6 +32,12 @@ targets:
       - path: TodoApp/Resources/Google/GoogleService-Info.plist
         optional: true
         createIntermediateGroups: true
+      - path: TodoApp/Resources/Generated/Strings+Generated.swift
+        optional: true
+        createIntermediateGroups: true
+      - path: TodoApp/Resources/Generated/XCAssets+Generated.swift
+        optional: true
+        createIntermediateGroups: true         
     dependencies:
       - carthage: NeedleFoundation
       - framework: $SRCROOT/../shared/build/xcode-frameworks/Shared.framework
@@ -41,6 +47,12 @@ targets:
         outputFiles:
           - $SRCROOT/$TARGET_NAME/DI/NeedleGenerated.swift
         script:  ./scripts/needle.sh
+      - name: Run SwiftGen
+        path: /bin/sh
+        outputFiles:
+          - $SRCROOT/$TARGET_NAME/Resources/Generated/Strings+Generated.swift
+          - $SRCROOT/$TARGET_NAME/Resources/Generated/XCAssets+Generated.swift
+        script: ./scripts/swiftgen.sh        
       - name: Pack for Xcode
         script:  ./scripts/packforxcode.sh
     postCompileScripts:
