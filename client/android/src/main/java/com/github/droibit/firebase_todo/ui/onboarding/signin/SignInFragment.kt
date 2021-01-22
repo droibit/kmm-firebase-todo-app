@@ -6,34 +6,36 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.activity.result.contract.ActivityResultContracts.StartActivityForResult
+import androidx.annotation.StringRes
 import androidx.fragment.app.Fragment
-import com.github.aakira.napier.Napier
+import androidx.fragment.app.viewModels
+import androidx.transition.TransitionManager
 import com.github.droibit.firebase_todo.databinding.FragmentSignInBinding
+import com.github.droibit.firebase_todo.shared.utils.consume
+import com.github.droibit.firebase_todo.ui.main.MainActivity
 import com.google.android.gms.auth.api.signin.GoogleSignIn
-import com.google.android.gms.auth.api.signin.GoogleSignInClient
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.common.api.ApiException
+import com.google.android.gms.common.api.Status
+import com.google.android.gms.tasks.Task
+import com.google.android.gms.tasks.Tasks
+import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
-import javax.inject.Inject
 
 @AndroidEntryPoint
 class SignInFragment : Fragment() {
 
-    @Inject
-    lateinit var googleSignInClient: GoogleSignInClient
+    private val viewModel: SignInViewModel by viewModels()
 
     private val signInWithGoogle = registerForActivityResult(StartActivityForResult()) {
-        if (it.resultCode != Activity.RESULT_OK || it.data == null) {
-            return@registerForActivityResult
-        }
-
-        try {
-            val task = GoogleSignIn.getSignedInAccountFromIntent(it.data)
-            // Google Sign In was successful, authenticate with Firebase
-            val account = requireNotNull(task.getResult(ApiException::class.java))
-            Napier.d("firebaseAuthWithGoogle: ${account.idToken}")
-        } catch (e: ApiException) {
-            Napier.e("Google sign in failed", e)
-        }
+        @Suppress("ThrowableNotThrown")
+        val resultTask: Task<GoogleSignInAccount> =
+            if (it.resultCode != Activity.RESULT_OK || it.data == null) {
+                Tasks.forException(ApiException(Status.RESULT_CANCELED))
+            } else {
+                GoogleSignIn.getSignedInAccountFromIntent(it.data)
+            }
+        viewModel.onSignInWithGoogleResult(resultTask)
     }
 
     private var _binding: FragmentSignInBinding? = null
@@ -46,7 +48,8 @@ class SignInFragment : Fragment() {
     ): View? {
         return FragmentSignInBinding.inflate(inflater, container, false)
             .also {
-                it.lifecycleOwner = viewLifecycleOwner
+                it.lifecycleOwner = this.viewLifecycleOwner
+                it.viewModel = this.viewModel
                 this._binding = it
             }.root
     }
@@ -55,12 +58,49 @@ class SignInFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.signInButton.setOnClickListener {
-            signInWithGoogle.launch(googleSignInClient.signInIntent)
+            viewModel.signInWithGoogle()
         }
+
+        viewModel.signInWithGoogle.observe(viewLifecycleOwner) { event ->
+            event.consume()?.let {
+                signInWithGoogle.launch(it)
+            }
+        }
+
+        // ref. https://github.com/google-admin/plaid/blob/main/designernews/src/main/java/io/plaidapp/designernews/ui/login/LoginActivity.kt
+        viewModel.uiModel.observe(viewLifecycleOwner) { uiModel ->
+            if (uiModel.showProgress) {
+                beginDelayedTransition()
+            }
+
+            uiModel.showError.consume()?.let {
+                showSignInError(messageId = it.id)
+            }
+
+            uiModel.showSuccess.consume()?.let {
+                navigateToMain()
+            }
+        }
+    }
+
+    private fun navigateToMain() {
+        requireActivity().run {
+            val intent = MainActivity.createIntent(this)
+            startActivity(intent)
+            finish()
+        }
+    }
+
+    private fun showSignInError(@StringRes messageId: Int) {
+        Snackbar.make(binding.container, messageId, Snackbar.LENGTH_SHORT).show()
     }
 
     override fun onDestroyView() {
         _binding = null
         super.onDestroyView()
+    }
+
+    private fun beginDelayedTransition() {
+        TransitionManager.beginDelayedTransition(binding.container)
     }
 }
