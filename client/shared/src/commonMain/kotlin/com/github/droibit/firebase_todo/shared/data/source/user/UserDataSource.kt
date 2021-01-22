@@ -3,6 +3,7 @@ package com.github.droibit.firebase_todo.shared.data.source.user
 import com.github.droibit.firebase_todo.shared.model.user.AuthException
 import com.github.droibit.firebase_todo.shared.model.user.User
 import com.github.droibit.firebase_todo.shared.utils.GoogleAuthProvider
+import dev.gitlive.firebase.FirebaseException
 import dev.gitlive.firebase.auth.FirebaseAuth
 import dev.gitlive.firebase.auth.FirebaseAuthException
 import dev.gitlive.firebase.auth.FirebaseUser
@@ -25,7 +26,7 @@ class UserDataSource(
                 email = firebaseUser.email,
                 photoURL = firebaseUser.photoURL
             )
-        } catch (e: FirebaseAuthException) {
+        } catch (e: FirebaseException) {
             throw AuthException(cause = e)
         }
     }
