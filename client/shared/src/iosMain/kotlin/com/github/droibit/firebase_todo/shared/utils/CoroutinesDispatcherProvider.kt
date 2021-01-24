@@ -10,4 +10,8 @@ actual class CoroutinesDispatcherProvider(
     actual val io: CoroutineDispatcher
 ) {
     constructor() : this(Main, Default, Default)
+
+    companion object {
+        internal val instance = CoroutinesDispatcherProvider()
+    }
 }
