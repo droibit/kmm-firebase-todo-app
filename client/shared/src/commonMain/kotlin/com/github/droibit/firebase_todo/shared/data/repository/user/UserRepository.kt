@@ -12,6 +12,8 @@ class UserRepository(
 ) {
     val isSignedIn: Boolean get() = dataSource.isSignedIn
 
+    val currentUser: User? get() = dataSource.currentUser
+
     suspend fun signInWithGoogle(idToken: String, accessToken: String?): User {
         return withContext(dispatcherProvider.io) {
             dataSource.signInWithGoogle(idToken, accessToken)

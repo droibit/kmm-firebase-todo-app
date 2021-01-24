@@ -5,13 +5,16 @@ import com.github.droibit.firebase_todo.shared.model.user.User
 import com.github.droibit.firebase_todo.shared.utils.GoogleAuthProvider
 import dev.gitlive.firebase.FirebaseException
 import dev.gitlive.firebase.auth.FirebaseAuth
-import dev.gitlive.firebase.auth.FirebaseAuthException
 import dev.gitlive.firebase.auth.FirebaseUser
 import kotlin.coroutines.cancellation.CancellationException
 
 class UserDataSource(
     private val auth: FirebaseAuth
 ) {
+    val currentUser: User? get() {
+        return auth.currentUser?.toUser()
+    }
+
     val isSignedIn: Boolean get() = auth.currentUser != null
 
     @Throws(AuthException::class, CancellationException::class)
@@ -20,14 +23,18 @@ class UserDataSource(
             val credential = GoogleAuthProvider.credential(idToken, accessToken)
             val result = auth.signInWithCredential(credential)
             val firebaseUser = requireNotNull(result.user)
-            return User(
-                id = firebaseUser.uid,
-                name = firebaseUser.displayName,
-                email = firebaseUser.email,
-                photoURL = firebaseUser.photoURL
-            )
+            return firebaseUser.toUser()
         } catch (e: FirebaseException) {
             throw AuthException(cause = e)
         }
     }
+}
+
+private fun FirebaseUser.toUser(): User {
+    return User(
+        uid = this.uid,
+        name = this.displayName,
+        email = this.email,
+        photoURL = this.photoURL
+    )
 }
