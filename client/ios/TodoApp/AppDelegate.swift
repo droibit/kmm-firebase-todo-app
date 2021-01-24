@@ -20,6 +20,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         GIDSignIn.sharedInstance()?.clientID = FirebaseApp.app()?.options.clientID
 
+        registerProviderFactories()
+
         return true
     }
 }

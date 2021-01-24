@@ -11,6 +11,11 @@ settings:
     SWIFT_VERSION: 5.0
     OTHER_LDFLAGS: $(inherited) $(OTHER_LDFLAGS) -ObjC
 
+packages:
+  CombineSchedulers:
+    url: https://github.com/pointfreeco/combine-schedulers
+    version: 0.1.2
+
 targets:
   TodoApp:
     type: application
@@ -43,6 +48,7 @@ targets:
       - carthage: NeedleFoundation
       - framework: $SRCROOT/../shared/build/xcode-frameworks/Shared.framework
         embed: true
+      - package: CombineSchedulers  
     preBuildScripts:
       - name: Run needle
         outputFiles:
