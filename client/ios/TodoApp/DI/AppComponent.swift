@@ -10,9 +10,17 @@ import NeedleFoundation
 import Shared
 
 class AppComponent: BootstrapComponent {
+    static let sharedInstance: AppComponent = .init()
+}
+
+extension AppComponent {
     var mainScheduler: AnySchedulerOf<DispatchQueue> {
         shared {
             DispatchQueue.main.eraseToAnyScheduler()
         }
     }
 }
+
+// MARK: - Provide view's component
+
+extension AppComponent {}
