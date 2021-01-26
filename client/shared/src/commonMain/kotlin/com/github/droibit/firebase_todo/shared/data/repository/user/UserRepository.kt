@@ -2,9 +2,10 @@ package com.github.droibit.firebase_todo.shared.data.repository.user
 
 import com.github.aakira.napier.Napier
 import com.github.droibit.firebase_todo.shared.data.source.user.UserDataSource
+import com.github.droibit.firebase_todo.shared.model.user.AuthException
 import com.github.droibit.firebase_todo.shared.model.user.User
 import com.github.droibit.firebase_todo.shared.utils.CoroutinesDispatcherProvider
-import kotlinx.coroutines.withContext
+import kotlin.coroutines.cancellation.CancellationException
 
 class UserRepository(
     private val dataSource: UserDataSource,
@@ -14,12 +15,12 @@ class UserRepository(
 
     val currentUser: User? get() = dataSource.currentUser
 
+    @Throws(AuthException::class, CancellationException::class)
     suspend fun signInWithGoogle(idToken: String, accessToken: String?): User {
-        return withContext(dispatcherProvider.io) {
-            dataSource.signInWithGoogle(idToken, accessToken)
-                .also {
-                    Napier.d("Signed in user: name:${it.name}, email:${it.email}, photoURL: ${it.photoURL}")
-                }
-        }
+        // Avoid thread switching to avoid IncorrectDereferenceException on iOS.
+        return dataSource.signInWithGoogle(idToken, accessToken)
+            .also {
+                Napier.d("Signed in user: name:${it.name}, email:${it.email}, photoURL: ${it.photoURL}")
+            }
     }
 }
