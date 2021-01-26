@@ -1,4 +1,4 @@
-package com.github.droibit.firebase_todo.shared.di
+package com.github.droibit.firebase_todo.di
 
 import com.github.droibit.firebase_todo.shared.data.repository.user.UserRepository
 import com.github.droibit.firebase_todo.shared.data.source.user.UserDataSource

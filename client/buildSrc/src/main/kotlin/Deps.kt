@@ -49,7 +49,7 @@ object Deps {
     }
 
     object Dagger {
-        internal const val version = "2.31.1-alpha"
+        internal const val version = "2.31.2-alpha"
         const val hilt = "com.google.dagger:hilt-android:$version"
         const val compiler = "com.google.dagger:hilt-android-compiler:$version"
     }

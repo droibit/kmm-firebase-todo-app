@@ -10,24 +10,25 @@ import Shared
 extension Napier {
     private static let napier = Napier()
 
-    static func v(_ message: String) {
-        napier.v(message: message, throwable: nil, tag_: "")
+//    static func v(_ message: String) {
+//        napier.v(message: message, throwable: nil, tag_: "")
+//    }
+//
+//    static func i(_ message: String) {
+//        napier.i(message: message, throwable: nil, tag_: "")
+//    }
+//
+    static func d(_ message: String, throwable: KotlinThrowable? = nil) {
+        napier.d(message: message, throwable: nil)
     }
 
-    static func i(_ message: String) {
-        napier.i(message: message, throwable: nil, tag_: "")
-    }
-
-    static func d(_ message: String) {
-        napier.d(message: message, throwable: nil, tag_: "")
-    }
-
-    static func w(_ message: String) {
-        napier.w(message: message, throwable: nil, tag_: "")
-    }
-
+//
+//    static func w(_ message: String) {
+//        napier.w(message: message, throwable: nil, tag_: "")
+//    }
+//
     static func e(_ message: String, throwable: KotlinThrowable? = nil) {
-        napier.e(message: message, throwable: throwable, tag_: "")
+        napier.e(message: message, throwable: throwable)
     }
 }
 

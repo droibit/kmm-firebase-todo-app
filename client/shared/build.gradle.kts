@@ -3,27 +3,32 @@ import org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTarget
 plugins {
     kotlin("multiplatform")
     kotlin("kapt")
+    kotlin("native.cocoapods")
     id("com.android.library")
-    id("dagger.hilt.android.plugin")
+
+    // When using `native.cocoapods` and` dagger.hilt.android.plugin` plugin at the same time,
+    // following error occurs, so the dagger plugin is disabled.
+    // - The Hilt Android Gradle plugin is applied but no com.google.dagger:hilt-compiler dependency was found.
+    // id("dagger.hilt.android.plugin")
 }
+
+version = "1.0"
 
 kotlin {
     android()
-    ios {
-        binaries {
-            // ref. https://github.com/GitLiveApp/firebase-kotlin-sdk/issues/111#issuecomment-738772372
-            framework {
-                baseName = "Shared"
-                transitiveExport = true
+    ios()
 
-                linkerOpts("-F${rootProject.projectDir}/ios/Carthage/Build/iOS/")
-                linkerOpts("-ObjC")
+    cocoapods {
+        // Configure fields required by CocoaPods.
+        summary = "Shared module for Firebase TODO app."
+        homepage = "https://github.com/droibit/kmm-firebase-todo-app"
+        authors = "Shinya Kumagai"
+        license = "Apache License, Version 2.0"
+        frameworkName = "Shared"
 
-                // https://kotlinlang.org/docs/reference/mpp-build-native-binaries.html#export-dependencies-to-binaries
-                export(Deps.napier)
-            }
-        }
+        ios.deploymentTarget = "14.0"
     }
+
     sourceSets {
         val commonMain by getting {
             dependencies {
@@ -33,8 +38,8 @@ kotlin {
                 implementation(Deps.Stately.isolate)
                 
                 api(Deps.Firebase.MPP.auth)
-                implementation(Deps.Firebase.MPP.firestore)
-                implementation(Deps.Firebase.MPP.functions)
+                // implementation(Deps.Firebase.MPP.firestore)
+                // implementation(Deps.Firebase.MPP.functions)
 
                 api(Deps.napier)
             }
@@ -61,10 +66,10 @@ kotlin {
     }
 }
 
-// ref. https://www.reddit.com/r/Kotlin/comments/ack2r6/problem_using_kapt_in_a_multiplatform_project/
-dependencies {
-    "kapt"(Deps.Dagger.compiler)
-}
+// // ref. https://www.reddit.com/r/Kotlin/comments/ack2r6/problem_using_kapt_in_a_multiplatform_project/
+// dependencies {
+//     "kapt"(Deps.Dagger.compiler)
+// }
 
 android {
     compileSdkVersion(BuildConfig.compileSdkVersion)
@@ -73,7 +78,7 @@ android {
         minSdkVersion(BuildConfig.minSdkVersion)
         targetSdkVersion(BuildConfig.targetSdkVersion)
         versionCode = 1
-        versionName = "1.0"
+        versionName = "${project.version}"
 
         resConfigs("en", "ja")
         consumerProguardFiles("consumer-rules.pro")
@@ -92,22 +97,6 @@ android {
     sourceSets["main"].manifest.srcFile("src/androidMain/AndroidManifest.xml")
 }
 
-kapt {
-    correctErrorTypes = true
-}
-
-val packForXcode by tasks.creating(Sync::class) {
-    group = "build"
-    val mode = System.getenv("CONFIGURATION") ?: "DEBUG"
-    val sdkName = System.getenv("SDK_NAME") ?: "iphonesimulator"
-    val targetName = "ios" + if (sdkName.startsWith("iphoneos")) "Arm64" else "X64"
-    val framework =
-        kotlin.targets.getByName<KotlinNativeTarget>(targetName).binaries.getFramework(mode)
-    inputs.property("mode", mode)
-    dependsOn(framework.linkTask)
-    val targetDir = File(buildDir, "xcode-frameworks")
-    from({ framework.outputDirectory })
-    into(targetDir)
-}
-
-tasks.getByName("build").dependsOn(packForXcode)
+// kapt {
+//     correctErrorTypes = true
+// }

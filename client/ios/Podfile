@@ -6,7 +6,10 @@ target 'TodoApp' do
   use_frameworks!
 
   pod 'GoogleSignIn', '5.0.2'
+  pod 'Firebase/Auth', '7.4.0'
+  pod 'Firebase/Analytics', '7.4.0'
 
+  pod 'shared', :path => '../shared'
 end
 
 post_install do |installer|

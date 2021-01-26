@@ -46,8 +46,6 @@ targets:
         createIntermediateGroups: true         
     dependencies:
       - carthage: NeedleFoundation
-      - framework: $SRCROOT/../shared/build/xcode-frameworks/Shared.framework
-        embed: true
       - package: CombineSchedulers  
     preBuildScripts:
       - name: Run needle
@@ -60,8 +58,6 @@ targets:
           - $SRCROOT/$TARGET_NAME/Resources/Generated/Strings+Generated.swift
           - $SRCROOT/$TARGET_NAME/Resources/Generated/XCAssets+Generated.swift
         script: ./scripts/swiftgen.sh        
-      - name: Pack for Xcode
-        script:  ./scripts/packforxcode.sh
     postCompileScripts:
       - name: Run SwiftFormat
         script: ./scripts/swiftformat.sh
@@ -73,14 +69,6 @@ schemes:
     build:
       targets:
         TodoApp: all
-      # ref. https://github.com/firebase/firebase-ios-sdk/issues/6472  
-      postActions:      
-        - script: rm -rf "${TARGET_BUILD_DIR}/${PRODUCT_NAME}.app/Frameworks/FirebaseAnalytics.framework" &&
-                  rm -rf "${TARGET_BUILD_DIR}/${PRODUCT_NAME}.app/Frameworks/GoogleAppMeasurement.framework" &&
-                  rm -rf "${TARGET_BUILD_DIR}/${PRODUCT_NAME}.app/PlugIns/FirebaseAnalytics.framework" &&
-                  rm -rf "${TARGET_BUILD_DIR}/${PRODUCT_NAME}.app/PlugIns/GoogleAppMeasurement.framework" &&
-          name: Remove Firebase frameworks
-          settingsTarget: TodoApp
     run:
       config: Debug
     test:
