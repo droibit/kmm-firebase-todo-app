@@ -26,8 +26,8 @@ extension Napier {
         napier.w(message: message, throwable: nil, tag_: "")
     }
 
-    static func e(_ message: String) {
-        napier.e(message: message, throwable: nil, tag_: "")
+    static func e(_ message: String, throwable: KotlinThrowable? = nil) {
+        napier.e(message: message, throwable: throwable, tag_: "")
     }
 }
 

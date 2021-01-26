@@ -5,3 +5,6 @@
   Created by Shinya Kumagai on 2021/01/23.
   
 */
+
+"signIn.title" = "Firebase\nTODO";
+"signIn.failed" = "ログインに失敗しました。";

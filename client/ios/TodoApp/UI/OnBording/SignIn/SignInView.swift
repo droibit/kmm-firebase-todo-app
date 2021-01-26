@@ -8,13 +8,36 @@
 import SwiftUI
 
 struct SignInView: View {
+    @ObservedObject var viewModel: SignInViewModel
+
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        SignInContentView(
+            signInWithGoogleHandler: viewModel.onGoogleSignIn
+        ).onReceive(viewModel.$uiModel) { uiModel in
+            if uiModel.showProgress {
+                // TODO:
+            }
+
+            if let errorMessage = uiModel.showError {
+                // TODO:
+                errorMessage
+            }
+
+            if uiModel.showSuccess {
+                // TODO:
+            }
+        }
     }
 }
 
-struct SignInView_Previews: PreviewProvider {
-    static var previews: some View {
-        SignInView()
+// MARK: - Builder
+
+extension SignInView {
+    struct Builder: View {
+        @StateObject private var component = SignInComponent.make()
+
+        var body: some View {
+            component.makeView()
+        }
     }
 }

@@ -9,11 +9,11 @@ import CombineSchedulers
 import NeedleFoundation
 import Shared
 
-class AppComponent: BootstrapComponent {
-    static let sharedInstance: AppComponent = .init()
+class SingletonComponent: BootstrapComponent {
+    static let sharedInstance: SingletonComponent = .init()
 }
 
-extension AppComponent {
+extension SingletonComponent {
     var mainScheduler: AnySchedulerOf<DispatchQueue> {
         shared {
             DispatchQueue.main.eraseToAnyScheduler()
@@ -23,4 +23,8 @@ extension AppComponent {
 
 // MARK: - Provide view's component
 
-extension AppComponent {}
+extension SingletonComponent {
+    var signIn: SignInComponent {
+        SignInComponent(parent: self)
+    }
+}

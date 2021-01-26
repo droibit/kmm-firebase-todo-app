@@ -1,5 +1,5 @@
 //
-//  AppComponent+Data.swift
+//  SingletonComponent+ProvideData.swift
 //  TodoApp
 //
 //  Created by Shinya Kumagai on 2021/01/24.
@@ -10,7 +10,7 @@ import Shared
 
 // MARK: - Provide Repositories
 
-extension AppComponent {
+extension SingletonComponent {
     var userRepository: UserRepository {
         shared {
             UserRepositoryCombineAdapter(
@@ -22,7 +22,7 @@ extension AppComponent {
 
 // MARK: - Provide Data sources
 
-extension AppComponent {
+extension SingletonComponent {
     var firebaseAuth: Firebase_authFirebaseAuth {
         shared {
             FirebaseAuthProvider().auth

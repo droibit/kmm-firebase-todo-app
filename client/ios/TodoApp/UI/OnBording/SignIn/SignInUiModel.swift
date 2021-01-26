@@ -8,15 +8,15 @@
 import Foundation
 
 struct SignInUiModel {
-    typealias Completed = Void
+    typealias Success = Void
 
     let showProgress: Bool
     let showError: String?
-    let showSuccess: Completed?
+    let showSuccess: Bool
 
     init(showProgress: Bool = false,
          showError: String? = nil,
-         showSuccess: Completed? = nil)
+         showSuccess: Bool = false)
     {
         self.showProgress = showProgress
         self.showError = showError
