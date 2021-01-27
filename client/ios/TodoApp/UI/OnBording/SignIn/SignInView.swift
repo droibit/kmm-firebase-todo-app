@@ -15,12 +15,13 @@ struct SignInView: View {
             signInWithGoogleHandler: viewModel.onGoogleSignIn
         ).onReceive(viewModel.$uiModel) { uiModel in
             if uiModel.showProgress {
-                // TODO:
+                showProgressHUD()
+            } else {
+                hideProgressHUD()
             }
 
             if let errorMessage = uiModel.showError {
-                // TODO:
-                errorMessage
+                flashLabeledHUD(message: errorMessage)
             }
 
             if uiModel.showSuccess {

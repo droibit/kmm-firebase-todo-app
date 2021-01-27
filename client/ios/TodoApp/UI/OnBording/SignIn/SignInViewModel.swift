@@ -47,6 +47,7 @@ class SignInViewModel: ObservableObject {
         guard !uiModel.showProgress else {
             return
         }
+        uiModel = SignInUiModel(showProgress: true)
 
         userRepository.signInWithGoogle(
             idToken: authentication.idToken,

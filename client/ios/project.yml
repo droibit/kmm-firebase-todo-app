@@ -15,6 +15,9 @@ packages:
   CombineSchedulers:
     url: https://github.com/pointfreeco/combine-schedulers
     version: 0.1.2
+  PKHUD:
+    url: https://github.com/pkluz/PKHUD.git
+    version: 5.4.0
 
 targets:
   TodoApp:
@@ -47,6 +50,7 @@ targets:
     dependencies:
       - carthage: NeedleFoundation
       - package: CombineSchedulers  
+      - package: PKHUD
     preBuildScripts:
       - name: Run needle
         outputFiles:
