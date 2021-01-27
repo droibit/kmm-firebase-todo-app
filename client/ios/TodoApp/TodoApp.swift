@@ -6,9 +6,20 @@ struct TodoApp: App {
     @UIApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
     // swiftlint:enable weak_delegate
 
+    @StateObject var screenCoordinator = ScreenCoordinator()
+
     var body: some Scene {
         WindowGroup {
-            SignInView.Builder()
+            Group {
+                switch screenCoordinator.screen {
+                case .entryPoint:
+                    EntryPointView.Builder()
+                case .signIn:
+                    SignInView.Builder()
+                case .main:
+                    MainView()
+                }
+            }.environmentObject(screenCoordinator)
         }
     }
 }

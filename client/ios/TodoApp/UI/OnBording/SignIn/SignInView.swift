@@ -10,6 +10,8 @@ import SwiftUI
 struct SignInView: View {
     @ObservedObject var viewModel: SignInViewModel
 
+    @EnvironmentObject private var screenCoordinator: ScreenCoordinator
+
     var body: some View {
         SignInContentView(
             signInWithGoogleHandler: viewModel.onGoogleSignIn
@@ -25,7 +27,7 @@ struct SignInView: View {
             }
 
             if uiModel.showSuccess {
-                // TODO:
+                screenCoordinator.screen = .main
             }
         }
     }

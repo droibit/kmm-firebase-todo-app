@@ -24,7 +24,15 @@ extension SingletonComponent {
 // MARK: - Provide view's component
 
 extension SingletonComponent {
+    // MARK: - OnBording
+
+    var entryPoint: EntryPointComponent {
+        EntryPointComponent(parent: self)
+    }
+
     var signIn: SignInComponent {
         SignInComponent(parent: self)
     }
+
+    // MARK: - Main
 }
