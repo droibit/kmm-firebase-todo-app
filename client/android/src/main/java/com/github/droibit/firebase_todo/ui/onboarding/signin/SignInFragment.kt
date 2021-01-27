@@ -39,7 +39,7 @@ class SignInFragment : Fragment() {
     }
 
     private var _binding: FragmentSignInBinding? = null
-    private val binding get() = requireNotNull(_binding)
+    private val binding get() = checkNotNull(_binding)
 
     override fun onCreateView(
         inflater: LayoutInflater,

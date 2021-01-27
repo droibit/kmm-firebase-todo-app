@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="sign_in_failed">ログインに失敗しました</string>
+    <string name="task_list_title">TO-DO一覧</string>
+    <string name="statistics_title">統計</string>
 </resources>

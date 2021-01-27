@@ -5,4 +5,10 @@
     <!-- Sign in -->
     <string name="sign_in_title" translatable="false">@string/app_name</string>
     <string name="sign_in_failed">Sign in failed.</string>
+
+    <!-- Task list -->
+    <string name="task_list_title">TO-DO List</string>
+
+    <!-- Statistics -->
+    <string name="statistics_title">Statistics</string>
 </resources>

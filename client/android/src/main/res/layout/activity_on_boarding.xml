@@ -8,5 +8,5 @@
     android:layout_height="match_parent"
     android:keepScreenOn="true"
     app:defaultNavHost="true"
-    app:navGraph="@navigation/nav_graph_on_boarding"
+    app:navGraph="@navigation/on_boarding"
     tools:context=".ui.onboarding.OnBoardingActivity" />

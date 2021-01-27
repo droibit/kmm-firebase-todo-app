@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/tasks"
+        android:title="@string/task_list_title"
+        android:icon="@drawable/ic_round_list_bullet" />
+
+    <item
+        android:id="@+id/statistics"
+        android:title="@string/statistics_title"
+        android:icon="@drawable/ic_round_analytics" />
+</menu>

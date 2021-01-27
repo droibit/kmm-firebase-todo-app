@@ -1,8 +1,7 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
 
     <!-- Bottom Navigation -->
-    <style name="Widget.TodoApp.BottomNavigationView" parent="@style/Widget.MaterialComponents.BottomNavigationView.PrimarySurface">
-        <!-- TODO: Customize -->
+    <style name="Widget.TodoApp.BottomNavigationView" parent="@style/Widget.MaterialComponents.BottomNavigationView">
     </style>
 
     <!--
