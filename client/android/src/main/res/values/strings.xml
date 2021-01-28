@@ -8,6 +8,18 @@
 
     <!-- Task list -->
     <string name="task_list_title">TO-DO List</string>
+    <string name="task_list_no_tasks">No TO-DOs"</string>
+    <string name="task_list_clear_completed">Clear completed</string>
+    <string name="task_list_header_all">All TO-DOs</string>
+    <string name="task_list_header_active">Active TO-DOs</string>
+    <string name="task_list_header_completed">Completed TO-DOs</string>
+    <string name="task_list_filter_label">TO-DO\'s Filter</string>
+    <string name="task_list_filter_all">All</string>
+    <string name="task_list_filter_active">Active</string>
+    <string name="task_list_filter_completed">Completed</string>
+    <string name="task_list_sort_by_label">Sort by</string>
+    <string name="task_list_sort_by_title">Title</string>
+    <string name="task_list_sort_by_created_date">Created Date</string>
 
     <!-- Statistics -->
     <string name="statistics_title">Statistics</string>

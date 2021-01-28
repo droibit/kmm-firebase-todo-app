@@ -4,4 +4,16 @@
     <string name="task_list_title">TO-DO一覧</string>
     <string name="statistics_title">統計</string>
     <string name="account_title">アカウント</string>
+    <string name="task_list_no_tasks">TO-DOはありません</string>
+    <string name="task_list_clear_completed">完了したTO-DOをクリア</string>
+    <string name="task_list_header_all">全てのTO-DO</string>
+    <string name="task_list_header_active">アクティブなTO-DO</string>
+    <string name="task_list_header_completed">完了TO-DO</string>
+    <string name="task_list_filter_label">TO-DOフィルター</string>
+    <string name="task_list_filter_all">全て</string>
+    <string name="task_list_filter_active">アクティブ</string>
+    <string name="task_list_filter_completed">完了</string>
+    <string name="task_list_sort_by_label">TODOの並び順</string>
+    <string name="task_list_sort_by_title">タイトル</string>
+    <string name="task_list_sort_by_created_date">作成び</string>
 </resources>
