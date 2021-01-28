@@ -11,4 +11,7 @@
 
     <!-- Statistics -->
     <string name="statistics_title">Statistics</string>
+
+    <!-- Account -->
+    <string name="account_title">Account</string>
 </resources>

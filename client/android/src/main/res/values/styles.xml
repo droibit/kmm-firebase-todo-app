@@ -1,5 +1,10 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
 
+    <!-- Toolbar -->
+    <style name="Widget.TodoApp.Toolbar" parent="Widget.MaterialComponents.Toolbar">
+        <item name="titleTextColor">@color/material_on_surface_emphasis_medium</item>
+    </style>
+
     <!-- Bottom Navigation -->
     <style name="Widget.TodoApp.BottomNavigationView" parent="@style/Widget.MaterialComponents.BottomNavigationView">
     </style>

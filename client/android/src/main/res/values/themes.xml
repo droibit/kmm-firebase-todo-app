@@ -61,7 +61,7 @@
         <!--Component styles-->
         <item name="materialAlertDialogTheme">@style/ThemeOverlay.MaterialComponents.Dialog.Alert
         </item>
-        <item name="toolbarStyle">@style/Widget.MaterialComponents.Toolbar.PrimarySurface</item>
+        <item name="toolbarStyle">@style/Widget.TodoApp.Toolbar</item>
         <item name="bottomSheetDialogTheme">@style/ThemeOverlay.TodoApp.BottomSheetDialog</item>
         <item name="bottomNavigationStyle">@style/Widget.TodoApp.BottomNavigationView</item>
     </style>

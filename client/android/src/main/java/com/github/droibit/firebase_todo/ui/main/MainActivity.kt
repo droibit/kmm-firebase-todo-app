@@ -3,7 +3,9 @@ package com.github.droibit.firebase_todo.ui.main
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.LiveData
 import androidx.navigation.NavController
@@ -11,6 +13,7 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import com.github.droibit.firebase_todo.R
 import com.github.droibit.firebase_todo.databinding.ActivityMainBinding
 import com.github.droibit.firebase_todo.utils.setupWithNavController
+import com.google.android.material.appbar.MaterialToolbar
 import dagger.hilt.android.AndroidEntryPoint
 
 /**
@@ -19,7 +22,7 @@ import dagger.hilt.android.AndroidEntryPoint
  * - [NavigationAdvancedSample/NavigationExtensions.kt](https://github.com/android/architecture-components-samples/blob/master/NavigationAdvancedSample/app/src/main/java/com/example/android/navigationadvancedsample/NavigationExtensions.kt)
  */
 @AndroidEntryPoint
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), Toolbar.OnMenuItemClickListener {
 
     private lateinit var binding: ActivityMainBinding
 
@@ -29,6 +32,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
         binding.lifecycleOwner = this
+        binding.toolbar.setOnMenuItemClickListener(this)
 
         if (savedInstanceState == null) {
             setupBottomNavigationBar()
@@ -59,6 +63,10 @@ class MainActivity : AppCompatActivity() {
         //     setupActionBarWithNavController(navController)
         // }
         currentNavController = controller
+    }
+
+    override fun onMenuItemClick(item: MenuItem): Boolean {
+        return true
     }
 
     companion object {
