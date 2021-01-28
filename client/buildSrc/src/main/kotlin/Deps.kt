@@ -29,13 +29,13 @@ object Deps {
     object Androidx {
         const val core = "androidx.core:core-ktx:1.5.0-beta01"
         const val activity = "androidx.activity:activity-ktx:1.2.0-rc01"
-        const val fragment = "androidx.fragment:fragment-ktx:1.3.0-rc01"
+        const val fragment = "androidx.fragment:fragment-ktx:1.3.0-rc02"
         const val appCompat = "androidx.appcompat:appcompat:1.3.0-beta01"
         const val constraintLayout = "androidx.constraintlayout:constraintlayout:2.0.4"
         const val recyclerView = "androidx.recyclerview:recyclerview:1.2.0-beta01"
 
         object Navigation {
-            internal const val version = "2.3.2"
+            internal const val version = "2.3.3"
             const val runtime = "androidx.navigation:navigation-runtime-ktx:$version"
             const val fragment = "androidx.navigation:navigation-fragment-ktx:$version"
             const val ui = "androidx.navigation:navigation-ui-ktx:$version"
