@@ -16,4 +16,5 @@
     <string name="task_list_sort_by_label">TODOの並び順</string>
     <string name="task_list_sort_by_title">タイトル</string>
     <string name="task_list_sort_by_created_date">作成び</string>
+    <string name="task_list_create_task">作成</string>
 </resources>

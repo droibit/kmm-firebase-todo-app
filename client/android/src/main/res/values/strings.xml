@@ -9,6 +9,7 @@
     <!-- Task list -->
     <string name="task_list_title">TO-DO List</string>
     <string name="task_list_no_tasks">No TO-DOs"</string>
+    <string name="task_list_create_task">Create</string>
     <string name="task_list_clear_completed">Clear completed</string>
     <string name="task_list_header_all">All TO-DOs</string>
     <string name="task_list_header_active">Active TO-DOs</string>

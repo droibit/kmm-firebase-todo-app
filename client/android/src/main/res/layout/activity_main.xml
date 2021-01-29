@@ -9,13 +9,6 @@
         android:orientation="vertical"
         tools:context=".ui.main.MainActivity">
 
-        <com.google.android.material.appbar.MaterialToolbar
-            android:id="@+id/toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            app:title="@string/app_name"
-            app:menu="@menu/main" />
-
         <androidx.fragment.app.FragmentContainerView
             android:id="@+id/navHostContainer"
             android:layout_width="match_parent"

@@ -32,7 +32,7 @@
     </style>
 
     <style name="TextAppearance.TodoApp.Subtitle1" parent="TextAppearance.MaterialComponents.Subtitle1">
-        <item name="android:textColor">@color/material_on_surface_emphasis_medium</item>
+        <item name="android:textColor">@color/material_on_surface_emphasis_high_type</item>
     </style>
 
     <style name="TextAppearance.TodoApp.Subtitle2" parent="TextAppearance.MaterialComponents.Subtitle2">
