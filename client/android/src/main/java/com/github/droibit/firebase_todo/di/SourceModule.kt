@@ -2,6 +2,7 @@ package com.github.droibit.firebase_todo.di
 
 import android.content.Context
 import androidx.datastore.preferences.createDataStore
+import com.github.droibit.firebase_todo.shared.data.source.settings.UserSettingsDataSource
 import com.github.droibit.firebase_todo.shared.data.source.user.UserDataSource
 import com.russhwolf.settings.coroutines.FlowSettings
 import com.russhwolf.settings.datastore.DataStoreSettings
@@ -23,6 +24,12 @@ object SourceModule {
     @Provides
     fun provideUserDataSource(auth: FirebaseAuth): UserDataSource {
         return UserDataSource(auth)
+    }
+
+    @Singleton
+    @Provides
+    fun provideUserSettingsDataSource(settings: FlowSettings): UserSettingsDataSource {
+        return UserSettingsDataSource(settings)
     }
 }
 

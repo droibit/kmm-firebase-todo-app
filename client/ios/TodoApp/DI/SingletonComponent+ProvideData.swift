@@ -34,4 +34,13 @@ extension SingletonComponent {
             UserDataSource(auth: firebaseAuth)
         }
     }
+
+    var userSettingsDataSource: UserSettingsDataSource {
+        shared {
+            // If the setting name is null, `UserDefaults.standard` is used internally.
+            UserSettingsDataSource(
+                settings: UserSettingsFactory().make(name: nil)
+            )
+        }
+    }
 }
