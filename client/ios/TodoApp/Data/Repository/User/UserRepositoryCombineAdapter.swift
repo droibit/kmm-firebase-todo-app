@@ -9,24 +9,26 @@ import Combine
 import Shared
 
 class UserRepositoryCombineAdapter: UserRepository {
-    private let real: Shared.UserRepository
+    // swiftlint:disable weak_delegate
+    private let delegate: Shared.UserRepository
+    // swiftlint:enable weak_delegate
 
-    init(realRepository: Shared.UserRepository) {
-        real = realRepository
+    init(delegate: Shared.UserRepository) {
+        self.delegate = delegate
     }
 
     var isSignedIn: Bool {
-        real.isSignedIn
+        delegate.isSignedIn
     }
 
     var currentUser: User? {
-        real.currentUser
+        delegate.currentUser
     }
 
     func signInWithGoogle(idToken: String, accessToken: String) -> AnyPublisher<User, AuthException> {
         Deferred {
             Future { promise in
-                self.real.signInWithGoogle(idToken: idToken, accessToken: accessToken) { user, error in
+                self.delegate.signInWithGoogle(idToken: idToken, accessToken: accessToken) { user, error in
                     Napier.d("\(currentQueueName()): signInWithGoogle -> user:\(String(describing: user)), error: \(String(describing: error))")
                     if let error = error?.kotlinException {
                         promise(.failure(error as! AuthException))

@@ -12,6 +12,6 @@ actual class CoroutinesDispatcherProvider(
     constructor() : this(Main, Default, Default)
 
     companion object {
-        internal val instance = CoroutinesDispatcherProvider()
+        internal val sharedInstance = CoroutinesDispatcherProvider()
     }
 }

@@ -1,6 +1,8 @@
 package com.github.droibit.firebase_todo.di
 
+import com.github.droibit.firebase_todo.shared.data.repository.task.TaskRepository
 import com.github.droibit.firebase_todo.shared.data.repository.user.UserRepository
+import com.github.droibit.firebase_todo.shared.data.source.settings.UserSettingsDataSource
 import com.github.droibit.firebase_todo.shared.data.source.user.UserDataSource
 import com.github.droibit.firebase_todo.shared.utils.CoroutinesDispatcherProvider
 import dagger.Module
@@ -20,5 +22,14 @@ object RepositoryModule {
         dispatcherProvider: CoroutinesDispatcherProvider
     ): UserRepository {
         return UserRepository(dataSource, dispatcherProvider)
+    }
+
+    @Singleton
+    @Provides
+    fun provideTaskRepository(
+        settingsDataSource: UserSettingsDataSource,
+        dispatcherProvider: CoroutinesDispatcherProvider
+    ): TaskRepository {
+        return TaskRepository(settingsDataSource, dispatcherProvider)
     }
 }

@@ -6,6 +6,6 @@ import com.github.droibit.firebase_todo.shared.utils.CoroutinesDispatcherProvide
 
 object UserRepositoryFactory {
     fun make(dataSource: UserDataSource): UserRepository {
-        return UserRepository(dataSource, CoroutinesDispatcherProvider.instance)
+        return UserRepository(dataSource, CoroutinesDispatcherProvider.sharedInstance)
     }
 }

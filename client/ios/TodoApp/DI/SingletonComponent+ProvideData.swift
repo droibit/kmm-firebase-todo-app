@@ -14,7 +14,17 @@ extension SingletonComponent {
     var userRepository: UserRepository {
         shared {
             UserRepositoryCombineAdapter(
-                realRepository: UserRepositoryFactory().make(dataSource: userDetaSource)
+                delegate: Shared.UserRepositoryFactory().make(dataSource: userDetaSource)
+            )
+        }
+    }
+
+    var taskRepository: TaskRepository {
+        shared {
+            TaskRepositoryCombineAdapter(
+                delegate: Shared.TaskRepositoryFactory().make(
+                    userSettingsDataSource: userSettingsDataSource
+                )
             )
         }
     }
