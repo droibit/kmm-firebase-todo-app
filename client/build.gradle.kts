@@ -10,7 +10,8 @@ buildscript {
         jcenter()
     }
     dependencies {
-        classpath(Deps.Plugins.kotlin)
+        classpath(Deps.Plugins.Kotlin.gradle)
+        classpath(Deps.Plugins.Kotlin.serialization)
         classpath(Deps.Plugins.android)
         classpath(Deps.Plugins.daggerHilt)
         classpath(Deps.Plugins.navSafeArgs)
@@ -52,7 +53,10 @@ subprojects {
     tasks.withType(KotlinCompile::class.java) {
         kotlinOptions {
             jvmTarget = "1.8"
-            freeCompilerArgs = listOf("-Xinline-classes")
+            freeCompilerArgs = listOf(
+                "-Xopt-in=com.russhwolf.settings.ExperimentalSettingsApi",
+                "-Xopt-in=com.russhwolf.settings.ExperimentalSettingsImplementation"
+            )
         }
     }
 }

@@ -66,6 +66,7 @@ dependencies {
     implementation(Deps.Androidx.Lifecycle.viewModel)
     implementation(Deps.Androidx.constraintLayout)
     implementation(Deps.Androidx.recyclerView)
+    implementation(Deps.Androidx.dataStore)
     implementation(Deps.materialDesign)
 
     implementation(Deps.PlayServices.auth)
@@ -73,4 +74,10 @@ dependencies {
 
     implementation(Deps.Dagger.hilt)
     "kapt"(Deps.Dagger.compiler)
+
+    implementation(Deps.Settings.coroutines)
+    implementation(Deps.Settings.datastore) {
+        exclude(module = "multiplatform-settings-coroutines")
+    }
+    implementation(Deps.napier)
 }

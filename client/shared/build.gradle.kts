@@ -4,6 +4,7 @@ plugins {
     kotlin("multiplatform")
     kotlin("kapt")
     kotlin("native.cocoapods")
+    id("kotlinx-serialization")
     id("com.android.library")
 
     // When using `native.cocoapods` and` dagger.hilt.android.plugin` plugin at the same time,
@@ -41,7 +42,10 @@ kotlin {
                 // implementation(Deps.Firebase.MPP.firestore)
                 // implementation(Deps.Firebase.MPP.functions)
 
-                api(Deps.napier)
+                implementation(Deps.Settings.core)
+                implementation(Deps.Settings.coroutines)
+                implementation(Deps.serialization)
+                implementation(Deps.napier)
             }
         }
         val commonTest by getting {

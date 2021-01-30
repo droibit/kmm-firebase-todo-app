@@ -1,6 +1,10 @@
 object Deps {
     object Plugins {
-        const val kotlin = "org.jetbrains.kotlin:kotlin-gradle-plugin:1.4.21"
+        object Kotlin {
+            private const val version = "1.4.21"
+            const val gradle = "org.jetbrains.kotlin:kotlin-gradle-plugin:$version"
+            const val serialization = "org.jetbrains.kotlin:kotlin-serialization:$version"
+        }
         const val android = "com.android.tools.build:gradle:4.2.0-beta03"
         const val googleServices = "com.google.gms:google-services:4.3.4"
         const val daggerHilt = "com.google.dagger:hilt-android-gradle-plugin:${Dagger.version}"
@@ -33,6 +37,7 @@ object Deps {
         const val appCompat = "androidx.appcompat:appcompat:1.3.0-beta01"
         const val constraintLayout = "androidx.constraintlayout:constraintlayout:2.0.4"
         const val recyclerView = "androidx.recyclerview:recyclerview:1.2.0-beta01"
+        const val dataStore = "androidx.datastore:datastore-preferences:1.0.0-alpha06"
 
         object Navigation {
             internal const val version = "2.3.3"
@@ -70,10 +75,18 @@ object Deps {
         const val auth = "com.google.android.gms:play-services-auth:19.0.0"
     }
 
+    object Settings {
+        private const val version = "0.7.1"
+        const val core = "com.russhwolf:multiplatform-settings:$version"
+        const val coroutines = "com.russhwolf:multiplatform-settings-coroutines-native-mt:$version"
+        const val datastore = "com.russhwolf:multiplatform-settings-datastore:$version"
+    }
+
     object Test {
         const val junit = "junit:junit:4.13.1"
     }
 
+    const val serialization = "org.jetbrains.kotlinx:kotlinx-serialization-core:1.0.1"
     const val materialDesign = "com.google.android.material:material:1.3.0-rc01"
     const val napier = "com.github.aakira:napier:1.4.1"
 
