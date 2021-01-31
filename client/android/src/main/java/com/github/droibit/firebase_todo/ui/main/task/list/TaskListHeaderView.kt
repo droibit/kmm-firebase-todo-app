@@ -5,8 +5,10 @@ import android.util.AttributeSet
 import android.view.View
 import android.widget.Button
 import android.widget.ImageView
+import androidx.annotation.StringRes
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.github.droibit.firebase_todo.R
+import com.github.droibit.firebase_todo.shared.model.task.TaskFilter
 
 class TaskListHeaderView  @JvmOverloads constructor(
     context: Context,
@@ -25,5 +27,16 @@ class TaskListHeaderView  @JvmOverloads constructor(
         taskFilterButton = findViewById(R.id.taskFilterButton)
         changeSortKeyButton = findViewById(R.id.changeSortKeyButton)
         toggleSortOrderButton = findViewById(R.id.toggleSortOrderButton)
+
+        taskFilterButton.text = TaskFilter.DEFAULT.getString(context)
     }
+}
+
+private fun TaskFilter.getString(context: Context): String {
+    val resId = when (this) {
+        TaskFilter.ALL -> R.string.task_list_header_all
+        TaskFilter.ACTIVE -> R.string.task_list_header_active
+        TaskFilter.COMPLETED -> R.string.task_list_header_completed
+    }
+    return context.getString(resId)
 }

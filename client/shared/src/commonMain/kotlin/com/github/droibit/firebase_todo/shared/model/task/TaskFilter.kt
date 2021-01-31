@@ -10,5 +10,7 @@ enum class TaskFilter(val id: Int) {
 
     companion object {
         operator fun invoke(id: Int): TaskFilter = values().first { it.id == id }
+
+        val DEFAULT: TaskFilter = ALL
     }
 }

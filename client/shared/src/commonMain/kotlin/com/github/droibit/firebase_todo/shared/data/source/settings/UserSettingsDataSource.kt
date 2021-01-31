@@ -21,7 +21,7 @@ class UserSettingsDataSource(
         settings.putInt(Keys.taskFilter.name, taskFilter.id)
     }
 
-    companion object Keys {
-        internal val taskFilter = SettingsKey("taskFilter", TaskFilter.ALL.id)
+    internal companion object Keys {
+        val taskFilter = SettingsKey("taskFilter", TaskFilter.DEFAULT.id)
     }
 }
