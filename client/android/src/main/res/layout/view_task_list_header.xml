@@ -12,10 +12,8 @@
         android:id="@+id/taskFilterButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="4dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginBottom="8dp"
-        android:textAppearance="?attr/textAppearanceHeadline5"
+        android:layout_margin="4dp"
+        android:textAppearance="?attr/textAppearanceHeadline6"
         android:textColor="@color/material_on_surface_emphasis_high_type"
         app:icon="@drawable/ic_round_baseline_keyboard_arrow_down"
         app:iconTint="@color/material_on_surface_emphasis_high_type"
@@ -29,17 +27,15 @@
         android:id="@+id/changeSortKeyButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:layout_marginTop="8dp"
-        android:textAppearance="?attr/textAppearanceHeadline6"
+        android:layout_margin="4dp"
+        android:textAppearance="?attr/textAppearanceSubtitle2"
         android:textColor="@color/material_on_surface_emphasis_medium"
         app:icon="@drawable/ic_round_baseline_keyboard_arrow_down"
         app:iconTint="@color/material_on_surface_emphasis_medium"
         app:layout_constraintEnd_toStartOf="@+id/toggleSortOrderButton"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:text="@string/task_list_sort_by_title"
-        android:layout_marginEnd="8dp" />
+        tools:text="@string/task_list_sort_by_title" />
 
     <ImageView
         android:id="@+id/toggleSortOrderButton"
@@ -52,8 +48,8 @@
         android:layout_marginEnd="8dp"
         app:srcCompat="@drawable/ic_round_arrow_downward"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:ignore="ContentDescription" />
+        tools:ignore="ContentDescription"
+        app:layout_constraintBottom_toBottomOf="@+id/changeSortKeyButton"
+        app:layout_constraintTop_toTopOf="@+id/changeSortKeyButton" />
 
 </merge>
