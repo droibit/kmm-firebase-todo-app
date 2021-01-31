@@ -42,12 +42,15 @@ class TaskListFragment : Fragment(), Toolbar.OnMenuItemClickListener {
             addItemDecoration(DividerItemDecoration(context, DividerItemDecoration.VERTICAL))
         }
         listAdapter.submitList(
-            List(30) { Task(
-                id ="id-$it",
-                title = "Title-$it",
-                description = if (it % 3 == 0) "Description-$it" else "",
-                isCompleted = it % 2 == 0
-            ) }
+            List(30) {
+                Task(
+                    id = "id-$it",
+                    title = "Title-$it",
+                    description = if (it % 3 == 0) "Description-$it" else "",
+                    isCompleted = it % 2 == 0,
+                    createdAt = System.currentTimeMillis()
+                )
+            }
         )
     }
 
