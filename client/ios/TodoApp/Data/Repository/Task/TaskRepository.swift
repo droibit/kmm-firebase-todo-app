@@ -12,4 +12,8 @@ protocol TaskRepository {
     var taskFilter: AnyPublisher<TaskFilter, Never> { get }
 
     func setTaskFilter(_ taskFilter: TaskFilter) -> AnyPublisher<Void, Never>
+
+    var taskSorting: AnyPublisher<TaskSorting, Never> { get }
+
+    func setTaskSorting(_ taskSorting: TaskSorting) -> AnyPublisher<Void, Never>
 }
