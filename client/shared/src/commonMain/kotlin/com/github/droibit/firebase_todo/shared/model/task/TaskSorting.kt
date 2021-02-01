@@ -3,7 +3,7 @@ package com.github.droibit.firebase_todo.shared.model.task
 data class TaskSorting(val key: Key, val order: Order) {
 
     companion object {
-        val default = TaskSorting(key = Key.CREATED_DATE, order = Order.ASC)
+        val DEFAULT = TaskSorting(key = Key.CREATED_DATE, order = Order.ASC)
     }
 
     enum class Key(val id: Int) {

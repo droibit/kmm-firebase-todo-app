@@ -43,7 +43,7 @@ class UserSettingsDataSource(
 
     internal companion object Keys {
         val taskFilter = SettingsKey("taskFilter", TaskFilter.DEFAULT.id)
-        val taskSorting = SettingsKey("taskSorting", TaskSorting.default)
+        val taskSorting = SettingsKey("taskSorting", TaskSorting.DEFAULT)
     }
 }
 
