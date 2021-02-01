@@ -3,7 +3,7 @@
     <string name="app_name" translatable="false">Firebase TODO</string>
 
     <!-- Sign in -->
-    <string name="sign_in_title" translatable="false">@string/app_name</string>
+    <string name="sign_in_title" translatable="false">Firebase\nTODO</string>
     <string name="sign_in_failed">Sign in failed.</string>
 
     <!-- Task list -->

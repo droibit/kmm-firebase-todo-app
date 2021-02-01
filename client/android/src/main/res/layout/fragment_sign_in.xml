@@ -19,14 +19,16 @@
             android:layout_height="match_parent">
 
             <TextView
+                android:id="@+id/title"
                 android:text="@string/sign_in_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/title"
+                android:layout_marginTop="64dp"
+                android:gravity="center"
                 android:textAppearance="?attr/textAppearanceHeadline1"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                android:layout_marginTop="64dp"
+
                 app:layout_constraintEnd_toEndOf="parent" />
 
             <com.google.android.gms.common.SignInButton
