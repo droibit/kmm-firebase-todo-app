@@ -69,15 +69,15 @@ class SignInFragment : Fragment() {
 
         // ref. https://github.com/google-admin/plaid/blob/main/designernews/src/main/java/io/plaidapp/designernews/ui/login/LoginActivity.kt
         viewModel.uiModel.observe(viewLifecycleOwner) { uiModel ->
-            if (uiModel.showProgress) {
+            if (uiModel.inProgress) {
                 beginDelayedTransition()
             }
 
-            uiModel.showError.consume()?.let {
+            uiModel.error.consume()?.let {
                 showSignInError(messageId = it.id)
             }
 
-            uiModel.showSuccess.consume()?.let {
+            uiModel.success.consume()?.let {
                 navigateToMain()
             }
         }

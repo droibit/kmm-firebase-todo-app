@@ -11,7 +11,7 @@ import com.github.droibit.firebase_todo.R
 import com.github.droibit.firebase_todo.shared.data.repository.user.UserRepository
 import com.github.droibit.firebase_todo.shared.model.user.AuthException
 import com.github.droibit.firebase_todo.shared.utils.Event
-import com.github.droibit.firebase_todo.utils.StringResId
+import com.github.droibit.firebase_todo.ui.common.MessageUiModel
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.common.api.ApiException
@@ -49,7 +49,7 @@ class SignInViewModel(
 
     @MainThread
     fun signInWithGoogle() {
-        emitUiModel(showProgress = true)
+        emitUiModel(inProgress = true)
         signInWithGoogleSink.value = Event(googleSignInClient.signInIntent)
     }
 
@@ -61,8 +61,8 @@ class SignInViewModel(
         } catch (e: ApiException) {
             Napier.e("Google sign in failed", e)
             emitUiModel(
-                showProgress = false,
-                showError = Event(StringResId(R.string.sign_in_failed))
+                inProgress = false,
+                error = Event(MessageUiModel(R.string.sign_in_failed))
             )
         }
     }
@@ -72,29 +72,25 @@ class SignInViewModel(
             try {
                 userRepository.signInWithGoogle(idToken, accessToken = null)
                 emitUiModel(
-                    showProgress = false,
-                    showSuccess = Event(Unit)
+                    inProgress = false,
+                    success = Event(Unit)
                 )
             } catch (e: AuthException) {
                 Napier.e("Authentication failed", e)
 
                 emitUiModel(
-                    showProgress = false,
-                    showError = Event(StringResId(R.string.sign_in_failed))
+                    inProgress = false,
+                    error = Event(MessageUiModel(R.string.sign_in_failed))
                 )
             }
         }
     }
 
     private fun emitUiModel(
-        showProgress: Boolean = false,
-        showError: Event<StringResId>? = null,
-        showSuccess: Event<Unit>? = null
+        inProgress: Boolean = false,
+        success: Event<Unit>? = null,
+        error: Event<MessageUiModel>? = null,
     ) {
-        uiModelSink.value = SignInUiModel(
-            showProgress,
-            showError,
-            showSuccess
-        )
+        uiModelSink.value = SignInUiModel(inProgress, success, error)
     }
 }

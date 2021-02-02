@@ -1,10 +1,10 @@
 package com.github.droibit.firebase_todo.ui.onboarding.signin
 
 import com.github.droibit.firebase_todo.shared.utils.Event
-import com.github.droibit.firebase_todo.utils.StringResId
+import com.github.droibit.firebase_todo.ui.common.MessageUiModel
 
 data class SignInUiModel(
-    val showProgress: Boolean,
-    val showError: Event<StringResId>?,
-    val showSuccess: Event<Unit>?,
+    val inProgress: Boolean,
+    val success: Event<Unit>?,
+    val error: Event<MessageUiModel>?,
 )
