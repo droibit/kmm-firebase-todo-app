@@ -54,6 +54,7 @@ subprojects {
         kotlinOptions {
             jvmTarget = "1.8"
             freeCompilerArgs = listOf(
+                "-Xinline-classes",
                 "-Xopt-in=com.russhwolf.settings.ExperimentalSettingsApi",
                 "-Xopt-in=com.russhwolf.settings.ExperimentalSettingsImplementation"
             )
