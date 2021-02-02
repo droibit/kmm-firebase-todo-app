@@ -9,5 +9,17 @@
         android:id="@+id/taskListFragment"
         android:name="com.github.droibit.firebase_todo.ui.main.task.list.TaskListFragment"
         android:label="@string/task_list_title"
-        tools:layout="@layout/fragment_task_list" />
+        tools:layout="@layout/fragment_task_list">
+        <action
+            android:id="@+id/toFilterTaskBottomSheet"
+            app:destination="@id/filterTaskBottomSheetDialogFragment" />
+    </fragment>
+    <dialog
+        android:id="@+id/filterTaskBottomSheetDialogFragment"
+        android:name="com.github.droibit.firebase_todo.ui.main.task.list.filter.FilterTaskBottomSheetDialogFragment"
+        tools:layout="@layout/fragment_filter_task" >
+        <argument
+            android:name="currentTaskFilter"
+            app:argType="com.github.droibit.firebase_todo.shared.model.task.TaskFilter" />
+    </dialog>
 </navigation>
