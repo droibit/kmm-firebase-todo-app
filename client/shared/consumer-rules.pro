@@ -18,3 +18,6 @@
 -keepclasseswithmembers class com.yourcompany.yourpackage.** { # <-- change package name to your app's
     kotlinx.serialization.KSerializer serializer(...);
 }
+
+# For Navigation Component
+-keepnames class com.github.droibit.firebase_todo.shared.model.task.TaskFilter

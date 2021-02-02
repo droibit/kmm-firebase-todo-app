@@ -12,7 +12,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:minHeight="64dp"
+        android:minHeight="?attr/minTouchTargetSize"
         android:background="?attr/selectableItemBackground" >
 
         <CheckBox
