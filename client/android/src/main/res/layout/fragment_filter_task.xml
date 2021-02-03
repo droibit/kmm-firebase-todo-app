@@ -28,7 +28,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:fastScrollEnabled="false"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            tools:listitem="@layout/list_item_checkable_single_line"
+            tools:listitem="@layout/list_item_task_filter"
             android:layout_marginBottom="24dp" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

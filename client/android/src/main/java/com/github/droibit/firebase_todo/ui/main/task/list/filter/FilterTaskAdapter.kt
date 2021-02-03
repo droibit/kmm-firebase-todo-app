@@ -2,17 +2,22 @@ package com.github.droibit.firebase_todo.ui.main.task.list.filter
 
 import android.content.Context
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
+import android.widget.TextView
+import androidx.core.view.isInvisible
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
+import androidx.recyclerview.widget.RecyclerView
 import com.github.droibit.firebase_todo.R
+import com.github.droibit.firebase_todo.databinding.ListItemTaskFilterBinding
 import com.github.droibit.firebase_todo.shared.model.task.TaskFilter
-import com.github.droibit.firebase_todo.ui.common.CheckableSingleLineViewHolder
 
 class FilterTaskAdapter(
     private val currentTaskFilter: TaskFilter,
     private val itemClickListener: (TaskFilter) -> Unit
-) : ListAdapter<TaskFilter, CheckableSingleLineViewHolder>(DIFF_CALLBACK) {
+) : ListAdapter<TaskFilter, FilterTaskAdapter.ViewHolder>(DIFF_CALLBACK) {
 
     init {
         submitList(TaskFilter.values().toList())
@@ -21,17 +26,18 @@ class FilterTaskAdapter(
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
-    ): CheckableSingleLineViewHolder {
-        val itemView = LayoutInflater.from(parent.context)
-            .inflate(R.layout.list_item_checkable_single_line, parent, false)
-        return CheckableSingleLineViewHolder(itemView).apply {
+    ): ViewHolder {
+        val binding = ListItemTaskFilterBinding.inflate(
+            LayoutInflater.from(parent.context), parent, false
+        )
+        return ViewHolder(binding).apply {
             itemView.setOnClickListener {
                 itemClickListener.invoke(getItem(layoutPosition))
             }
         }
     }
 
-    override fun onBindViewHolder(holder: CheckableSingleLineViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val textFilter = getItem(position)
         holder.bindTo(
             text = textFilter.getString(holder.itemView.context),
@@ -48,6 +54,16 @@ class FilterTaskAdapter(
             override fun areContentsTheSame(oldItem: TaskFilter, newItem: TaskFilter): Boolean {
                 return oldItem == newItem
             }
+        }
+    }
+
+    class ViewHolder(private val binding: ListItemTaskFilterBinding) : RecyclerView.ViewHolder(binding.root) {
+        private val checkImageView: ImageView = itemView.findViewById(R.id.check)
+        private val textView: TextView = itemView.findViewById(R.id.text)
+
+        fun bindTo(text: String, checked: Boolean) {
+            binding.text.text = text
+            binding.check.isInvisible = !checked
         }
     }
 }
