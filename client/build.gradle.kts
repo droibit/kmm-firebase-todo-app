@@ -7,6 +7,7 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 buildscript {
     repositories {
         google()
+        mavenCentral()
         jcenter()
     }
     dependencies {
@@ -26,6 +27,7 @@ plugins {
 subprojects {
     repositories {
         google()
+        mavenCentral()
         jcenter()
         maven {
             url = uri("https://dl.bintray.com/chrynan/chrynan")
