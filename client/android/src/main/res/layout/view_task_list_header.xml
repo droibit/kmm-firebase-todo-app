@@ -24,7 +24,7 @@
 
     <Button
         style="@style/Widget.MaterialComponents.Button.TextButton.Icon"
-        android:id="@+id/changeTaskSortingButton"
+        android:id="@+id/sortTaskButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"

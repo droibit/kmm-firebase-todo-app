@@ -18,7 +18,7 @@ class TaskListHeaderView @JvmOverloads constructor(
 ) : ConstraintLayout(context, attrs, defStyleAttr, defStyleRes) {
 
     private val filterTaskButton: MaterialButton
-    private val changeTaskSortingButton: MaterialButton
+    private val sortTaskButton: MaterialButton
 
     var onClickListener: OnClickListener? = null
 
@@ -29,8 +29,8 @@ class TaskListHeaderView @JvmOverloads constructor(
         filterTaskButton.setOnClickListener {
             onClickListener?.onFilterTaskClick()
         }
-        changeTaskSortingButton = findViewById(R.id.changeTaskSortingButton)
-        changeTaskSortingButton.setOnClickListener {
+        sortTaskButton = findViewById(R.id.sortTaskButton)
+        sortTaskButton.setOnClickListener {
             onClickListener?.onChangeSortKeyClick()
         }
 
@@ -43,8 +43,8 @@ class TaskListHeaderView @JvmOverloads constructor(
     }
 
     fun setTaskSorting(taskSorting: TaskSorting) {
-        changeTaskSortingButton.text = taskSorting.key.getString(context)
-        changeTaskSortingButton.setIconResource(taskSorting.order.drawableResId)
+        sortTaskButton.text = taskSorting.key.getString(context)
+        sortTaskButton.setIconResource(taskSorting.order.drawableResId)
     }
 
     interface OnClickListener {
@@ -62,20 +62,3 @@ private fun TaskFilter.getString(context: Context): String {
     }
     return context.getString(resId)
 }
-
-private fun TaskSorting.Key.getString(context: Context): String {
-    val resId = when (this) {
-        TaskSorting.Key.TITLE -> R.string.task_list_sort_by_title
-        TaskSorting.Key.CREATED_DATE -> R.string.task_list_sort_by_created_date
-    }
-    return context.getString(resId)
-}
-
-@get:DrawableRes
-private val TaskSorting.Order.drawableResId: Int
-    get() {
-        return when (this) {
-            TaskSorting.Order.ASC -> R.drawable.ic_round_arrow_upward
-            TaskSorting.Order.DESC -> R.drawable.ic_round_arrow_downward
-        }
-    }
