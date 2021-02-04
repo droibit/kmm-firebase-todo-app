@@ -22,7 +22,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintHorizontal_chainStyle="packed"
-            tools:srcCompat="@drawable/ic_round_arrow_upward"
+            app:srcCompat="@drawable/ic_round_arrow_upward"
             tools:visibility="visible"
             tools:ignore="ContentDescription" />
 

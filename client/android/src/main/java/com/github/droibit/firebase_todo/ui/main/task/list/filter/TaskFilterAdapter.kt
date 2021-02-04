@@ -11,10 +11,10 @@ import com.github.droibit.firebase_todo.R
 import com.github.droibit.firebase_todo.databinding.ListItemTaskFilterBinding
 import com.github.droibit.firebase_todo.shared.model.task.TaskFilter
 
-class FilterTaskAdapter(
+class TaskFilterAdapter(
     private val currentTaskFilter: TaskFilter,
     private val itemClickListener: (TaskFilter) -> Unit
-) : ListAdapter<TaskFilter, FilterTaskAdapter.ViewHolder>(DIFF_CALLBACK) {
+) : ListAdapter<TaskFilter, TaskFilterAdapter.ViewHolder>(DIFF_CALLBACK) {
 
     init {
         submitList(TaskFilter.values().toList())

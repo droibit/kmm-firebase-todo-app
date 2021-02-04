@@ -30,8 +30,8 @@ class FilterTaskBottomSheetDialogFragment : BottomSheetDialogFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.filterList.adapter = FilterTaskAdapter(args.currentTaskFilter) {
-            with(findNavController()) {
+        binding.filterList.adapter = TaskFilterAdapter(args.currentTaskFilter) {
+            findNavController().run {
                 previousBackStackEntry.setResult(RESULT_SELECTED_TASK_FILTER, it)
                 popBackStack()
             }

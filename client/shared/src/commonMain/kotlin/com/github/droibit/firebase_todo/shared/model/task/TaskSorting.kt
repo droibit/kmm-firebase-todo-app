@@ -7,7 +7,7 @@ import com.github.droibit.firebase_todo.shared.utils.Parcelize
 data class TaskSorting(val key: Key, val order: Order) : Parcelable {
 
     companion object {
-        val DEFAULT = TaskSorting(key = Key.CREATED_DATE, order = Order.ASC)
+        val DEFAULT = TaskSorting(key = Key.DEFAULT, order = Order.DEFAULT)
     }
 
     enum class Key(val id: Int) {
@@ -16,6 +16,8 @@ data class TaskSorting(val key: Key, val order: Order) : Parcelable {
 
         companion object {
             operator fun invoke(id: Int): Key = values().first { it.id == id }
+
+            val DEFAULT = CREATED_DATE
         }
     }
 
@@ -29,6 +31,8 @@ data class TaskSorting(val key: Key, val order: Order) : Parcelable {
 
         companion object {
             operator fun invoke(id: Int): Order = values().first { it.id == id }
+
+            val DEFAULT = ASC
         }
     }
 }

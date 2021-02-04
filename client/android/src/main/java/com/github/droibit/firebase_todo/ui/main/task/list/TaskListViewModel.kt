@@ -16,14 +16,14 @@ class TaskListViewModel(
     private val taskRepository: TaskRepository,
     private val uiModelSink: MutableLiveData<GetTaskListUiModel>,
     private val filterTaskNavSink: MutableLiveData<Event<TaskFilter>>,
-    private val changeSortingNavSink: MutableLiveData<Event<TaskSorting>>,
+    private val sortTaskNavSink: MutableLiveData<Event<TaskSorting>>,
 ) : ViewModel() {
 
     val uiModel: LiveData<GetTaskListUiModel> get() = uiModelSink
 
     val filterTaskNavigation: LiveData<Event<TaskFilter>> get() = filterTaskNavSink
 
-    val changeSortingNavigation: LiveData<Event<TaskSorting>> get() = changeSortingNavSink
+    val sortTaskNavigation: LiveData<Event<TaskSorting>> get() = sortTaskNavSink
 
     @Inject
     constructor(
@@ -44,6 +44,6 @@ class TaskListViewModel(
     @UiThread
     fun onChangeSortKeyClick() {
         val ui = uiModelSink.value?.success ?: return
-        changeSortingNavSink.value = Event(ui.taskSorting)
+        sortTaskNavSink.value = Event(ui.taskSorting)
     }
 }
