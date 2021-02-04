@@ -21,3 +21,4 @@
 
 # For Navigation Component
 -keepnames class com.github.droibit.firebase_todo.shared.model.task.TaskFilter
+-keepnames class com.github.droibit.firebase_todo.shared.model.task.TaskSorting

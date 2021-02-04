@@ -1,6 +1,10 @@
 package com.github.droibit.firebase_todo.shared.model.task
 
-data class TaskSorting(val key: Key, val order: Order) {
+import com.github.droibit.firebase_todo.shared.utils.Parcelable
+import com.github.droibit.firebase_todo.shared.utils.Parcelize
+
+@Parcelize
+data class TaskSorting(val key: Key, val order: Order) : Parcelable {
 
     companion object {
         val DEFAULT = TaskSorting(key = Key.CREATED_DATE, order = Order.ASC)

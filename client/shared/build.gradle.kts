@@ -5,6 +5,7 @@ plugins {
     kotlin("kapt")
     kotlin("native.cocoapods")
     id("kotlinx-serialization")
+    id("kotlin-parcelize")
     id("com.android.library")
 
     // When using `native.cocoapods` and` dagger.hilt.android.plugin` plugin at the same time,
