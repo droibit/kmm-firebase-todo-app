@@ -9,16 +9,14 @@ import com.github.droibit.firebase_todo.databinding.ListItemTaskBinding
 import com.github.droibit.firebase_todo.shared.model.task.Task
 import javax.inject.Inject
 
-class TaskListAdapter @Inject constructor() : ListAdapter<Task, TaskListAdapter.ViewHolder>(DIFF_CALLBACK) {
+class TaskListAdapter @Inject constructor() :
+    ListAdapter<Task, TaskListAdapter.ViewHolder>(DIFF_CALLBACK) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val binding = ListItemTaskBinding.inflate(
-            LayoutInflater.from(parent.context), parent, false
-        ).apply {
-            root.setOnClickListener {
+        return ViewHolder(parent).apply {
+            itemView.setOnClickListener {
             }
         }
-        return ViewHolder(binding)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
@@ -37,7 +35,16 @@ class TaskListAdapter @Inject constructor() : ListAdapter<Task, TaskListAdapter.
         }
     }
 
-    class ViewHolder(private val binding: ListItemTaskBinding) : RecyclerView.ViewHolder(binding.root) {
+    class ViewHolder(
+        private val binding: ListItemTaskBinding
+    ) : RecyclerView.ViewHolder(binding.root) {
+
+        constructor(parent: ViewGroup) : this(
+            binding = ListItemTaskBinding.inflate(
+                LayoutInflater.from(parent.context), parent, false
+            )
+        )
+
         fun bindTo(task: Task) {
             binding.task = task
         }

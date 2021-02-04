@@ -2,10 +2,7 @@ package com.github.droibit.firebase_todo.ui.main.task.list.filter
 
 import android.content.Context
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.TextView
 import androidx.core.view.isInvisible
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
@@ -27,10 +24,7 @@ class FilterTaskAdapter(
         parent: ViewGroup,
         viewType: Int
     ): ViewHolder {
-        val binding = ListItemTaskFilterBinding.inflate(
-            LayoutInflater.from(parent.context), parent, false
-        )
-        return ViewHolder(binding).apply {
+        return ViewHolder(parent).apply {
             itemView.setOnClickListener {
                 itemClickListener.invoke(getItem(layoutPosition))
             }
@@ -57,9 +51,15 @@ class FilterTaskAdapter(
         }
     }
 
-    class ViewHolder(private val binding: ListItemTaskFilterBinding) : RecyclerView.ViewHolder(binding.root) {
-        private val checkImageView: ImageView = itemView.findViewById(R.id.check)
-        private val textView: TextView = itemView.findViewById(R.id.text)
+    class ViewHolder(
+        private val binding: ListItemTaskFilterBinding
+    ) : RecyclerView.ViewHolder(binding.root) {
+
+        constructor(parent: ViewGroup) : this(
+            binding = ListItemTaskFilterBinding.inflate(
+                LayoutInflater.from(parent.context), parent, false
+            )
+        )
 
         fun bindTo(text: String, checked: Boolean) {
             binding.text.text = text
