@@ -27,6 +27,9 @@ subprojects {
     repositories {
         google()
         jcenter()
+        maven {
+            url = uri("https://dl.bintray.com/chrynan/chrynan")
+        }
     }
 
     apply(plugin = "com.diffplug.spotless")
@@ -55,6 +58,7 @@ subprojects {
             jvmTarget = "1.8"
             freeCompilerArgs = listOf(
                 "-Xinline-classes",
+                "-Xopt-in=kotlin.ExperimentalMultiplatform",
                 "-Xopt-in=com.russhwolf.settings.ExperimentalSettingsApi",
                 "-Xopt-in=com.russhwolf.settings.ExperimentalSettingsImplementation"
             )

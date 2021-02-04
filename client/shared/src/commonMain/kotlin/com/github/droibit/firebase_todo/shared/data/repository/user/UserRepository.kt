@@ -1,5 +1,9 @@
+@file:Suppress("RUNTIME_ANNOTATION_NOT_SUPPORTED")
+
 package com.github.droibit.firebase_todo.shared.data.repository.user
 
+import com.chrynan.inject.Inject
+import com.chrynan.inject.Singleton
 import com.github.aakira.napier.Napier
 import com.github.droibit.firebase_todo.shared.data.source.user.UserDataSource
 import com.github.droibit.firebase_todo.shared.model.user.AuthException
@@ -7,7 +11,8 @@ import com.github.droibit.firebase_todo.shared.model.user.User
 import com.github.droibit.firebase_todo.shared.utils.CoroutinesDispatcherProvider
 import kotlin.coroutines.cancellation.CancellationException
 
-class UserRepository(
+@Singleton
+class UserRepository @Inject constructor(
     private val dataSource: UserDataSource,
     private val dispatcherProvider: CoroutinesDispatcherProvider
 ) {

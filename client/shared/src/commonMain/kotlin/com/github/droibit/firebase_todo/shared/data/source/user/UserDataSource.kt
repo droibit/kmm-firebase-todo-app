@@ -1,16 +1,20 @@
+@file:Suppress("RUNTIME_ANNOTATION_NOT_SUPPORTED")
+
 package com.github.droibit.firebase_todo.shared.data.source.user
 
 import co.touchlab.stately.freeze
+import com.chrynan.inject.Inject
+import com.chrynan.inject.Singleton
 import com.github.droibit.firebase_todo.shared.model.user.AuthException
 import com.github.droibit.firebase_todo.shared.model.user.User
 import com.github.droibit.firebase_todo.shared.utils.GoogleAuthProvider
 import dev.gitlive.firebase.FirebaseException
-import dev.gitlive.firebase.auth.AuthCredential
 import dev.gitlive.firebase.auth.FirebaseAuth
 import dev.gitlive.firebase.auth.FirebaseUser
 import kotlin.coroutines.cancellation.CancellationException
 
-class UserDataSource(
+@Singleton
+class UserDataSource @Inject constructor(
     private val auth: FirebaseAuth
 ) {
     val currentUser: User?

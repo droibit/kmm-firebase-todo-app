@@ -1,13 +1,18 @@
+@file:Suppress("RUNTIME_ANNOTATION_NOT_SUPPORTED")
+
 package com.github.droibit.firebase_todo.shared.data.source.settings
 
 import co.touchlab.stately.freeze
+import com.chrynan.inject.Inject
+import com.chrynan.inject.Singleton
 import com.github.droibit.firebase_todo.shared.model.task.TaskFilter
 import com.github.droibit.firebase_todo.shared.model.task.TaskSorting
 import com.russhwolf.settings.coroutines.FlowSettings
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 
-class UserSettingsDataSource(
+@Singleton
+class UserSettingsDataSource @Inject constructor(
     private val settings: FlowSettings
 ) {
     val taskFilter: Flow<TaskFilter>
@@ -37,7 +42,6 @@ class UserSettingsDataSource(
     }
 
     suspend fun setTaskSorting(taskSorting: TaskSorting) {
-        val text = "${taskSorting.key},${taskSorting.order}"
         settings.putString(Keys.taskSorting.name, taskSorting.toCSV())
     }
 

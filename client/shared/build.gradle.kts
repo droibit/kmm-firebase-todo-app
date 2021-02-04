@@ -46,6 +46,7 @@ kotlin {
                 implementation(Deps.Settings.coroutines)
                 implementation(Deps.serialization)
                 implementation(Deps.napier)
+                implementation(Deps.inject)
             }
         }
         val commonTest by getting {
@@ -54,11 +55,7 @@ kotlin {
                 implementation(kotlin("test-annotations-common"))
             }
         }
-        val androidMain by getting {
-            dependencies {
-                implementation(Deps.Dagger.hilt)
-            }
-        }
+        val androidMain by getting 
         val androidTest by getting {
             dependencies {
                 implementation(kotlin("test-junit"))

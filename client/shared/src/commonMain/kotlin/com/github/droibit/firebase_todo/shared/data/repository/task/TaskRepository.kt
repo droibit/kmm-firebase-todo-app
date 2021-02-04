@@ -1,5 +1,7 @@
 package com.github.droibit.firebase_todo.shared.data.repository.task
 
+import com.chrynan.inject.Inject
+import com.chrynan.inject.Singleton
 import com.github.droibit.firebase_todo.shared.data.source.settings.UserSettingsDataSource
 import com.github.droibit.firebase_todo.shared.model.task.TaskFilter
 import com.github.droibit.firebase_todo.shared.model.task.TaskSorting
@@ -7,7 +9,8 @@ import com.github.droibit.firebase_todo.shared.utils.CFlow
 import com.github.droibit.firebase_todo.shared.utils.CoroutinesDispatcherProvider
 import com.github.droibit.firebase_todo.shared.utils.wrap
 
-class TaskRepository(
+@Singleton
+class TaskRepository @Inject constructor(
     private val settingsDataSource: UserSettingsDataSource,
     private val dispatcherProvider: CoroutinesDispatcherProvider
 ) {

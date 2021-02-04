@@ -22,12 +22,6 @@ object SourceModule {
 
     @Singleton
     @Provides
-    fun provideUserDataSource(auth: FirebaseAuth): UserDataSource {
-        return UserDataSource(auth)
-    }
-
-    @Singleton
-    @Provides
     fun provideUserSettingsDataSource(settings: FlowSettings): UserSettingsDataSource {
         return UserSettingsDataSource(settings)
     }
