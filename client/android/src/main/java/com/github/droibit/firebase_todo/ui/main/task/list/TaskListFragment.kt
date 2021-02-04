@@ -22,6 +22,7 @@ import com.github.droibit.firebase_todo.shared.model.task.Task
 import com.github.droibit.firebase_todo.shared.model.task.TaskFilter
 import com.github.droibit.firebase_todo.shared.model.task.TaskSorting
 import com.github.droibit.firebase_todo.ui.main.task.list.TaskListFragmentDirections.Companion.toFilterTaskBottomSheet
+import com.github.droibit.firebase_todo.ui.main.task.list.TaskListFragmentDirections.Companion.toNewTask
 import com.github.droibit.firebase_todo.ui.main.task.list.TaskListFragmentDirections.Companion.toSortTaskBottomSheet
 import com.github.droibit.firebase_todo.ui.main.task.list.filter.FilterTaskBottomSheetDialogFragment.Companion.RESULT_SELECTED_TASK_FILTER
 import com.github.droibit.firebase_todo.ui.main.task.list.sort.SortTaskBottomSheetDialogFragment.Companion.RESULT_SELECTED_TASK_SORTING
@@ -79,7 +80,9 @@ class TaskListFragment : Fragment(),
                 )
             }
         )
-
+        binding.fab.setOnClickListener {
+            findNavController().navigateSafely(toNewTask())
+        }
         binding.taskListHeaderView.onClickListener = this
 
         // ref. https://developer.android.com/guide/navigation/navigation-programmatic?hl=en
