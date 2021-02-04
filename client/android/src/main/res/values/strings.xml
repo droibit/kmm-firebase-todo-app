@@ -21,6 +21,17 @@
     <string name="task_list_sort_by_label">Sort by</string>
     <string name="task_list_sort_by_title">Title</string>
     <string name="task_list_sort_by_created_date">Created Date</string>
+    <!-- Edit task -->
+    <string name="new_task_title">New TO-DO</string>
+    <string name="new_task_create_failed">Failed to create new TO-DO.</string>
+    <string name="new_task_create_successful">TO-DO created.</string>
+    <string name="update_task_title">Update TO-DO</string>
+    <string name="update_task_update.failed">Failed to update TO-DO.</string>
+    <string name="update_task_update.successful">TO-DO updated.</string>
+    <string name="edit_task_title_label">Title</string>
+    <string name="edit_task_description_label">Description</string>
+    <string name="edit_task_description_hint">Enter your TO-DO here.</string>
+    <string name="edit_task_validation_empty_title">Fill TO-DO\'s title</string>
 
     <!-- Statistics -->
     <string name="statistics_title">Statistics</string>
