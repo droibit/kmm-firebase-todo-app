@@ -13,7 +13,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:indeterminate="true"
-        android:indeterminateTint="@color/green_500"
+        android:indeterminateTint="?attr/colorSecondaryVariant"
         android:indeterminateTintMode="src_in" />
 
 </merge>

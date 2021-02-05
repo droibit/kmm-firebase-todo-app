@@ -1,18 +1,17 @@
 package com.github.droibit.firebase_todo.ui.main.task.edit.new
 
-import android.app.Dialog
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.view.doOnNextLayout
-import androidx.core.view.updateLayoutParams
+import android.view.inputmethod.InputMethodManager
+import androidx.core.content.ContextCompat
+import androidx.fragment.app.Fragment
 import com.github.droibit.firebase_todo.databinding.FragmentNewTaskBinding
-import com.google.android.material.bottomsheet.BottomSheetBehavior
-import com.google.android.material.bottomsheet.BottomSheetDialog
-import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import dagger.hilt.android.AndroidEntryPoint
 
-class NewTaskFragment : BottomSheetDialogFragment() {
+@AndroidEntryPoint
+class NewTaskFragment : Fragment() {
     private var _binding: FragmentNewTaskBinding? = null
     private val binding get() = checkNotNull(_binding)
 
@@ -28,30 +27,32 @@ class NewTaskFragment : BottomSheetDialogFragment() {
             }.root
     }
 
-    @Suppress("LocalVariableName")
-    override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
-        val _dialog = super.onCreateDialog(savedInstanceState)
-        _dialog.setOnShowListener { dialog ->
-            val bottomSheetDialog = dialog as BottomSheetDialog
-            val parentLayout = checkNotNull(
-                bottomSheetDialog.findViewById(com.google.android.material.R.id.design_bottom_sheet)
-            )
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
-            val behaviour = BottomSheetBehavior.from(parentLayout)
-            // Set up full screen
-            parentLayout.updateLayoutParams {
-                height = ViewGroup.LayoutParams.MATCH_PARENT
-            }
-            parentLayout.doOnNextLayout {
-                behaviour.peekHeight = it.height
-            }
-            behaviour.state = BottomSheetBehavior.STATE_EXPANDED
+        binding.toolbar.setNavigationOnClickListener {
+            requireActivity().finish()
         }
-        return _dialog
     }
 
     override fun onDestroyView() {
         _binding = null
         super.onDestroyView()
+    }
+
+    private fun hideKeyboard() {
+         listOf<View>(
+            binding.titleEditText,
+            binding.descriptionEditText
+        ).forEach {
+            if (it.isFocused) {
+                val imm = ContextCompat.getSystemService(requireContext(), InputMethodManager::class.java)
+                checkNotNull(imm).hideSoftInputFromWindow(it.windowToken, 0)
+            }
+        }
+    }
+
+    companion object {
+        fun newInstance() = NewTaskFragment()
     }
 }

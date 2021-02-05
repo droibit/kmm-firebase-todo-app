@@ -17,8 +17,8 @@
             android:id="@+id/toSortTaskBottomSheet"
             app:destination="@id/sortTaskBottomSheetDialogFragment" />
         <action
-            android:id="@+id/toNewTask"
-            app:destination="@id/newTaskFragment" />
+            android:id="@+id/toEditTask"
+            app:destination="@id/editTaskActivity" />
     </fragment>
     <dialog
         android:id="@+id/filterTaskBottomSheetDialogFragment"
@@ -37,10 +37,15 @@
             android:name="currentTaskSorting"
             app:argType="com.github.droibit.firebase_todo.shared.model.task.TaskSorting" />
     </dialog>
-    <dialog
-        android:id="@+id/newTaskFragment"
-        android:name="com.github.droibit.firebase_todo.ui.main.task.edit.new.NewTaskFragment"
-        android:label="@string/new_task_title"
-        tools:layout="@layout/fragment_new_task" />
+
+    <activity
+        android:id="@+id/editTaskActivity"
+        android:name="com.github.droibit.firebase_todo.ui.main.task.edit.EditTaskActivity"
+        tools:layout="@layout/activity_edit_task" >
+        <argument
+            android:name="task"
+            app:argType="com.github.droibit.firebase_todo.shared.model.task.Task"
+            app:nullable="true" />
+    </activity>
 
 </navigation>
