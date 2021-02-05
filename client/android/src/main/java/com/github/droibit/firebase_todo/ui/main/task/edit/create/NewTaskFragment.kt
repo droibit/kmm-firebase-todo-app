@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import com.github.droibit.firebase_todo.databinding.FragmentNewTaskBinding
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -14,6 +15,8 @@ import dagger.hilt.android.AndroidEntryPoint
 class NewTaskFragment : Fragment() {
     private var _binding: FragmentNewTaskBinding? = null
     private val binding get() = checkNotNull(_binding)
+
+    private val viewModel: NewTaskViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -41,12 +44,13 @@ class NewTaskFragment : Fragment() {
     }
 
     private fun hideKeyboard() {
-         listOf<View>(
+        listOf<View>(
             binding.titleEditText,
             binding.descriptionEditText
         ).forEach {
             if (it.isFocused) {
-                val imm = ContextCompat.getSystemService(requireContext(), InputMethodManager::class.java)
+                val imm =
+                    ContextCompat.getSystemService(requireContext(), InputMethodManager::class.java)
                 checkNotNull(imm).hideSoftInputFromWindow(it.windowToken, 0)
             }
         }
