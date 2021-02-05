@@ -15,7 +15,7 @@ data class Task(
     val description: String,
     val isCompleted: Boolean,
     val createdAt: Long
-): Parcelable {
+) : Parcelable {
     val isActive: Boolean get() = !isCompleted
 }
 
@@ -37,8 +37,10 @@ fun List<Task>.transform(filter: TaskFilter, sorting: TaskSorting): List<Task> {
                         .thenByDescending { it.createdAt }
                 }
                 CREATED_DATE -> when (sorting.order) {
-                    ASC -> compareBy { it.createdAt }
-                    DESC -> compareByDescending { it.createdAt }
+                    ASC -> compareBy<Task> { it.createdAt }
+                        .thenBy { it.title.toLowerCase() }
+                    DESC -> compareByDescending<Task> { it.createdAt }
+                        .thenByDescending { it.title.toLowerCase() }
                 }
             }
         )

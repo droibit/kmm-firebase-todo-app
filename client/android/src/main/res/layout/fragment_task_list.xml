@@ -4,7 +4,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
-
+        <variable
+            name="viewModel"
+            type="com.github.droibit.firebase_todo.ui.main.task.list.TaskListViewModel" />
     </data>
 
     <FrameLayout
@@ -45,6 +47,7 @@
                 android:scrollbars="vertical"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 app:layout_behavior="@string/appbar_scrolling_view_behavior"
+                app:visibleUnless="@{viewModel.uiModel.showsTaskList}"
                 tools:listitem="@layout/list_item_task" />
 
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -52,7 +55,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginTop="?attr/actionBarSize"
-                app:visibleUnless="@{false}"
+                app:visibleUnless="@{viewModel.uiModel.showsEmptyView}"
                 tools:visibility="gone" >
 
                 <ImageView
@@ -104,7 +107,7 @@
             android:layout_height="match_parent"
             android:layout_marginTop="?attr/actionBarSize"
             android:background="?android:attr/colorBackground"
-            app:visibleUnless="@{false}"
+            app:visibleUnless="@{viewModel.uiModel.inProgress}"
             tools:visibility="gone" />
     </FrameLayout>
 </layout>

@@ -1,14 +1,11 @@
 package com.github.droibit.firebase_todo.ui.main.task.list
 
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
 import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.widget.Toolbar
-import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
@@ -18,11 +15,11 @@ import androidx.lifecycle.LifecycleOwner
 import androidx.navigation.NavBackStackEntry
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.transition.TransitionManager
 import com.github.aakira.napier.Napier
 import com.github.droibit.firebase_todo.R
 import com.github.droibit.firebase_todo.databinding.FragmentTaskListBinding
-import com.github.droibit.firebase_todo.shared.model.task.Task
 import com.github.droibit.firebase_todo.shared.model.task.TaskFilter
 import com.github.droibit.firebase_todo.shared.model.task.TaskSorting
 import com.github.droibit.firebase_todo.ui.main.task.list.TaskListFragmentDirections.Companion.toEditTask
@@ -61,7 +58,8 @@ class TaskListFragment : Fragment(),
     ): View? {
         return FragmentTaskListBinding.inflate(inflater, container, false)
             .also {
-                it.lifecycleOwner = viewLifecycleOwner
+                it.lifecycleOwner = this.viewLifecycleOwner
+                it.viewModel = this.viewModel
                 this._binding = it
             }.root
     }
@@ -69,25 +67,39 @@ class TaskListFragment : Fragment(),
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.toolbar.setOnMenuItemClickListener(this)
+        binding.fab.setOnClickListener {
+            findNavController().navigateSafely(toEditTask(task = null))
+        }
+
         binding.taskList.apply {
             adapter = listAdapter
             addItemDecoration(DividerItemDecoration(context, DividerItemDecoration.VERTICAL))
         }
-        listAdapter.submitList(
-            List(30) {
-                Task(
-                    id = "id-$it",
-                    title = "Title-$it",
-                    description = if (it % 3 == 0) "Description-$it" else "",
-                    isCompleted = it % 2 == 0,
-                    createdAt = System.currentTimeMillis()
-                )
-            }
-        )
-        binding.fab.setOnClickListener {
-            findNavController().navigateSafely(toEditTask(task = null))
-        }
         binding.taskListHeaderView.onClickListener = this
+
+        viewModel.uiModel.observe(viewLifecycleOwner) { uiModel ->
+            if (!uiModel.inProgress) {
+                beginDelayedTransition()
+            }
+
+            uiModel.success?.let {
+                binding.taskListHeaderView.apply {
+                    setTaskFilter(it.taskFilter)
+                    setTaskSorting(it.taskSorting)
+                }
+
+                listAdapter.submitList(it.tasks) {
+                    if (it.tasks.isNotEmpty()) {
+                        val lm = binding.taskList.layoutManager as LinearLayoutManager
+                        lm.scrollToPosition(0)
+                    }
+                }
+            }
+
+            uiModel.error?.let {
+                // TODO:
+            }
+        }
 
         // ref. https://developer.android.com/guide/navigation/navigation-programmatic?hl=en
         currentBackStackEntry.lifecycle.addObserver(this)
@@ -103,18 +115,6 @@ class TaskListFragment : Fragment(),
                 findNavController().navigateSafely(toSortTaskBottomSheet(currentSorting))
             }
         }
-
-        // TODO: Must Remove.
-        // binding.progress.isVisible = true
-        // binding.taskListHeaderView.isVisible = false
-        // binding.taskList.isVisible = false
-        // binding.emptyView.isVisible = false
-        //
-        // Handler(Looper.myLooper()!!).postDelayed({
-        //     beginDelayedTransition()
-        //     binding.emptyView.isVisible = true
-        //     binding.progress.isVisible = false
-        // }, 3_000)
     }
 
     private fun beginDelayedTransition() {
@@ -130,12 +130,14 @@ class TaskListFragment : Fragment(),
             RESULT_SELECTED_TASK_FILTER
         )?.let {
             Napier.d("Selected task filter: $it")
+            viewModel.onTaskFilterChanged(it)
         }
 
         currentBackStackEntry.consumeResult<TaskSorting>(
             RESULT_SELECTED_TASK_SORTING
         )?.let {
             Napier.d("Selected task sorting: $it")
+            viewModel.onTaskSortingChange(it)
         }
     }
 
@@ -154,16 +156,10 @@ class TaskListFragment : Fragment(),
     // - TaskListHeaderView.OnClickListener
 
     override fun onFilterTaskClick() {
-        // viewModel.onFilterTaskClick()
-
-        // TODO: Must Remove
-        findNavController().navigateSafely(toFilterTaskBottomSheet(TaskFilter.DEFAULT))
+        viewModel.onFilterTaskClick()
     }
 
     override fun onChangeSortKeyClick() {
-        // viewModel.onChangeSortKeyClick()
-
-        // TODO: Must Remove
-        findNavController().navigateSafely(toSortTaskBottomSheet(TaskSorting.DEFAULT))
+        viewModel.onChangeSortKeyClick()
     }
 }
