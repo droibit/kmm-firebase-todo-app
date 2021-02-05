@@ -1,4 +1,4 @@
-package com.github.droibit.firebase_todo.ui.main.task.edit.new
+package com.github.droibit.firebase_todo.ui.main.task.edit.create
 
 import android.os.Bundle
 import android.view.LayoutInflater

@@ -5,7 +5,7 @@ import android.os.Bundle
 import androidx.fragment.app.commit
 import androidx.navigation.navArgs
 import com.github.droibit.firebase_todo.R
-import com.github.droibit.firebase_todo.ui.main.task.edit.new.NewTaskFragment
+import com.github.droibit.firebase_todo.ui.main.task.edit.create.NewTaskFragment
 import dagger.hilt.android.AndroidEntryPoint
 
 // TODO: Discontinue Activity and move to Navigation Component composed of Fragments.
