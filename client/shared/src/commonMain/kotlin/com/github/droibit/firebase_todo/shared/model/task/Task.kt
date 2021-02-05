@@ -4,15 +4,18 @@ import com.github.droibit.firebase_todo.shared.model.task.TaskSorting.Key.CREATE
 import com.github.droibit.firebase_todo.shared.model.task.TaskSorting.Key.TITLE
 import com.github.droibit.firebase_todo.shared.model.task.TaskSorting.Order.ASC
 import com.github.droibit.firebase_todo.shared.model.task.TaskSorting.Order.DESC
+import com.github.droibit.firebase_todo.shared.utils.Parcelable
+import com.github.droibit.firebase_todo.shared.utils.Parcelize
 
 // TODO: Review properties.
+@Parcelize
 data class Task(
     val id: String,
     val title: String,
     val description: String,
     val isCompleted: Boolean,
     val createdAt: Long
-) {
+): Parcelable {
     val isActive: Boolean get() = !isCompleted
 }
 
