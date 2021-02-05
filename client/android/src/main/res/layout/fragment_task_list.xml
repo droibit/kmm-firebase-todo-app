@@ -47,6 +47,42 @@
                 app:layout_behavior="@string/appbar_scrolling_view_behavior"
                 tools:listitem="@layout/list_item_task" />
 
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/emptyView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="?attr/actionBarSize"
+                app:visibleUnless="@{false}"
+                tools:visibility="gone" >
+
+                <ImageView
+                    android:id="@+id/emptyIcon"
+                    android:layout_width="64dp"
+                    android:layout_height="64dp"
+                    app:tint="?attr/colorError"
+                    app:srcCompat="@drawable/ic_round_wb_sunny"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toTopOf="@+id/emptyText"
+                    app:layout_constraintVertical_chainStyle="packed"
+                    tools:ignore="ContentDescription" />
+
+                <TextView
+                    android:id="@+id/emptyText"
+                    android:text="@string/task_list_no_tasks"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="16dp"
+                    android:textAppearance="?attr/textAppearanceBody1"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/emptyIcon" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
             <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
                 android:id="@+id/fab"
                 android:layout_width="wrap_content"
@@ -68,6 +104,7 @@
             android:layout_height="match_parent"
             android:layout_marginTop="?attr/actionBarSize"
             android:background="?android:attr/colorBackground"
-            app:visibleUnless="@{true}" />
+            app:visibleUnless="@{false}"
+            tools:visibility="gone" />
     </FrameLayout>
 </layout>

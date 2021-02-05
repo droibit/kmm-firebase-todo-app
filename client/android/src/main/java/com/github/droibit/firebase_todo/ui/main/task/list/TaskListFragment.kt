@@ -1,11 +1,14 @@
 package com.github.droibit.firebase_todo.ui.main.task.list
 
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.widget.Toolbar
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
@@ -102,8 +105,14 @@ class TaskListFragment : Fragment(),
         }
 
         // TODO: Must Remove.
+        // binding.progress.isVisible = true
+        // binding.taskListHeaderView.isVisible = false
+        // binding.taskList.isVisible = false
+        // binding.emptyView.isVisible = false
+        //
         // Handler(Looper.myLooper()!!).postDelayed({
         //     beginDelayedTransition()
+        //     binding.emptyView.isVisible = true
         //     binding.progress.isVisible = false
         // }, 3_000)
     }
