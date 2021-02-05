@@ -7,54 +7,67 @@
 
     </data>
 
-    <androidx.coordinatorlayout.widget.CoordinatorLayout
-        android:id="@+id/container"
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <com.google.android.material.appbar.AppBarLayout
-            style="@style/Widget.MaterialComponents.AppBarLayout.Surface"
-            android:id="@+id/appBarLayout"
+        <androidx.coordinatorlayout.widget.CoordinatorLayout
+            android:id="@+id/container"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="match_parent">
 
-            <com.google.android.material.appbar.MaterialToolbar
-                android:id="@+id/toolbar"
+            <com.google.android.material.appbar.AppBarLayout
+                style="@style/Widget.MaterialComponents.AppBarLayout.Surface"
+                android:id="@+id/appBarLayout"
                 android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize"
-                app:title="@string/app_name"
-                app:menu="@menu/main" />
+                android:layout_height="wrap_content">
 
-            <com.github.droibit.firebase_todo.ui.main.task.list.TaskListHeaderView
-                android:id="@+id/taskListHeaderView"
+                <com.google.android.material.appbar.MaterialToolbar
+                    android:id="@+id/toolbar"
+                    android:layout_width="match_parent"
+                    android:layout_height="?attr/actionBarSize"
+                    app:title="@string/app_name"
+                    app:menu="@menu/main" />
+
+                <com.github.droibit.firebase_todo.ui.main.task.list.TaskListHeaderView
+                    android:id="@+id/taskListHeaderView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+            </com.google.android.material.appbar.AppBarLayout>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/taskList"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="match_parent"
+                android:paddingBottom="80dp"
+                android:clipToPadding="false"
+                android:scrollbars="vertical"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                app:layout_behavior="@string/appbar_scrolling_view_behavior"
+                tools:listitem="@layout/list_item_task" />
 
-        </com.google.android.material.appbar.AppBarLayout>
+            <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+                android:id="@+id/fab"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                android:text="@string/task_list_create_task"
+                android:clickable="true"
+                android:focusable="true"
+                android:layout_gravity="bottom|end"
+                app:icon="@drawable/ic_round_add"
+                app:fabSize="normal"
+                tools:ignore="ContentDescription" />
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/taskList"
+        </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+        <com.github.droibit.firebase_todo.ui.common.ProgressView
+            android:id="@+id/progress"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:paddingBottom="80dp"
-            android:clipToPadding="false"
-            android:scrollbars="vertical"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior"
-            tools:listitem="@layout/list_item_task" />
-
-        <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
-            android:id="@+id/fab"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="16dp"
-            android:text="@string/task_list_create_task"
-            android:clickable="true"
-            android:focusable="true"
-            android:layout_gravity="bottom|end"
-            app:icon="@drawable/ic_round_add"
-            app:fabSize="normal"
-            tools:ignore="ContentDescription" />
-
-    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+            android:layout_marginTop="?attr/actionBarSize"
+            android:background="?android:attr/colorBackground"
+            app:visibleUnless="@{true}" />
+    </FrameLayout>
 </layout>

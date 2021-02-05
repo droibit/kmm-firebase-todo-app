@@ -15,14 +15,15 @@ import androidx.lifecycle.LifecycleOwner
 import androidx.navigation.NavBackStackEntry
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.transition.TransitionManager
 import com.github.aakira.napier.Napier
 import com.github.droibit.firebase_todo.R
 import com.github.droibit.firebase_todo.databinding.FragmentTaskListBinding
 import com.github.droibit.firebase_todo.shared.model.task.Task
 import com.github.droibit.firebase_todo.shared.model.task.TaskFilter
 import com.github.droibit.firebase_todo.shared.model.task.TaskSorting
-import com.github.droibit.firebase_todo.ui.main.task.list.TaskListFragmentDirections.Companion.toFilterTaskBottomSheet
 import com.github.droibit.firebase_todo.ui.main.task.list.TaskListFragmentDirections.Companion.toEditTask
+import com.github.droibit.firebase_todo.ui.main.task.list.TaskListFragmentDirections.Companion.toFilterTaskBottomSheet
 import com.github.droibit.firebase_todo.ui.main.task.list.TaskListFragmentDirections.Companion.toSortTaskBottomSheet
 import com.github.droibit.firebase_todo.ui.main.task.list.filter.FilterTaskBottomSheetDialogFragment.Companion.RESULT_SELECTED_TASK_FILTER
 import com.github.droibit.firebase_todo.ui.main.task.list.sort.SortTaskBottomSheetDialogFragment.Companion.RESULT_SELECTED_TASK_SORTING
@@ -99,6 +100,16 @@ class TaskListFragment : Fragment(),
                 findNavController().navigateSafely(toSortTaskBottomSheet(currentSorting))
             }
         }
+
+        // TODO: Must Remove.
+        // Handler(Looper.myLooper()!!).postDelayed({
+        //     beginDelayedTransition()
+        //     binding.progress.isVisible = false
+        // }, 3_000)
+    }
+
+    private fun beginDelayedTransition() {
+        TransitionManager.beginDelayedTransition(binding.root as ViewGroup)
     }
 
     override fun onStateChanged(source: LifecycleOwner, event: Lifecycle.Event) {
