@@ -2,7 +2,6 @@ import org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTarget
 
 plugins {
     kotlin("multiplatform")
-    kotlin("kapt")
     kotlin("native.cocoapods")
     id("kotlinx-serialization")
     id("kotlin-parcelize")
@@ -12,6 +11,7 @@ plugins {
     // following error occurs, so the dagger plugin is disabled.
     // - The Hilt Android Gradle plugin is applied but no com.google.dagger:hilt-compiler dependency was found.
     // id("dagger.hilt.android.plugin")
+    // kotlin("kapt")
 }
 
 version = "1.0"
