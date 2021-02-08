@@ -7,14 +7,25 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.github.droibit.firebase_todo.databinding.ListItemTaskBinding
 import com.github.droibit.firebase_todo.shared.model.task.Task
+import com.github.droibit.firebase_todo.ui.common.CheckableImageView
 import javax.inject.Inject
 
-class TaskListAdapter @Inject constructor() :
+class TaskListAdapter @Inject constructor(
+    private val clickListener: ItemClickListener
+) :
     ListAdapter<Task, TaskListAdapter.ViewHolder>(DIFF_CALLBACK) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(parent).apply {
             itemView.setOnClickListener {
+                clickListener.onItemTaskClick(
+                    task = getItem(layoutPosition)
+                )
+            }
+            completedCheckBox.setOnClickListener {
+                clickListener.onTaskCheckboxClick(
+                    task = getItem(layoutPosition)
+                )
             }
         }
     }
@@ -39,6 +50,9 @@ class TaskListAdapter @Inject constructor() :
         private val binding: ListItemTaskBinding
     ) : RecyclerView.ViewHolder(binding.root) {
 
+        val completedCheckBox: CheckableImageView
+            get() = binding.completedCheckBox
+
         constructor(parent: ViewGroup) : this(
             binding = ListItemTaskBinding.inflate(
                 LayoutInflater.from(parent.context), parent, false
@@ -48,5 +62,11 @@ class TaskListAdapter @Inject constructor() :
         fun bindTo(task: Task) {
             binding.task = task
         }
+    }
+
+    interface ItemClickListener {
+        fun onItemTaskClick(task: Task)
+
+        fun onTaskCheckboxClick(task: Task)
     }
 }

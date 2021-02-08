@@ -2,10 +2,8 @@ package com.github.droibit.firebase_todo.ui.main.task.list
 
 import android.os.Bundle
 import android.view.LayoutInflater
-import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
-import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
@@ -20,9 +18,11 @@ import androidx.transition.TransitionManager
 import com.github.aakira.napier.Napier
 import com.github.droibit.firebase_todo.R
 import com.github.droibit.firebase_todo.databinding.FragmentTaskListBinding
+import com.github.droibit.firebase_todo.shared.model.task.Task
 import com.github.droibit.firebase_todo.shared.model.task.TaskFilter
 import com.github.droibit.firebase_todo.shared.model.task.TaskSorting
-import com.github.droibit.firebase_todo.ui.main.task.list.TaskListFragmentDirections.Companion.toEditTask
+import com.github.droibit.firebase_todo.ui.main.task.list.TaskListFragmentDirections.Companion.toNewTask
+import com.github.droibit.firebase_todo.ui.main.task.list.TaskListFragmentDirections.Companion.toTaskDetail
 import com.github.droibit.firebase_todo.ui.main.task.list.TaskListFragmentDirections.Companion.toFilterTaskBottomSheet
 import com.github.droibit.firebase_todo.ui.main.task.list.TaskListFragmentDirections.Companion.toSortTaskBottomSheet
 import com.github.droibit.firebase_todo.ui.main.task.list.filter.FilterTaskBottomSheetDialogFragment.Companion.RESULT_SELECTED_TASK_FILTER
@@ -36,6 +36,7 @@ import kotlin.LazyThreadSafetyMode.NONE
 @AndroidEntryPoint
 class TaskListFragment : Fragment(),
     TaskListHeaderView.OnClickListener,
+    TaskListAdapter.ItemClickListener,
     LifecycleEventObserver {
 
     @Inject
@@ -66,7 +67,7 @@ class TaskListFragment : Fragment(),
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.fab.setOnClickListener {
-            findNavController().navigateSafely(toEditTask(task = null))
+            findNavController().navigateSafely(toNewTask(task = null))
         }
 
         binding.taskList.apply {
@@ -153,5 +154,16 @@ class TaskListFragment : Fragment(),
 
     override fun onChangeSortKeyClick() {
         viewModel.onChangeSortKeyClick()
+    }
+
+    // TaskListAdapter.ItemClickListener
+
+    override fun onItemTaskClick(task: Task) {
+        findNavController()
+            .navigateSafely(toTaskDetail(task = task))
+    }
+
+    override fun onTaskCheckboxClick(task: Task) {
+        // TODO("Not yet implemented")
     }
 }
