@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="task"
+            type="com.github.droibit.firebase_todo.shared.model.task.Task" />
+    </data>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <com.google.android.material.appbar.MaterialToolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                app:navigationIcon="@drawable/ic_round_arrow_back"
+                app:menu="@menu/task_detail" />
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <ScrollView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingBottom="80dp">
+
+                        <com.github.droibit.firebase_todo.ui.common.CheckableImageView
+                            android:id="@+id/completedCheckBox"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:padding="16dp"
+                            android:clickable="true"
+                            android:focusable="true"
+                            android:checked="@{task.completed}"
+                            android:background="?attr/actionBarItemBackground"
+                            app:srcCompat="@drawable/round_check_box"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:tint="?attr/colorControlActivated"
+                            tools:ignore="ContentDescription" />
+
+                        <TextView
+                            android:id="@+id/titleText"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:minHeight="56dp"
+                            android:layout_marginEnd="16dp"
+                            android:textAppearance="?attr/textAppearanceHeadline5"
+                            android:gravity="center_vertical"
+                            android:lineHeight="32dp"
+                            android:text="@{task.title}"
+                            app:layout_constraintStart_toEndOf="@+id/completedCheckBox"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="@+id/completedCheckBox"
+                            tools:text="@tools:sample/lorem"
+                            tools:ignore="UnusedAttribute" />
+
+                        <TextView
+                            android:id="@+id/descriptionText"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:layout_marginStart="16dp"
+                            android:textAppearance="?attr/textAppearanceBody1"
+                            android:gravity="center_vertical"
+                            android:lineHeight="24dp"
+                            android:text="@{task.description}"
+                            app:goneUnless="@{task.description.empty}"
+                            app:layout_constraintStart_toStartOf="@+id/completedCheckBox"
+                            app:layout_constraintEnd_toEndOf="@+id/titleText"
+                            app:layout_constraintTop_toBottomOf="@+id/titleText"
+                            tools:text="@tools:sample/lorem/random"
+                            tools:ignore="UnusedAttribute" />
+
+                        <TextView
+                            android:id="@+id/createdAtText"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="16dp"
+                            android:textAppearance="?attr/textAppearanceBody1"
+                            android:gravity="center"
+                            android:drawablePadding="8dp"
+                            app:drawableStartCompat="@drawable/ic_round_calendar"
+                            app:layout_constraintStart_toStartOf="@+id/descriptionText"
+                            app:layout_constraintEnd_toEndOf="@+id/descriptionText"
+                            app:layout_constraintTop_toBottomOf="@+id/descriptionText"
+                            tools:text="@tools:sample/date/ddmmyy"
+                            tools:ignore="UnusedAttribute" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+                </ScrollView>
+
+                <com.google.android.material.floatingactionbutton.FloatingActionButton
+                    android:id="@+id/fab"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="16dp"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:layout_gravity="bottom|end"
+                    app:srcCompat="@drawable/ic_round_edit"
+                    app:fabSize="normal"
+                    tools:ignore="ContentDescription" />
+            </FrameLayout>
+
+        </LinearLayout>
+
+        <com.github.droibit.firebase_todo.ui.common.ProgressView
+            android:id="@+id/progress"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:visibleUnless="@{false}"
+            tools:visibility="gone" />
+    </FrameLayout>
+</layout>
