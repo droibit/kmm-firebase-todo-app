@@ -35,7 +35,6 @@ import kotlin.LazyThreadSafetyMode.NONE
 
 @AndroidEntryPoint
 class TaskListFragment : Fragment(),
-    Toolbar.OnMenuItemClickListener,
     TaskListHeaderView.OnClickListener,
     LifecycleEventObserver {
 
@@ -66,7 +65,6 @@ class TaskListFragment : Fragment(),
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.toolbar.setOnMenuItemClickListener(this)
         binding.fab.setOnClickListener {
             findNavController().navigateSafely(toEditTask(task = null))
         }
@@ -145,12 +143,6 @@ class TaskListFragment : Fragment(),
         _binding = null
         currentBackStackEntry.lifecycle.removeObserver(this)
         super.onDestroyView()
-    }
-
-    // - Toolbar.OnMenuItemClickListener
-
-    override fun onMenuItemClick(item: MenuItem): Boolean {
-        return true
     }
 
     // - TaskListHeaderView.OnClickListener
