@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="task"
             type="com.github.droibit.firebase_todo.shared.model.task.Task" />
@@ -13,19 +14,23 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:minHeight="?attr/minTouchTargetSize"
-        android:background="?attr/selectableItemBackground" >
+        android:background="?attr/selectableItemBackground">
 
-        <CheckBox
+        <com.github.droibit.firebase_todo.ui.common.CheckableImageView
             android:id="@+id/completedCheckBox"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@null"
+            android:padding="16dp"
             android:checked="@{task.completed}"
+            android:clickable="true"
+            android:focusable="true"
+            android:background="?attr/actionBarItemBackground"
+            app:srcCompat="@drawable/round_check_box"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginStart="12dp"
-            tools:text="@null" />
+            app:tint="?attr/colorControlActivated"
+            tools:ignore="ContentDescription" />
 
         <TextView
             android:id="@+id/titleText"
