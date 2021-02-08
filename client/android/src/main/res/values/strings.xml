@@ -34,8 +34,8 @@
     <string name="edit_task_validation_empty_title">Fill TO-DO\'s title</string>
 
     <!-- Task detail -->
-    <string name="detail_task_menu_delete">Delete</string>
-    <string name="detail_task_created_at_label">Created at %1$s</string>
+    <string name="task_detail_menu_delete">Delete</string>
+    <string name="task_detail_created_at_label">Created at %1$s</string>
 
     <!-- Statistics -->
     <string name="statistics_title">Statistics</string>
