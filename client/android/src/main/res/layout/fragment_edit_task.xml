@@ -5,6 +5,9 @@
 
     <data>
 
+        <variable
+            name="viewModel"
+            type="com.github.droibit.firebase_todo.ui.main.task.edit.EditableTaskViewModel" />
     </data>
 
     <FrameLayout
@@ -26,11 +29,11 @@
                     android:id="@+id/toolbar"
                     android:layout_width="0dp"
                     android:layout_height="?attr/actionBarSize"
-                    app:title="@string/new_task_title"
                     app:navigationIcon="@drawable/ic_round_arrow_back"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent" />
+                    app:layout_constraintEnd_toEndOf="parent"
+                    tools:title="@string/new_task_title" />
 
                 <androidx.core.widget.NestedScrollView
                     android:id="@+id/scrollView"
@@ -60,6 +63,7 @@
                             android:lineHeight="24dp"
                             android:imeOptions="actionNext"
                             android:maxLength="@integer/max_length_of_task_title"
+                            android:text="@={viewModel.title}"
                             app:layout_constraintTop_toBottomOf="@+id/toolbar"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent">
@@ -83,6 +87,7 @@
                             android:maxLength="@integer/max_length_of_task_description"
                             android:textAppearance="?attr/textAppearanceBody1"
                             android:background="@null"
+                            android:text="@={viewModel.description}"
                             app:layout_constraintTop_toBottomOf="@+id/titleEditText"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="@+id/titleEditText"
@@ -101,6 +106,7 @@
                 android:clickable="true"
                 android:focusable="true"
                 android:layout_gravity="bottom|end"
+                android:enabled="@{viewModel.isEditCompleted()}"
                 app:srcCompat="@drawable/ic_round_done"
                 app:fabSize="normal"
                 tools:ignore="ContentDescription" />

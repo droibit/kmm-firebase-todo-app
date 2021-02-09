@@ -8,12 +8,13 @@ import android.view.inputmethod.InputMethodManager
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import com.github.droibit.firebase_todo.databinding.FragmentNewTaskBinding
+import com.github.droibit.firebase_todo.R
+import com.github.droibit.firebase_todo.databinding.FragmentEditTaskBinding
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class NewTaskFragment : Fragment() {
-    private var _binding: FragmentNewTaskBinding? = null
+    private var _binding: FragmentEditTaskBinding? = null
     private val binding get() = checkNotNull(_binding)
 
     private val viewModel: NewTaskViewModel by viewModels()
@@ -23,9 +24,10 @@ class NewTaskFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return FragmentNewTaskBinding.inflate(inflater, container, false)
+        return FragmentEditTaskBinding.inflate(inflater, container, false)
             .also {
                 it.lifecycleOwner = viewLifecycleOwner
+                it.viewModel = viewModel
                 _binding = it
             }.root
     }
@@ -33,8 +35,11 @@ class NewTaskFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.toolbar.setNavigationOnClickListener {
-            requireActivity().finish()
+        binding.toolbar.apply {
+            setTitle(R.string.new_task_title)
+            setNavigationOnClickListener {
+                requireActivity().finish()
+            }
         }
     }
 
