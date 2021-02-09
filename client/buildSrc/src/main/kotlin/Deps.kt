@@ -5,7 +5,7 @@ object Deps {
             const val gradle = "org.jetbrains.kotlin:kotlin-gradle-plugin:$version"
             const val serialization = "org.jetbrains.kotlin:kotlin-serialization:$version"
         }
-        const val android = "com.android.tools.build:gradle:4.2.0-beta03"
+        const val android = "com.android.tools.build:gradle:4.2.0-beta04"
         const val googleServices = "com.google.gms:google-services:4.3.4"
         const val daggerHilt = "com.google.dagger:hilt-android-gradle-plugin:${Dagger.version}"
         const val spotless = "com.diffplug.spotless:spotless-plugin-gradle:5.9.0"
@@ -54,7 +54,7 @@ object Deps {
     }
 
     object Dagger {
-        internal const val version = "2.31.2-alpha"
+        internal const val version = "2.32-alpha"
         const val hilt = "com.google.dagger:hilt-android:$version"
         const val compiler = "com.google.dagger:hilt-android-compiler:$version"
     }
