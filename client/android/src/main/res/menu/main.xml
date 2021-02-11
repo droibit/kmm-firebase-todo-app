@@ -2,7 +2,7 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
-        android:id="@+id/account"
+        android:id="@+id/user"
         android:icon="@drawable/ic_round_person"
         android:title="@string/account_title"
         app:showAsAction="always" />

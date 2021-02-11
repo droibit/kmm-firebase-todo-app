@@ -11,9 +11,9 @@
     <string name="task_list_no_tasks">No TO-DOs"</string>
     <string name="task_list_create_task">Create</string>
     <string name="task_list_clear_completed">Clear completed</string>
-    <string name="task_list_header_all">All TO-DOs</string>
-    <string name="task_list_header_active">Active TO-DOs</string>
-    <string name="task_list_header_completed">Completed TO-DOs</string>
+    <string name="task_list_header_all" translatable="false">@string/task_list_filter_all</string>
+    <string name="task_list_header_active" translatable="false">@string/task_list_filter_active</string>
+    <string name="task_list_header_completed" translatable="false">@string/task_list_filter_completed</string>
     <string name="task_list_filter_label">TO-DO\'s Filter</string>
     <string name="task_list_filter_all">All</string>
     <string name="task_list_filter_active">Active</string>

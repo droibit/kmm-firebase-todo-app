@@ -4,6 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
+
         <variable
             name="viewModel"
             type="com.github.droibit.firebase_todo.ui.main.task.list.TaskListViewModel" />
@@ -23,6 +24,17 @@
                 android:id="@+id/appBarLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
+
+                <com.google.android.material.appbar.MaterialToolbar
+                    android:id="@+id/toolbar"
+                    android:layout_width="match_parent"
+                    android:layout_height="?attr/actionBarSize"
+                    app:title="@string/app_name"
+                    app:menu="@menu/main"
+                    app:layout_scrollFlags="scroll|enterAlwaysCollapsed"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent" />
 
                 <com.github.droibit.firebase_todo.ui.main.task.list.TaskListHeaderView
                     android:id="@+id/taskListHeaderView"
@@ -49,7 +61,7 @@
                 android:layout_height="match_parent"
                 android:layout_marginTop="?attr/actionBarSize"
                 app:visibleUnless="@{viewModel.uiModel.showsEmptyView}"
-                tools:visibility="gone" >
+                tools:visibility="gone">
 
                 <ImageView
                     android:id="@+id/emptyIcon"

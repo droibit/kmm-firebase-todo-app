@@ -2,9 +2,12 @@ package com.github.droibit.firebase_todo.ui.main.task.list
 
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.Lifecycle.Event.ON_RESUME
@@ -21,6 +24,8 @@ import com.github.droibit.firebase_todo.databinding.FragmentTaskListBinding
 import com.github.droibit.firebase_todo.shared.model.task.Task
 import com.github.droibit.firebase_todo.shared.model.task.TaskFilter
 import com.github.droibit.firebase_todo.shared.model.task.TaskSorting
+import com.github.droibit.firebase_todo.ui.main.setUserIcon
+import com.github.droibit.firebase_todo.ui.main.task.MainViewModel
 import com.github.droibit.firebase_todo.ui.main.task.list.TaskListFragmentDirections.Companion.toNewTask
 import com.github.droibit.firebase_todo.ui.main.task.list.TaskListFragmentDirections.Companion.toTaskDetail
 import com.github.droibit.firebase_todo.ui.main.task.list.TaskListFragmentDirections.Companion.toFilterTaskBottomSheet
@@ -37,12 +42,15 @@ import kotlin.LazyThreadSafetyMode.NONE
 class TaskListFragment : Fragment(),
     TaskListHeaderView.OnClickListener,
     TaskListAdapter.ItemClickListener,
+    Toolbar.OnMenuItemClickListener,
     LifecycleEventObserver {
 
     @Inject
     lateinit var listAdapter: TaskListAdapter
 
-    private val viewModel: TaskListViewModel by viewModels()
+    private val taskListViewModel: TaskListViewModel by viewModels()
+
+    private val mainViewModel: MainViewModel by activityViewModels()
 
     private var _binding: FragmentTaskListBinding? = null
     private val binding get() = checkNotNull(_binding)
@@ -59,13 +67,18 @@ class TaskListFragment : Fragment(),
         return FragmentTaskListBinding.inflate(inflater, container, false)
             .also {
                 it.lifecycleOwner = this.viewLifecycleOwner
-                it.viewModel = this.viewModel
+                it.viewModel = this.taskListViewModel
                 this._binding = it
             }.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        binding.toolbar.setOnMenuItemClickListener(this@TaskListFragment)
+        mainViewModel.userPhotoUrl.observe(viewLifecycleOwner) {
+            binding.toolbar.setUserIcon(it)
+        }
+
         binding.fab.setOnClickListener {
             findNavController().navigateSafely(toNewTask(task = null))
         }
@@ -76,7 +89,7 @@ class TaskListFragment : Fragment(),
         }
         binding.taskListHeaderView.onClickListener = this
 
-        viewModel.uiModel.observe(viewLifecycleOwner) { uiModel ->
+        taskListViewModel.uiModel.observe(viewLifecycleOwner) { uiModel ->
             if (!uiModel.inProgress) {
                 beginDelayedTransition()
             }
@@ -103,13 +116,13 @@ class TaskListFragment : Fragment(),
         // ref. https://developer.android.com/guide/navigation/navigation-programmatic?hl=en
         currentBackStackEntry.lifecycle.addObserver(this)
 
-        viewModel.filterTaskNavigation.observe(viewLifecycleOwner) {
+        taskListViewModel.filterTaskNavigation.observe(viewLifecycleOwner) {
             it.consume()?.let { currentFilter ->
                 findNavController().navigateSafely(toFilterTaskBottomSheet(currentFilter))
             }
         }
 
-        viewModel.sortTaskNavigation.observe(viewLifecycleOwner) {
+        taskListViewModel.sortTaskNavigation.observe(viewLifecycleOwner) {
             it.consume()?.let { currentSorting ->
                 findNavController().navigateSafely(toSortTaskBottomSheet(currentSorting))
             }
@@ -129,14 +142,14 @@ class TaskListFragment : Fragment(),
             RESULT_SELECTED_TASK_FILTER
         )?.let {
             Napier.d("Selected task filter: $it")
-            viewModel.onTaskFilterChanged(it)
+            taskListViewModel.onTaskFilterChanged(it)
         }
 
         currentBackStackEntry.consumeResult<TaskSorting>(
             RESULT_SELECTED_TASK_SORTING
         )?.let {
             Napier.d("Selected task sorting: $it")
-            viewModel.onTaskSortingChange(it)
+            taskListViewModel.onTaskSortingChange(it)
         }
     }
 
@@ -149,11 +162,17 @@ class TaskListFragment : Fragment(),
     // - TaskListHeaderView.OnClickListener
 
     override fun onFilterTaskClick() {
-        viewModel.onFilterTaskClick()
+        taskListViewModel.onFilterTaskClick()
     }
 
     override fun onChangeSortKeyClick() {
-        viewModel.onChangeSortKeyClick()
+        taskListViewModel.onChangeSortKeyClick()
+    }
+
+    // Toolbar.OnMenuItemClickListener
+    override fun onMenuItemClick(item: MenuItem): Boolean {
+        // TODO: Not implemented yet.
+        return true
     }
 
     // TaskListAdapter.ItemClickListener

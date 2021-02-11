@@ -67,7 +67,9 @@ dependencies {
     implementation(Deps.Androidx.constraintLayout)
     implementation(Deps.Androidx.recyclerView)
     implementation(Deps.Androidx.dataStore)
+
     implementation(Deps.materialDesign)
+    implementation(Deps.coil)
 
     implementation(Deps.PlayServices.auth)
     implementation(Deps.Firebase.analytics)

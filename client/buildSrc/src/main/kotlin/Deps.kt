@@ -88,6 +88,7 @@ object Deps {
 
     const val serialization = "org.jetbrains.kotlinx:kotlinx-serialization-core:1.0.1"
     const val materialDesign = "com.google.android.material:material:1.3.0"
+    const val coil = "io.coil-kt:coil:1.1.1"
     const val napier = "com.github.aakira:napier:1.4.1"
     const val inject = "com.chrynan.inject:inject-common:0.7.0"
 
