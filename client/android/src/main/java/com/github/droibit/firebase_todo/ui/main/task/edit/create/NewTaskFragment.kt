@@ -8,6 +8,7 @@ import android.view.inputmethod.InputMethodManager
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.findNavController
 import com.github.droibit.firebase_todo.R
 import com.github.droibit.firebase_todo.databinding.FragmentEditTaskBinding
 import dagger.hilt.android.AndroidEntryPoint
@@ -35,10 +36,12 @@ class NewTaskFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        // TODO: Show a keyboard.
+
         binding.toolbar.apply {
             setTitle(R.string.new_task_title)
             setNavigationOnClickListener {
-                requireActivity().finish()
+                findNavController().popBackStack()
             }
         }
     }

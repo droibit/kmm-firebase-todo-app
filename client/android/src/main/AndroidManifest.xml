@@ -23,11 +23,7 @@
             android:name=".ui.main.MainActivity"
             android:windowSoftInputMode="adjustUnspecified"
             android:exported="false" />
-        <activity
-            android:name=".ui.main.task.edit.EditTaskActivity"
-            android:theme="@style/Theme.TodoApp.EditTask"
-            android:windowSoftInputMode="stateVisible"
-            android:exported="false" />
+
     </application>
 
 </manifest>

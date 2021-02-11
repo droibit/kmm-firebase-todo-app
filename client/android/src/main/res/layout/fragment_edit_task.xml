@@ -32,8 +32,7 @@
                     app:navigationIcon="@drawable/ic_round_arrow_back"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    tools:title="@string/new_task_title" />
+                    app:layout_constraintEnd_toEndOf="parent" />
 
                 <androidx.core.widget.NestedScrollView
                     android:id="@+id/scrollView"

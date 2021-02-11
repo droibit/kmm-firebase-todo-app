@@ -17,15 +17,20 @@
             android:id="@+id/toSortTaskBottomSheet"
             app:destination="@id/sortTaskBottomSheetDialogFragment" />
         <action
-            android:id="@+id/toNewTask"
-            app:destination="@id/editTaskActivity" />
-        <action
             android:id="@+id/toTaskDetail"
             app:destination="@id/taskDetailFragment"
-            app:enterAnim="@anim/nav_default_enter_anim"
-            app:exitAnim="@anim/nav_default_exit_anim"
-            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
-            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+            app:enterAnim="@animator/nav_default_enter_anim"
+            app:exitAnim="@animator/nav_default_exit_anim"
+            app:popEnterAnim="@animator/nav_default_pop_enter_anim"
+            app:popExitAnim="@animator/nav_default_pop_exit_anim" />
+        <!-- TODO: Review animations -->
+        <action
+            android:id="@+id/toNewTask"
+            app:destination="@id/newTaskFragment"
+            app:enterAnim="@animator/nav_default_enter_anim"
+            app:exitAnim="@animator/nav_default_exit_anim"
+            app:popEnterAnim="@animator/nav_default_pop_enter_anim"
+            app:popExitAnim="@animator/nav_default_pop_exit_anim" />
     </fragment>
     <dialog
         android:id="@+id/filterTaskBottomSheetDialogFragment"
@@ -45,16 +50,6 @@
             app:argType="com.github.droibit.firebase_todo.shared.model.task.TaskSorting" />
     </dialog>
 
-    <activity
-        android:id="@+id/editTaskActivity"
-        android:name="com.github.droibit.firebase_todo.ui.main.task.edit.EditTaskActivity"
-        tools:layout="@layout/activity_edit_task">
-        <argument
-            android:name="task"
-            app:argType="com.github.droibit.firebase_todo.shared.model.task.Task"
-            app:nullable="true" />
-    </activity>
-
     <fragment
         android:id="@+id/taskDetailFragment"
         android:name="com.github.droibit.firebase_todo.ui.main.task.detail.TaskDetailFragment"
@@ -65,7 +60,24 @@
             app:argType="com.github.droibit.firebase_todo.shared.model.task.Task" />
         <action
             android:id="@+id/toUpdateTask"
-            app:destination="@id/editTaskActivity" />
+            app:destination="@id/updateTaskFragment"
+            app:enterAnim="@animator/nav_default_enter_anim"
+            app:exitAnim="@animator/nav_default_exit_anim"
+            app:popEnterAnim="@animator/nav_default_pop_enter_anim"
+            app:popExitAnim="@animator/nav_default_pop_exit_anim" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/newTaskFragment"
+        android:name="com.github.droibit.firebase_todo.ui.main.task.edit.create.NewTaskFragment"
+        tools:layout="@layout/fragment_edit_task" />
+    <fragment
+        android:id="@+id/updateTaskFragment"
+        android:name="com.github.droibit.firebase_todo.ui.main.task.edit.update.UpdateTaskFragment"
+        tools:layout="@layout/fragment_edit_task">
+        <argument
+            android:name="task"
+            app:argType="com.github.droibit.firebase_todo.shared.model.task.Task" />
 
     </fragment>
 

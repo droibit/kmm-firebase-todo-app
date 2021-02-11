@@ -15,6 +15,6 @@ object UpdateTaskViewModelModule {
     @Named("update")
     @Provides
     fun provideTask(savedStateHandle: SavedStateHandle): Task {
-        return requireNotNull(savedStateHandle.get(UpdateTaskFragment.ARG_TASK))
+        return requireNotNull(savedStateHandle.get("task"))
     }
 }

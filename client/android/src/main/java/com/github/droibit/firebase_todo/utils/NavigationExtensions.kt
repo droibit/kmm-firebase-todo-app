@@ -36,7 +36,8 @@ fun BottomNavigationView.setupWithNavController(
     navGraphIds: List<Int>,
     fragmentManager: FragmentManager,
     containerId: Int,
-    intent: Intent
+    intent: Intent,
+    listener: NavController.OnDestinationChangedListener? = null
 ): LiveData<NavController> {
 
     // Map of tags
@@ -57,6 +58,10 @@ fun BottomNavigationView.setupWithNavController(
             navGraphId,
             containerId
         )
+
+        if (listener != null) {
+            navHostFragment.navController.addOnDestinationChangedListener(listener)
+        }
 
         // Obtain its id
         val graphId = navHostFragment.navController.graph.id

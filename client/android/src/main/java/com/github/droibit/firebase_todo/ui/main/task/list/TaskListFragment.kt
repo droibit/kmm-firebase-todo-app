@@ -80,7 +80,7 @@ class TaskListFragment : Fragment(),
         }
 
         binding.fab.setOnClickListener {
-            findNavController().navigateSafely(toNewTask(task = null))
+            findNavController().navigateSafely(toNewTask())
         }
 
         binding.taskList.apply {

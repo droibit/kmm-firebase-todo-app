@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.findNavController
 import com.github.droibit.firebase_todo.R
 import com.github.droibit.firebase_todo.databinding.FragmentEditTaskBinding
 import com.github.droibit.firebase_todo.shared.model.task.Task
@@ -34,10 +35,12 @@ class UpdateTaskFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        // TODO: Show a keyboard.
+
         binding.toolbar.apply {
             setTitle(R.string.update_task_title)
             setNavigationOnClickListener {
-                requireActivity().finish()
+                findNavController().popBackStack()
             }
         }
     }
