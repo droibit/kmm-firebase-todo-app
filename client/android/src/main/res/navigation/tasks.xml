@@ -27,10 +27,10 @@
         <action
             android:id="@+id/toNewTask"
             app:destination="@id/newTaskFragment"
-            app:enterAnim="@animator/nav_default_enter_anim"
-            app:exitAnim="@animator/nav_default_exit_anim"
-            app:popEnterAnim="@animator/nav_default_pop_enter_anim"
-            app:popExitAnim="@animator/nav_default_pop_exit_anim" />
+            app:enterAnim="@anim/nav_enter_slide_in"
+            app:exitAnim="@anim/nav_exit_slide_in"
+            app:popEnterAnim="@anim/nav_pop_enter_slide_out"
+            app:popExitAnim="@anim/nav_pop_exit_slide_out" />
     </fragment>
     <dialog
         android:id="@+id/filterTaskBottomSheetDialogFragment"
@@ -58,13 +58,14 @@
         <argument
             android:name="task"
             app:argType="com.github.droibit.firebase_todo.shared.model.task.Task" />
+        <!-- TODO: Review animations -->
         <action
             android:id="@+id/toUpdateTask"
             app:destination="@id/updateTaskFragment"
-            app:enterAnim="@animator/nav_default_enter_anim"
-            app:exitAnim="@animator/nav_default_exit_anim"
-            app:popEnterAnim="@animator/nav_default_pop_enter_anim"
-            app:popExitAnim="@animator/nav_default_pop_exit_anim" />
+            app:enterAnim="@anim/nav_enter_slide_in"
+            app:exitAnim="@anim/nav_exit_slide_in"
+            app:popEnterAnim="@anim/nav_pop_enter_slide_out"
+            app:popExitAnim="@anim/nav_pop_exit_slide_out" />
     </fragment>
 
     <fragment
