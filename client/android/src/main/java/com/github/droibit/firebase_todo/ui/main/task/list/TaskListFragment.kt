@@ -91,9 +91,8 @@ class TaskListFragment : Fragment(),
 
         taskListViewModel.uiModel.observe(viewLifecycleOwner) { uiModel ->
             if (!uiModel.inProgress) {
-                beginDelayedTransition()
+                // beginDelayedTransition()
             }
-
             uiModel.success?.let {
                 binding.taskListHeaderView.apply {
                     setTaskFilter(it.taskFilter)
