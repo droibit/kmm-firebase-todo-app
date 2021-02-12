@@ -108,10 +108,10 @@ fun BottomNavigationView.setupWithNavController(
                     // to it, creating the fixed started destination.
                     fragmentManager.beginTransaction()
                         .setCustomAnimations(
-                            R.anim.nav_default_enter_anim,
-                            R.anim.nav_default_exit_anim,
-                            R.anim.nav_default_pop_enter_anim,
-                            R.anim.nav_default_pop_exit_anim)
+                            R.animator.nav_default_enter_anim,
+                            R.animator.nav_default_exit_anim,
+                            R.animator.nav_default_pop_enter_anim,
+                            R.animator.nav_default_pop_exit_anim)
                         .attach(selectedFragment)
                         .setPrimaryNavigationFragment(selectedFragment)
                         .apply {

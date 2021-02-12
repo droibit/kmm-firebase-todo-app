@@ -32,8 +32,8 @@ object Deps {
 
     object Androidx {
         const val core = "androidx.core:core-ktx:1.5.0-beta01"
-        const val activity = "androidx.activity:activity-ktx:1.2.0-rc01"
-        const val fragment = "androidx.fragment:fragment-ktx:1.3.0-rc02"
+        const val activity = "androidx.activity:activity-ktx:1.2.0"
+        const val fragment = "androidx.fragment:fragment-ktx:1.3.0"
         const val appCompat = "androidx.appcompat:appcompat:1.3.0-beta01"
         const val constraintLayout = "androidx.constraintlayout:constraintlayout:2.0.4"
         const val recyclerView = "androidx.recyclerview:recyclerview:1.2.0-beta01"
@@ -47,7 +47,7 @@ object Deps {
         }
 
         object Lifecycle {
-            private const val version = "2.3.0-rc01"
+            private const val version = "2.3.0"
             const val liveData = "androidx.lifecycle:lifecycle-livedata-ktx:$version"
             const val viewModel = "androidx.navigation:navigation-fragment-ktx:$version"
         }
