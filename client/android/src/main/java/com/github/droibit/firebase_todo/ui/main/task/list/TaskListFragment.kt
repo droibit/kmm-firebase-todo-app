@@ -76,7 +76,7 @@ class TaskListFragment : Fragment(),
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.toolbar.setOnMenuItemClickListener(this)
-        mainViewModel.userPhotoUrl.observe(viewLifecycleOwner) {
+        mainViewModel.userIconUrl.observe(viewLifecycleOwner) {
             binding.toolbar.setUserIcon(it)
         }
 

@@ -52,5 +52,6 @@
     <string name="settings_app_open_source_licenses_title">Open source licenses</string>
     <string name="settings_app_open_source_licenses_key" translatable="false">Open source licenses</string>
     <string name="settings_app_build_version_title">Version</string>
+    <string name="settings_app_build_version_summary" translatable="false">%1$s(%2$s)</string>
     <string name="settings_app_build_version_key" translatable="false">app_version</string>
 </resources>

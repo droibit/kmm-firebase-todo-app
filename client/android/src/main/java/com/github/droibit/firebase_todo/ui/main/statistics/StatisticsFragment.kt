@@ -42,7 +42,7 @@ class StatisticsFragment : Fragment(),
         super.onViewCreated(view, savedInstanceState)
 
         binding.toolbar.setOnMenuItemClickListener(this)
-        mainViewModel.userPhotoUrl.observe(viewLifecycleOwner) {
+        mainViewModel.userIconUrl.observe(viewLifecycleOwner) {
             binding.toolbar.setUserIcon(it)
         }
     }
