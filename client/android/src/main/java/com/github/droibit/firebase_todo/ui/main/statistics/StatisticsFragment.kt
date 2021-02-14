@@ -2,14 +2,23 @@ package com.github.droibit.firebase_todo.ui.main.statistics
 
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
+import com.github.droibit.firebase_todo.R
 import com.github.droibit.firebase_todo.databinding.FragmentStatisticsBinding
+import com.github.droibit.firebase_todo.ui.main.setUserIcon
+import com.github.droibit.firebase_todo.ui.main.task.MainViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class StatisticsFragment : Fragment() {
+class StatisticsFragment : Fragment(),
+    Toolbar.OnMenuItemClickListener {
+
+    private val mainViewModel: MainViewModel by activityViewModels()
 
     private var _binding: FragmentStatisticsBinding? = null
     private val binding get() = checkNotNull(_binding)
@@ -26,8 +35,28 @@ class StatisticsFragment : Fragment() {
             }.root
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        binding.toolbar.setOnMenuItemClickListener(this)
+        mainViewModel.userPhotoUrl.observe(viewLifecycleOwner) {
+            binding.toolbar.setUserIcon(it)
+        }
+    }
+
     override fun onDestroyView() {
         _binding = null
         super.onDestroyView()
+    }
+
+    // Toolbar.OnMenuItemClickListener
+
+    override fun onMenuItemClick(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.user -> {
+                // TODO: Not yet implemented.
+            }
+        }
+        return true
     }
 }

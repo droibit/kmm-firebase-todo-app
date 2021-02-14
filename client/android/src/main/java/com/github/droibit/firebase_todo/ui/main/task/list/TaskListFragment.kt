@@ -74,7 +74,7 @@ class TaskListFragment : Fragment(),
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.toolbar.setOnMenuItemClickListener(this@TaskListFragment)
+        binding.toolbar.setOnMenuItemClickListener(this)
         mainViewModel.userPhotoUrl.observe(viewLifecycleOwner) {
             binding.toolbar.setUserIcon(it)
         }
@@ -85,14 +85,11 @@ class TaskListFragment : Fragment(),
 
         binding.taskList.apply {
             adapter = listAdapter
-            addItemDecoration(DividerItemDecoration(context, DividerItemDecoration.VERTICAL))
+            addItemDecoration(DividerItemDecoration(requireContext(), DividerItemDecoration.VERTICAL))
         }
         binding.taskListHeaderView.onClickListener = this
 
         taskListViewModel.uiModel.observe(viewLifecycleOwner) { uiModel ->
-            if (!uiModel.inProgress) {
-                // beginDelayedTransition()
-            }
             uiModel.success?.let {
                 binding.taskListHeaderView.apply {
                     setTaskFilter(it.taskFilter)
@@ -169,8 +166,13 @@ class TaskListFragment : Fragment(),
     }
 
     // Toolbar.OnMenuItemClickListener
+
     override fun onMenuItemClick(item: MenuItem): Boolean {
-        // TODO: Not implemented yet.
+        when (item.itemId) {
+            R.id.user -> {
+                // TODO: Not yet implemented.
+            }
+        }
         return true
     }
 
@@ -182,6 +184,6 @@ class TaskListFragment : Fragment(),
     }
 
     override fun onTaskCheckboxClick(task: Task) {
-        // TODO("Not yet implemented")
+        // TODO: Not yet implemented.
     }
 }
