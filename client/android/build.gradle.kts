@@ -49,6 +49,12 @@ android {
     }
 }
 
+repositories {
+    maven {
+        url = uri("https://jitpack.io")
+    }
+}
+
 dependencies {
     implementation(project(":shared"))
 
@@ -67,6 +73,7 @@ dependencies {
     implementation(Deps.Androidx.constraintLayout)
     implementation(Deps.Androidx.recyclerView)
     implementation(Deps.Androidx.dataStore)
+    implementation(Deps.Androidx.preference)
 
     implementation(Deps.materialDesign)
     implementation(Deps.coil)
@@ -82,4 +89,5 @@ dependencies {
         exclude(module = "multiplatform-settings-coroutines")
     }
     implementation(Deps.napier)
+    implementation(Deps.Chopsticks.preference)
 }

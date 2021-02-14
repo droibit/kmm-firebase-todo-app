@@ -38,6 +38,7 @@ object Deps {
         const val constraintLayout = "androidx.constraintlayout:constraintlayout:2.0.4"
         const val recyclerView = "androidx.recyclerview:recyclerview:1.2.0-beta01"
         const val dataStore = "androidx.datastore:datastore-preferences:1.0.0-alpha06"
+        const val preference = "androidx.preference:preference-ktx:1.1.1"
 
         object Navigation {
             internal const val version = "2.3.3"
@@ -80,6 +81,10 @@ object Deps {
         const val core = "com.russhwolf:multiplatform-settings:$version"
         const val coroutines = "com.russhwolf:multiplatform-settings-coroutines-native-mt:$version"
         const val datastore = "com.russhwolf:multiplatform-settings-datastore:$version"
+    }
+
+    object Chopsticks {
+        const val preference = "com.github.droibit.chopsticks:chopstick-preference:1.0.0"
     }
 
     object Test {
