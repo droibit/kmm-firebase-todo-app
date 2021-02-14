@@ -3,6 +3,7 @@ package com.github.droibit.firebase_todo
 import com.github.aakira.napier.Antilog
 import com.github.aakira.napier.DebugAntilog
 import com.github.aakira.napier.Napier
+import com.github.droibit.firebase_todo.shared.model.app.AppVersion
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -30,5 +31,13 @@ object ApplicationModule {
                 ) = Unit
             }
         }
+    }
+
+    @Provides
+    fun provideAppVersion(): AppVersion {
+        return AppVersion(
+            name = BuildConfig.VERSION_NAME,
+            code = "${BuildConfig.VERSION_CODE}"
+        )
     }
 }
