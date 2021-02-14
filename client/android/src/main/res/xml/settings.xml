@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+    <PreferenceCategory android:title="@string/settings_account_title">
+        <Preference
+            android:key="@string/settings_account_profile_key"
+            android:icon="@drawable/ic_round_person"
+            tools:title="Tanaka Taro" />
+        <Preference
+            android:key="@string/settings_account_sign_out_key"
+            android:title="@string/settings_account_sign_out_title" />
+
+    </PreferenceCategory>
+
+    <PreferenceCategory android:title="@string/settings_app_title">
+        <Preference
+            android:key="@string/settings_app_build_version_key"
+            android:title="@string/settings_app_build_version_title"
+            tools:summary="1.0.0(21010101)" />
+
+        <Preference
+            android:key="@string/settings_app_open_source_licenses_key"
+            android:title="@string/settings_app_open_source_licenses_title" />
+
+        <Preference android:title="@string/settings_app_source_code_title">
+            <intent
+                android:action="android.intent.action.VIEW"
+                android:data="@string/settings_app_source_code_url" />
+        </Preference>
+
+    </PreferenceCategory>
+</PreferenceScreen>

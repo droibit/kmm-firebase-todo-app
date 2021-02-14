@@ -40,6 +40,17 @@
     <!-- Statistics -->
     <string name="statistics_title">Statistics</string>
 
-    <!-- Account -->
-    <string name="account_title">Account</string>
+    <!-- Settings -->
+    <string name="settings_title">Settings</string>
+    <string name="settings_account_title">Account</string>
+    <string name="settings_account_profile_key" translatable="false">account_profile</string>
+    <string name="settings_account_sign_out_title">Sign out</string>
+    <string name="settings_account_sign_out_key" translatable="false">account_sign_out</string>
+    <string name="settings_app_title">App</string>
+    <string name="settings_app_source_code_title">Source code on GitHub</string>
+    <string name="settings_app_source_code_url" translatable="false">https://github.com/droibit/kmm-firebase-todo-app</string>
+    <string name="settings_app_open_source_licenses_title">Open source licenses</string>
+    <string name="settings_app_open_source_licenses_key" translatable="false">Open source licenses</string>
+    <string name="settings_app_build_version_title">Version</string>
+    <string name="settings_app_build_version_key" translatable="false">app_version</string>
 </resources>
