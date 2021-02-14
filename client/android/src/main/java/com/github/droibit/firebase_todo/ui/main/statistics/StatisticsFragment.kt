@@ -8,10 +8,13 @@ import android.view.ViewGroup
 import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.navigation.fragment.findNavController
 import com.github.droibit.firebase_todo.R
 import com.github.droibit.firebase_todo.databinding.FragmentStatisticsBinding
 import com.github.droibit.firebase_todo.ui.main.setUserIcon
 import com.github.droibit.firebase_todo.ui.main.task.MainViewModel
+import com.github.droibit.firebase_todo.ui.main.statistics.StatisticsFragmentDirections.Companion.toSettings
+import com.github.droibit.firebase_todo.utils.navigateSafely
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -53,9 +56,7 @@ class StatisticsFragment : Fragment(),
 
     override fun onMenuItemClick(item: MenuItem): Boolean {
         when (item.itemId) {
-            R.id.user -> {
-                // TODO: Not yet implemented.
-            }
+            R.id.user -> findNavController().navigateSafely(toSettings())
         }
         return true
     }

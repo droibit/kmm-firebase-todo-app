@@ -26,10 +26,11 @@ import com.github.droibit.firebase_todo.shared.model.task.TaskFilter
 import com.github.droibit.firebase_todo.shared.model.task.TaskSorting
 import com.github.droibit.firebase_todo.ui.main.setUserIcon
 import com.github.droibit.firebase_todo.ui.main.task.MainViewModel
-import com.github.droibit.firebase_todo.ui.main.task.list.TaskListFragmentDirections.Companion.toNewTask
-import com.github.droibit.firebase_todo.ui.main.task.list.TaskListFragmentDirections.Companion.toTaskDetail
 import com.github.droibit.firebase_todo.ui.main.task.list.TaskListFragmentDirections.Companion.toFilterTaskBottomSheet
+import com.github.droibit.firebase_todo.ui.main.task.list.TaskListFragmentDirections.Companion.toNewTask
+import com.github.droibit.firebase_todo.ui.main.task.list.TaskListFragmentDirections.Companion.toSettings
 import com.github.droibit.firebase_todo.ui.main.task.list.TaskListFragmentDirections.Companion.toSortTaskBottomSheet
+import com.github.droibit.firebase_todo.ui.main.task.list.TaskListFragmentDirections.Companion.toTaskDetail
 import com.github.droibit.firebase_todo.ui.main.task.list.filter.FilterTaskBottomSheetDialogFragment.Companion.RESULT_SELECTED_TASK_FILTER
 import com.github.droibit.firebase_todo.ui.main.task.list.sort.SortTaskBottomSheetDialogFragment.Companion.RESULT_SELECTED_TASK_SORTING
 import com.github.droibit.firebase_todo.utils.consumeResult
@@ -169,9 +170,7 @@ class TaskListFragment : Fragment(),
 
     override fun onMenuItemClick(item: MenuItem): Boolean {
         when (item.itemId) {
-            R.id.user -> {
-                // TODO: Not yet implemented.
-            }
+            R.id.user -> findNavController().navigateSafely(toSettings())
         }
         return true
     }

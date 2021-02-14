@@ -75,7 +75,9 @@ class MainActivity : AppCompatActivity(),
     ) {
         // TODO: show and hide bottom nav with a animation.
         binding.bottomNav.isVisible = when (destination.id) {
-            R.id.newTaskFragment, R.id.updateTaskFragment -> false
+            R.id.newTaskFragment,
+            R.id.updateTaskFragment,
+            R.id.settingsFragment -> false
             else -> true
         }
     }

@@ -4,6 +4,6 @@
     <item
         android:id="@+id/user"
         android:icon="@drawable/ic_round_person"
-        android:title="@string/account_title"
+        android:title="@string/settings_title"
         app:showAsAction="always" />
 </menu>
