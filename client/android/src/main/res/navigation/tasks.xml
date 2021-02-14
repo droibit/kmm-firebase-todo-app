@@ -23,7 +23,6 @@
             app:exitAnim="@animator/nav_default_exit_anim"
             app:popEnterAnim="@animator/nav_default_pop_enter_anim"
             app:popExitAnim="@animator/nav_default_pop_exit_anim" />
-        <!-- TODO: Review animations -->
         <action
             android:id="@+id/toNewTask"
             app:destination="@id/newTaskFragment"
@@ -58,7 +57,6 @@
         <argument
             android:name="task"
             app:argType="com.github.droibit.firebase_todo.shared.model.task.Task" />
-        <!-- TODO: Review animations -->
         <action
             android:id="@+id/toUpdateTask"
             app:destination="@id/updateTaskFragment"
