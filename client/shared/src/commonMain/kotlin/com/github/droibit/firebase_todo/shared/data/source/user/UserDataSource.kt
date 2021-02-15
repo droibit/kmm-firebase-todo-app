@@ -5,6 +5,7 @@ package com.github.droibit.firebase_todo.shared.data.source.user
 import co.touchlab.stately.freeze
 import com.chrynan.inject.Inject
 import com.chrynan.inject.Singleton
+import com.github.aakira.napier.Napier
 import com.github.droibit.firebase_todo.shared.model.user.AuthException
 import com.github.droibit.firebase_todo.shared.model.user.User
 import com.github.droibit.firebase_todo.shared.utils.GoogleAuthProvider
@@ -31,10 +32,15 @@ class UserDataSource @Inject constructor(
                 .apply { freeze() }
             val result = auth.signInWithCredential(credential)
             val firebaseUser = requireNotNull(result.user)
+            Napier.d("User's provider data: ${firebaseUser.providerData.map { it.providerId }}")
             return firebaseUser.toUser()
         } catch (e: FirebaseException) {
             throw AuthException(cause = e)
         }
+    }
+
+    suspend fun signOut() {
+        auth.signOut()
     }
 }
 

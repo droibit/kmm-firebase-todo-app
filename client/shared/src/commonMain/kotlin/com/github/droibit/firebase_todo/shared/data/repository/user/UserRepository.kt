@@ -9,6 +9,7 @@ import com.github.droibit.firebase_todo.shared.data.source.user.UserDataSource
 import com.github.droibit.firebase_todo.shared.model.user.AuthException
 import com.github.droibit.firebase_todo.shared.model.user.User
 import com.github.droibit.firebase_todo.shared.utils.CoroutinesDispatcherProvider
+import kotlinx.coroutines.withContext
 import kotlin.coroutines.cancellation.CancellationException
 
 @Singleton
@@ -27,5 +28,11 @@ class UserRepository @Inject constructor(
             .also {
                 Napier.d("Signed in user: name:${it.name}, email:${it.email}, photoURL: ${it.photoURL}")
             }
+    }
+
+    suspend fun signOut() {
+        withContext(dispatcherProvider.computation) {
+            dataSource.signOut()
+        }
     }
 }
