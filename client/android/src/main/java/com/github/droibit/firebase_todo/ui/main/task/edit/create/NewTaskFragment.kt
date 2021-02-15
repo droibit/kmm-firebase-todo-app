@@ -38,12 +38,7 @@ class NewTaskFragment : Fragment() {
 
         // TODO: Show a keyboard.
 
-        binding.toolbar.apply {
-            setTitle(R.string.new_task_title)
-            setNavigationOnClickListener {
-                findNavController().popBackStack()
-            }
-        }
+        binding.toolbar.setTitle(R.string.new_task_title)
     }
 
     override fun onDestroyView() {

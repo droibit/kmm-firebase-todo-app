@@ -67,7 +67,7 @@ class SettingsViewModel(
             emitSignOutUiModel(inProgress = true)
 
             userRepository.signOut()
-            
+
             emitSignOutUiModel(
                 inProgress = false,
                 success = Event(Unit)
