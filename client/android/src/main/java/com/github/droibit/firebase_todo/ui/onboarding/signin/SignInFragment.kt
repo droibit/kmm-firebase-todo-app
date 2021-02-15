@@ -1,6 +1,5 @@
 package com.github.droibit.firebase_todo.ui.onboarding.signin
 
-import android.app.Activity
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -14,11 +13,6 @@ import com.github.droibit.firebase_todo.databinding.FragmentSignInBinding
 import com.github.droibit.firebase_todo.shared.utils.consume
 import com.github.droibit.firebase_todo.ui.main.MainActivity
 import com.google.android.gms.auth.api.signin.GoogleSignIn
-import com.google.android.gms.auth.api.signin.GoogleSignInAccount
-import com.google.android.gms.common.api.ApiException
-import com.google.android.gms.common.api.Status
-import com.google.android.gms.tasks.Task
-import com.google.android.gms.tasks.Tasks
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -28,13 +22,7 @@ class SignInFragment : Fragment() {
     private val viewModel: SignInViewModel by viewModels()
 
     private val signInWithGoogle = registerForActivityResult(StartActivityForResult()) {
-        @Suppress("ThrowableNotThrown")
-        val resultTask: Task<GoogleSignInAccount> =
-            if (it.resultCode != Activity.RESULT_OK || it.data == null) {
-                Tasks.forException(ApiException(Status.RESULT_CANCELED))
-            } else {
-                GoogleSignIn.getSignedInAccountFromIntent(it.data)
-            }
+        val resultTask = GoogleSignIn.getSignedInAccountFromIntent(it.data)
         viewModel.onSignInWithGoogleResult(resultTask)
     }
 
