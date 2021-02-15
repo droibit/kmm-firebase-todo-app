@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/settings"
+    app:startDestination="@id/settingsFragment">
+
+    <fragment
+        android:id="@+id/settingsFragment"
+        android:name="com.github.droibit.firebase_todo.ui.main.settings.SettingsFragment"
+        tools:layout="@layout/fragment_settings">
+        <action
+            android:id="@+id/toSignOutConfirmation"
+            app:destination="@id/signOutConfirmationDialogFragment" />
+        <action
+            android:id="@+id/toOnBoarding"
+            app:destination="@id/onBoardingActivity" />
+    </fragment>
+
+    <dialog
+        android:id="@+id/signOutConfirmationDialogFragment"
+        android:name="com.github.droibit.firebase_todo.ui.main.settings.content.SignOutConfirmationDialogFragment" />
+    <activity
+        android:id="@+id/onBoardingActivity"
+        android:name="com.github.droibit.firebase_todo.ui.onboarding.OnBoardingActivity"
+        tools:layout="@layout/fragment_sign_in" />
+
+</navigation>

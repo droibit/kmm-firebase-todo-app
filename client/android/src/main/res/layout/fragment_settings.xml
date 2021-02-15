@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="viewModel"
             type="com.github.droibit.firebase_todo.ui.main.settings.SettingsViewModel" />
@@ -37,7 +38,7 @@
             android:id="@+id/progress"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:visibleUnless="@{false}"
+            app:visibleUnless="@{viewModel.signOutUiModel.inProgress}"
             tools:visibility="gone" />
 
     </FrameLayout>

@@ -13,15 +13,13 @@
 
         <action
             android:id="@+id/toSettings"
-            app:destination="@id/settingsFragment"
+            app:destination="@id/settings"
             app:enterAnim="@anim/nav_enter_slide_in"
             app:exitAnim="@anim/nav_exit_slide_in"
             app:popEnterAnim="@anim/nav_pop_enter_slide_out"
             app:popExitAnim="@anim/nav_pop_exit_slide_out" />
     </fragment>
 
-    <fragment
-        android:id="@+id/settingsFragment"
-        android:name="com.github.droibit.firebase_todo.ui.main.settings.SettingsFragment"
-        tools:layout="@layout/fragment_settings" />
+    <include app:graph="@navigation/settings" />
+
 </navigation>
