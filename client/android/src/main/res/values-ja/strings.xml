@@ -32,4 +32,6 @@
     <string name="settings_app_build_version_title">バージョン</string>
     <string name="settings_account_sign_out_title">サインアウト</string>
     <string name="settings_account_title">アカウント</string>
+    <string name="settings_account_sign_out_dialog_message">サインアウトしますか?</string>
+    <string name="settings_account_sign_out_dialog_positive">サインアウト</string>
 </resources>

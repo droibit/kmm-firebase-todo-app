@@ -46,6 +46,8 @@
     <string name="settings_account_profile_key" translatable="false">account_profile</string>
     <string name="settings_account_sign_out_title">Sign out</string>
     <string name="settings_account_sign_out_key" translatable="false">account_sign_out</string>
+    <string name="settings_account_sign_out_dialog_message">Sign out of this account?</string>
+    <string name="settings_account_sign_out_dialog_positive">Sign out</string>
     <string name="settings_app_title">App</string>
     <string name="settings_app_source_code_title">Source code on GitHub</string>
     <string name="settings_app_source_code_url" translatable="false">https://github.com/droibit/kmm-firebase-todo-app</string>

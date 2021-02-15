@@ -28,4 +28,8 @@
     <style name="Widget.TodoApp.BottomSheet.Modal" parent="Widget.MaterialComponents.BottomSheet.Modal">
         <item name="shapeAppearanceOverlay">?attr/shapeAppearanceLargeComponent</item>
     </style>
+
+    <style name="ThemeOverlay.TodoApp.MaterialAlertDialog" parent="ThemeOverlay.MaterialComponents.MaterialAlertDialog">
+
+    </style>
 </resources>
