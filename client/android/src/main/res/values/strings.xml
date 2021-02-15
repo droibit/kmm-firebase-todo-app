@@ -39,6 +39,8 @@
 
     <!-- Statistics -->
     <string name="statistics_title">Statistics</string>
+    <string name="statistics_active_tasks">Active TO-DOs</string>
+    <string name="statistics_completed_tasks">Completed TO-DOs</string>
 
     <!-- Settings -->
     <string name="settings_title">Settings</string>

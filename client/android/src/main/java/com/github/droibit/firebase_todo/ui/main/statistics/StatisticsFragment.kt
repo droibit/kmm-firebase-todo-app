@@ -45,6 +45,10 @@ class StatisticsFragment : Fragment(),
         mainViewModel.userIconUrl.observe(viewLifecycleOwner) {
             binding.toolbar.setUserIcon(it)
         }
+
+        // TODO: Remove behavior check code.
+        binding.numOfActiveTasks.text = "100"
+        binding.numOfCompletedTasks.text = "10"
     }
 
     override fun onDestroyView() {

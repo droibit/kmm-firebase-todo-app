@@ -34,4 +34,6 @@
     <string name="settings_account_title">アカウント</string>
     <string name="settings_account_sign_out_dialog_message">サインアウトしますか?</string>
     <string name="settings_account_sign_out_dialog_positive">サインアウト</string>
+    <string name="statistics_active_tasks">アクティブなTO-DO</string>
+    <string name="statistics_completed_tasks">完了したTO-DO</string>
 </resources>
