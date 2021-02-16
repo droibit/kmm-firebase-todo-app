@@ -17,5 +17,6 @@
     <fragment
         android:id="@+id/signInFragment"
         android:name="com.github.droibit.firebase_todo.ui.onboarding.signin.SignInFragment"
-        android:label="SignInFragment" />
+        android:label="SignInFragment"
+        tools:layout="@layout/fragment_sign_in" />
 </navigation>

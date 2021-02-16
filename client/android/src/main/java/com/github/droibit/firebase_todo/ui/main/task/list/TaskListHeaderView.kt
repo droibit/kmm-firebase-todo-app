@@ -3,7 +3,6 @@ package com.github.droibit.firebase_todo.ui.main.task.list
 import android.content.Context
 import android.util.AttributeSet
 import android.view.View
-import androidx.annotation.DrawableRes
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.github.droibit.firebase_todo.R
 import com.github.droibit.firebase_todo.shared.model.task.TaskFilter

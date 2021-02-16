@@ -8,7 +8,6 @@ import android.view.inputmethod.InputMethodManager
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.navigation.findNavController
 import com.github.droibit.firebase_todo.R
 import com.github.droibit.firebase_todo.databinding.FragmentEditTaskBinding
 import dagger.hilt.android.AndroidEntryPoint

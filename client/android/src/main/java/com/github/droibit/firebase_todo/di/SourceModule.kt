@@ -3,7 +3,6 @@ package com.github.droibit.firebase_todo.di
 import android.content.Context
 import androidx.datastore.preferences.createDataStore
 import com.github.droibit.firebase_todo.shared.data.source.settings.UserSettingsDataSource
-import com.github.droibit.firebase_todo.shared.data.source.user.UserDataSource
 import com.russhwolf.settings.coroutines.FlowSettings
 import com.russhwolf.settings.datastore.DataStoreSettings
 import dagger.Module

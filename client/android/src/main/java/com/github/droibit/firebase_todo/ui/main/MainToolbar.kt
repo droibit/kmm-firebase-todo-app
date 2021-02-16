@@ -5,8 +5,6 @@ import androidx.core.view.children
 import androidx.lifecycle.findViewTreeLifecycleOwner
 import androidx.lifecycle.lifecycleScope
 import coil.imageLoader
-import coil.request.ImageRequest
-import coil.transform.CircleCropTransformation
 import com.github.droibit.firebase_todo.R
 import com.github.droibit.firebase_todo.utils.UserIconURL
 

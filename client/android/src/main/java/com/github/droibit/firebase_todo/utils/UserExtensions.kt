@@ -12,7 +12,12 @@ fun User.getIconURL(packageName: String = BuildConfig.APPLICATION_ID): UserIconU
     return UserIconURL(url)
 }
 
+@Suppress("MemberVisibilityCanBePrivate")
 inline class UserIconURL(val url: String) {
+    init {
+        require(url.isNotEmpty())
+    }
+
     fun toRequest(context: Context, iconSizeDp: Int): ImageRequest {
         val iconSizePx = (iconSizeDp * context.resources.displayMetrics.density).toInt()
         return ImageRequest.Builder(context)

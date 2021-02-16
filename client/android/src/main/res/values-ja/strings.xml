@@ -24,7 +24,7 @@
     <string name="edit_task_validation_empty_title">TO-DOのタイトルを入力してください。</string>
     <string name="edit_task_description_hint">TO-DOの説明を入力してください</string>
     <string name="task_detail_menu_delete">削除</string>
-    <string name="task_detail_created_at_label">作成日: %@</string>
+    <string name="task_detail_created_at_label">作成日: %1$s</string>
     <string name="settings_title">設定</string>
     <string name="settings_app_title">アプリ</string>
     <string name="settings_app_source_code_title">ソースコード(GitHub)</string>

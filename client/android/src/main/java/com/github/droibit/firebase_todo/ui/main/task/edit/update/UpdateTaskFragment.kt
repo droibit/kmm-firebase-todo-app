@@ -6,10 +6,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.navigation.findNavController
 import com.github.droibit.firebase_todo.R
 import com.github.droibit.firebase_todo.databinding.FragmentEditTaskBinding
-import com.github.droibit.firebase_todo.shared.model.task.Task
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -43,15 +41,5 @@ class UpdateTaskFragment : Fragment() {
     override fun onDestroyView() {
         _binding = null
         super.onDestroyView()
-    }
-
-    companion object {
-        fun newInstance(task: Task) = UpdateTaskFragment().apply {
-            arguments = Bundle().apply {
-                putParcelable(ARG_TASK, task)
-            }
-        }
-
-        const val ARG_TASK = "ARG_TASK"
     }
 }

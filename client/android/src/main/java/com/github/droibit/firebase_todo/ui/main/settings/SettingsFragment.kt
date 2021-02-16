@@ -29,7 +29,7 @@ class SettingsFragment : Fragment() {
                 this._binding = it
             }.root
     }
-    
+
     override fun onDestroyView() {
         _binding = null
         super.onDestroyView()

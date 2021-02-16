@@ -13,7 +13,6 @@ import com.github.droibit.firebase_todo.ui.main.settings.content.SignOutUiModel
 import com.github.droibit.firebase_todo.utils.getIconURL
 import com.github.droibit.firebase_todo.utils.requireValue
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 import kotlin.LazyThreadSafetyMode.NONE
