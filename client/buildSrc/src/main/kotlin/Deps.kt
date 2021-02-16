@@ -8,12 +8,11 @@ object Deps {
         const val android = "com.android.tools.build:gradle:4.2.0-beta04"
         const val googleServices = "com.google.gms:google-services:4.3.4"
         const val daggerHilt = "com.google.dagger:hilt-android-gradle-plugin:${Dagger.version}"
-        const val spotless = "com.diffplug.spotless:spotless-plugin-gradle:5.9.0"
         const val navSafeArgs = "androidx.navigation:navigation-safe-args-gradle-plugin:${Androidx.Navigation.version}"
 
         object Spotless {
             const val id = "com.diffplug.spotless"
-            const val version = "5.9.0"
+            const val version = "5.10.1"
         }
     }
 
@@ -84,7 +83,7 @@ object Deps {
     }
 
     object Chopsticks {
-        const val preference = "com.github.droibit.chopsticks:chopstick-preference:1.0.0"
+        const val preference = "com.github.droibit.chopsticks:chopstick-preference:1.0.1"
     }
 
     object Test {
