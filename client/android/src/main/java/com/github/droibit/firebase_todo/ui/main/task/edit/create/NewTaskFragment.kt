@@ -4,12 +4,11 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.inputmethod.InputMethodManager
-import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.github.droibit.firebase_todo.R
 import com.github.droibit.firebase_todo.databinding.FragmentEditTaskBinding
+import com.github.droibit.firebase_todo.utils.toggleSofInputVisibility
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -35,30 +34,18 @@ class NewTaskFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // TODO: Show a keyboard.
-
         binding.toolbar.setTitle(R.string.new_task_title)
+        toggleSofInputVisibility(visible = true)
+    }
+
+    override fun onPause() {
+        super.onPause()
+
+        toggleSofInputVisibility(visible = false)
     }
 
     override fun onDestroyView() {
         _binding = null
         super.onDestroyView()
-    }
-
-    private fun hideKeyboard() {
-        listOf<View>(
-            binding.titleEditText,
-            binding.descriptionEditText
-        ).forEach {
-            if (it.isFocused) {
-                val imm =
-                    ContextCompat.getSystemService(requireContext(), InputMethodManager::class.java)
-                checkNotNull(imm).hideSoftInputFromWindow(it.windowToken, 0)
-            }
-        }
-    }
-
-    companion object {
-        fun newInstance() = NewTaskFragment()
     }
 }

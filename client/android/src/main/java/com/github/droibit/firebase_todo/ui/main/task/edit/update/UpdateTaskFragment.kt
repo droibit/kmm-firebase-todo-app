@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.github.droibit.firebase_todo.R
 import com.github.droibit.firebase_todo.databinding.FragmentEditTaskBinding
+import com.github.droibit.firebase_todo.utils.toggleSofInputVisibility
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -33,9 +34,13 @@ class UpdateTaskFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // TODO: Show a keyboard.
-
         binding.toolbar.setTitle(R.string.update_task_title)
+        toggleSofInputVisibility(visible = true)
+    }
+
+    override fun onPause() {
+        super.onPause()
+        toggleSofInputVisibility(visible = false)
     }
 
     override fun onDestroyView() {
