@@ -1,7 +1,7 @@
 object Deps {
     object Plugins {
         object Kotlin {
-            private const val version = "1.4.21"
+            private const val version = "1.4.30"
             const val gradle = "org.jetbrains.kotlin:kotlin-gradle-plugin:$version"
             const val serialization = "org.jetbrains.kotlin:kotlin-serialization:$version"
         }
@@ -91,7 +91,7 @@ object Deps {
         const val junit = "junit:junit:4.13.1"
     }
 
-    const val serialization = "org.jetbrains.kotlinx:kotlinx-serialization-core:1.0.1"
+    const val serialization = "org.jetbrains.kotlinx:kotlinx-serialization-core:1.1.0-RC"
     const val materialDesign = "com.google.android.material:material:1.3.0"
     const val coil = "io.coil-kt:coil:1.1.1"
     const val napier = "com.github.aakira:napier:1.4.1"
