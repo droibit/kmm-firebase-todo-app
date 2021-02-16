@@ -67,4 +67,4 @@ open class Event<out T>(private val content: T) {
     }
 }
 
-fun <T>Event<T>?.consume(): T? = this?.consume()
+fun <T> Event<T>?.consume(): T? = this?.consume()

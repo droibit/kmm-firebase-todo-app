@@ -7,7 +7,6 @@ import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.github.droibit.firebase_todo.databinding.FragmentFilterTaskBinding
-import com.github.droibit.firebase_todo.ui.main.task.list.filter.FilterTaskBottomSheetDialogFragmentArgs
 import com.github.droibit.firebase_todo.utils.setResult
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 

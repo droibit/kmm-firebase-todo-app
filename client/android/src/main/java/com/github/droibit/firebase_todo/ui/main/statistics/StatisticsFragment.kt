@@ -12,13 +12,14 @@ import androidx.navigation.fragment.findNavController
 import com.github.droibit.firebase_todo.R
 import com.github.droibit.firebase_todo.databinding.FragmentStatisticsBinding
 import com.github.droibit.firebase_todo.ui.main.setUserIcon
-import com.github.droibit.firebase_todo.ui.main.task.MainViewModel
 import com.github.droibit.firebase_todo.ui.main.statistics.StatisticsFragmentDirections.Companion.toSettings
+import com.github.droibit.firebase_todo.ui.main.task.MainViewModel
 import com.github.droibit.firebase_todo.utils.navigateSafely
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class StatisticsFragment : Fragment(),
+class StatisticsFragment :
+    Fragment(),
     Toolbar.OnMenuItemClickListener {
 
     private val mainViewModel: MainViewModel by activityViewModels()

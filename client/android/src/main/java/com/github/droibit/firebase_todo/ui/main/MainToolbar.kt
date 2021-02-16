@@ -11,7 +11,7 @@ import com.github.droibit.firebase_todo.utils.UserIconURL
 fun Toolbar.setUserIcon(url: UserIconURL) {
     findViewTreeLifecycleOwner()?.let { lifecycleOwner ->
         lifecycleOwner.lifecycleScope.launchWhenStarted {
-            val request = url.toRequest(context, iconSizeDp= 24)
+            val request = url.toRequest(context, iconSizeDp = 24)
             val result = context.imageLoader.execute(request)
             val accountMenuItem = menu.children.first { it.itemId == R.id.user }
             accountMenuItem.icon = checkNotNull(result.drawable)

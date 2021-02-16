@@ -20,7 +20,8 @@ import dagger.hilt.android.AndroidEntryPoint
  * - [NavigationAdvancedSample/NavigationExtensions.kt](https://github.com/android/architecture-components-samples/blob/master/NavigationAdvancedSample/app/src/main/java/com/example/android/navigationadvancedsample/NavigationExtensions.kt)
  */
 @AndroidEntryPoint
-class MainActivity : AppCompatActivity(),
+class MainActivity :
+    AppCompatActivity(),
     NavController.OnDestinationChangedListener {
 
     private lateinit var binding: ActivityMainBinding
@@ -34,7 +35,7 @@ class MainActivity : AppCompatActivity(),
 
         if (savedInstanceState == null) {
             setupBottomNavigationBar()
-        }   // Else, need to wait for onRestoreInstanceState
+        } // Else, need to wait for onRestoreInstanceState
     }
 
     override fun onRestoreInstanceState(savedInstanceState: Bundle) {

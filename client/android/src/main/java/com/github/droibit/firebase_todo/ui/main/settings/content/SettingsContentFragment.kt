@@ -27,7 +27,8 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlin.LazyThreadSafetyMode.NONE
 
 @AndroidEntryPoint
-class SettingsContentFragment : PreferenceFragmentCompat(),
+class SettingsContentFragment :
+    PreferenceFragmentCompat(),
     LifecycleEventObserver {
 
     private val viewModel: SettingsViewModel by viewModels(

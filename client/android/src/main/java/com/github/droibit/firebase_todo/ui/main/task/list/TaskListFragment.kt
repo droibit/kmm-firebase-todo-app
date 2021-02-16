@@ -40,7 +40,8 @@ import javax.inject.Inject
 import kotlin.LazyThreadSafetyMode.NONE
 
 @AndroidEntryPoint
-class TaskListFragment : Fragment(),
+class TaskListFragment :
+    Fragment(),
     TaskListHeaderView.OnClickListener,
     TaskListAdapter.ItemClickListener,
     Toolbar.OnMenuItemClickListener,
@@ -86,7 +87,12 @@ class TaskListFragment : Fragment(),
 
         binding.taskList.apply {
             adapter = listAdapter
-            addItemDecoration(DividerItemDecoration(requireContext(), DividerItemDecoration.VERTICAL))
+            addItemDecoration(
+                DividerItemDecoration(
+                    requireContext(),
+                    DividerItemDecoration.VERTICAL
+                )
+            )
         }
         binding.taskListHeaderView.onClickListener = this
 

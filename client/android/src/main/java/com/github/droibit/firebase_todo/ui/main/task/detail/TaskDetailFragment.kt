@@ -16,7 +16,8 @@ import com.github.droibit.firebase_todo.utils.navigateSafely
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class TaskDetailFragment : Fragment(),
+class TaskDetailFragment :
+    Fragment(),
     Toolbar.OnMenuItemClickListener {
 
     private var _binding: FragmentTaskDetailBinding? = null
