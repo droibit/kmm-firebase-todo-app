@@ -1,7 +1,9 @@
 package com.github.droibit.firebase_todo.di
 
 import android.content.Context
-import androidx.datastore.preferences.createDataStore
+import androidx.datastore.core.DataStore
+import androidx.datastore.preferences.core.Preferences
+import androidx.datastore.preferences.preferencesDataStore
 import com.github.droibit.firebase_todo.shared.data.source.settings.UserSettingsDataSource
 import com.russhwolf.settings.coroutines.FlowSettings
 import com.russhwolf.settings.datastore.DataStoreSettings
@@ -42,6 +44,8 @@ object SettingsModule {
     @Singleton
     @Provides
     fun provideFlowSettings(@ApplicationContext context: Context): FlowSettings {
-        return DataStoreSettings(datastore = context.createDataStore("user_settings"))
+        return DataStoreSettings(datastore = context.dataStore)
     }
 }
+
+private val Context.dataStore: DataStore<Preferences> by preferencesDataStore("user_settings")

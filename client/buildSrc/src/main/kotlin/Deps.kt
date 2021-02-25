@@ -5,7 +5,7 @@ object Deps {
             const val gradle = "org.jetbrains.kotlin:kotlin-gradle-plugin:$version"
             const val serialization = "org.jetbrains.kotlin:kotlin-serialization:$version"
         }
-        const val android = "com.android.tools.build:gradle:4.2.0-beta04"
+        const val android = "com.android.tools.build:gradle:4.2.0-beta05"
         const val googleServices = "com.google.gms:google-services:4.3.4"
         const val daggerHilt = "com.google.dagger:hilt-android-gradle-plugin:${Dagger.version}"
         const val navSafeArgs = "androidx.navigation:navigation-safe-args-gradle-plugin:${Androidx.Navigation.version}"
@@ -30,13 +30,13 @@ object Deps {
     }
 
     object Androidx {
-        const val core = "androidx.core:core-ktx:1.5.0-beta01"
+        const val core = "androidx.core:core-ktx:1.5.0-beta02"
         const val activity = "androidx.activity:activity-ktx:1.2.0"
         const val fragment = "androidx.fragment:fragment-ktx:1.3.0"
         const val appCompat = "androidx.appcompat:appcompat:1.3.0-beta01"
         const val constraintLayout = "androidx.constraintlayout:constraintlayout:2.0.4"
         const val recyclerView = "androidx.recyclerview:recyclerview:1.2.0-beta01"
-        const val dataStore = "androidx.datastore:datastore-preferences:1.0.0-alpha06"
+        const val dataStore = "androidx.datastore:datastore-preferences:1.0.0-alpha07"
         const val preference = "androidx.preference:preference-ktx:1.1.1"
 
         object Navigation {
