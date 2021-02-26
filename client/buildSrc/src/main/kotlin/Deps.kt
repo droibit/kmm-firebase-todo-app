@@ -1,7 +1,7 @@
 object Deps {
     object Plugins {
         object Kotlin {
-            private const val version = "1.4.30"
+            private const val version = "1.4.31"
             const val gradle = "org.jetbrains.kotlin:kotlin-gradle-plugin:$version"
             const val serialization = "org.jetbrains.kotlin:kotlin-serialization:$version"
         }
@@ -25,8 +25,7 @@ object Deps {
     }
 
     object Stately {
-        const val common = "co.touchlab:stately-common:1.1.1"
-        const val isolate = "co.touchlab:stately-isolate:1.1.1-a1"
+        const val common = "co.touchlab:stately-common:1.1.4"
     }
 
     object Androidx {
@@ -54,7 +53,7 @@ object Deps {
     }
 
     object Dagger {
-        internal const val version = "2.32-alpha"
+        internal const val version = "2.33-beta"
         const val hilt = "com.google.dagger:hilt-android:$version"
         const val compiler = "com.google.dagger:hilt-android-compiler:$version"
     }
@@ -76,7 +75,7 @@ object Deps {
     }
 
     object Settings {
-        private const val version = "0.7.1"
+        private const val version = "0.7.3"
         const val core = "com.russhwolf:multiplatform-settings:$version"
         const val coroutines = "com.russhwolf:multiplatform-settings-coroutines-native-mt:$version"
         const val datastore = "com.russhwolf:multiplatform-settings-datastore:$version"
@@ -90,7 +89,7 @@ object Deps {
         const val junit = "junit:junit:4.13.1"
     }
 
-    const val serialization = "org.jetbrains.kotlinx:kotlinx-serialization-core:1.1.0-RC"
+    const val serialization = "org.jetbrains.kotlinx:kotlinx-serialization-core:1.1.0"
     const val materialDesign = "com.google.android.material:material:1.3.0"
     const val coil = "io.coil-kt:coil:1.1.1"
     const val napier = "com.github.aakira:napier:1.4.1"

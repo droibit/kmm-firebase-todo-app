@@ -35,7 +35,6 @@ kotlin {
                 implementation(Deps.Coroutines.core)
 
                 implementation(Deps.Stately.common)
-                implementation(Deps.Stately.isolate)
                 
                 api(Deps.Firebase.MPP.auth)
                 // implementation(Deps.Firebase.MPP.firestore)
