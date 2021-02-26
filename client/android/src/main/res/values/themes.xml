@@ -27,6 +27,24 @@
         <item name="colorOnSurface">@color/black_900</item>
         <item name="colorOnError">@color/white_50</item>
 
+        <item name="android:windowLightStatusBar" tools:ignore="NewApi">true</item>
+        <item name="android:windowLightNavigationBar" tools:ignore="NewApi">true</item>
+    </style>
+
+    <!--
+        Base application theme.
+        ref. https://github.com/material-components/material-components-android-examples/blob/develop/MaterialThemeBuilder/app/src/main/res/values/themes.xml
+     -->
+    <style name="Base.Theme.TodoApp" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <item name="android:statusBarColor" tools:ignore="NewApi">?attr/colorSurface</item>
+        <item name="android:navigationBarColor" tools:ignore="NewApi">
+            ?attr/colorSurface
+        </item>
+<!--        <item name="android:navigationBarDividerColor" tools:ignore="NewApi">-->
+<!--            ?attr/colorControlHighlight-->
+<!--        </item>-->
+
+
         <!--Material type attributes-->
         <item name="textAppearanceHeadline1">@style/TextAppearance.TodoApp.Headline1</item>
         <item name="textAppearanceHeadline2">@style/TextAppearance.TodoApp.Headline2</item>
@@ -41,26 +59,15 @@
         <item name="textAppearanceButton">@style/TextAppearance.TodoApp.Button</item>
         <item name="textAppearanceCaption">@style/TextAppearance.TodoApp.Caption</item>
         <item name="textAppearanceOverline">@style/TextAppearance.TodoApp.Overline</item>
-    </style>
 
-    <!--
-        Base application theme.
-        ref. https://github.com/material-components/material-components-android-examples/blob/develop/MaterialThemeBuilder/app/src/main/res/values/themes.xml
-     -->
-    <style name="Base.Theme.TodoApp" parent="Theme.MaterialComponents.DayNight.NoActionBar">
-        <item name="android:statusBarColor" tools:ignore="NewApi">?attr/colorSurface</item>
-        <item name="android:windowLightStatusBar" tools:ignore="NewApi">true</item>
-        <item name="android:navigationBarColor" tools:ignore="NewApi">
-            ?android:attr/colorBackground
-        </item>
-        <item name="android:windowLightNavigationBar" tools:ignore="NewApi">true</item>
-        <item name="android:navigationBarDividerColor" tools:ignore="NewApi">
-            ?attr/colorControlHighlight
-        </item>
         <!--Material shape attributes-->
-        <item name="shapeAppearanceSmallComponent">@style/ShapeAppearance.TodoApp.SmallComponent</item>
-        <item name="shapeAppearanceMediumComponent">@style/ShapeAppearance.TodoApp.MediumComponent</item>
-        <item name="shapeAppearanceLargeComponent">@style/ShapeAppearance.TodoApp.LargeComponent</item>
+        <item name="shapeAppearanceSmallComponent">@style/ShapeAppearance.TodoApp.SmallComponent
+        </item>
+        <item name="shapeAppearanceMediumComponent">@style/ShapeAppearance.TodoApp.MediumComponent
+        </item>
+        <item name="shapeAppearanceLargeComponent">@style/ShapeAppearance.TodoApp.LargeComponent
+        </item>
+
         <!--Component styles-->
         <item name="materialAlertDialogTheme">@style/ThemeOverlay.TodoApp.MaterialAlertDialog</item>
         <item name="toolbarStyle">@style/Widget.TodoApp.Toolbar</item>

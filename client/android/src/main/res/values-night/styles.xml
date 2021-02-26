@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Toolbar -->
+    <style name="Widget.TodoApp.Toolbar" parent="Widget.MaterialComponents.Toolbar.Surface">
+        <item name="titleTextColor">@color/material_on_surface_emphasis_high_type</item>
+        <item name="materialThemeOverlay">@style/ThemeOverlay.TodoApp.Toolbar.Surface</item>
+    </style>
+
+    <style name="ThemeOverlay.TodoApp.Toolbar.Surface" parent="@style/ThemeOverlay.MaterialComponents.Toolbar.Surface">
+        <item name="colorControlNormal">@color/material_on_surface_emphasis_high_type</item>
+        <item name="actionMenuTextColor">@color/material_on_surface_emphasis_high_type</item>
+    </style>
+</resources>

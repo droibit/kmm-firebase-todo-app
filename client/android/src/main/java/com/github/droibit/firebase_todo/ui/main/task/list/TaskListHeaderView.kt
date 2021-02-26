@@ -8,6 +8,7 @@ import com.github.droibit.firebase_todo.R
 import com.github.droibit.firebase_todo.shared.model.task.TaskFilter
 import com.github.droibit.firebase_todo.shared.model.task.TaskSorting
 import com.google.android.material.button.MaterialButton
+import com.google.android.material.color.MaterialColors
 
 class TaskListHeaderView @JvmOverloads constructor(
     context: Context,
@@ -23,6 +24,8 @@ class TaskListHeaderView @JvmOverloads constructor(
 
     init {
         View.inflate(context, R.layout.view_task_list_header, this)
+
+        setBackgroundColor(MaterialColors.getColor(this, R.attr.colorSurface))
 
         filterTaskButton = findViewById(R.id.filterTaskButton)
         filterTaskButton.setOnClickListener {

@@ -21,6 +21,7 @@
     <!--color on surface (dark), color on surface (dark)-->
     <color name="white_50">#ffffff</color>
 
+    <color name="black_700">#242424</color>
     <color name="black_800">#121212</color> <!--Color surface (dark)-->
     <color name="black_800_alpha_010">#19121212</color>
     <!--Color on secondary (light), color on background (light),-->
