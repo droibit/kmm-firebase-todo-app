@@ -7,7 +7,6 @@
 
     <!-- Bottom Navigation -->
     <style name="Widget.TodoApp.BottomNavigationView" parent="@style/Widget.MaterialComponents.BottomNavigationView">
-        <item name="android:background">?android:attr/colorBackground</item>
     </style>
 
     <!--
@@ -31,6 +30,5 @@
     </style>
 
     <style name="ThemeOverlay.TodoApp.MaterialAlertDialog" parent="ThemeOverlay.MaterialComponents.MaterialAlertDialog">
-
     </style>
 </resources>
