@@ -1,9 +1,56 @@
 rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
-    match /{document=**} {
-      allow read, write: if
-          request.time < timestamp.date(2021, 2, 17);
-    }
+
+    match /users/{userId} {
+      allow read: if isAuthenticated(); 
+
+      match /tasks/{taskId} {
+        allow read: if isUserAuthenticated();
+        allow create: if isUserAuthenticated() 
+                      && isValidTaskScheme(incomingData())
+                      && canCreateTask(incomingData());
+
+        function isValidTaskScheme(task) {
+          return task.size() == 4 
+            && 'title' in task && task.title is string
+            && 'description' in task && isStringOrNull(task.description)
+            && 'isCompleted' in task && task.isCompleted is bool
+            && 'createdAt' in task && task.createdAt is timestamp;
+        }
+
+        function canCreateTask(task) {
+          return hasSize(task.title, 1, 100)
+            && hasSizeOrNull(task.description, 1, 500)
+            && task.createdAt == request.time;
+        }
+      }
+
+      function isUserAuthenticated() {
+        return isAuthenticated() && request.auth.uid == userId;
+      }
+  }
+
+  function isAuthenticated() {
+    return request.auth != null;
+  }
+
+  function existingData() {
+    return resource.data;
+  }
+  function incomingData() {
+    return request.resource.data;
+  }
+
+  function isStringOrNull(value) {
+    return value is string || value == null;
+  }
+
+  function hasSize(value, min, max) {
+    return min <= value.size() && value.size() <= max;
+  }
+
+  function hasSizeOrNull(value, min, max) {
+    return (value == null || hasSize(value, min, max));
   }
 }
