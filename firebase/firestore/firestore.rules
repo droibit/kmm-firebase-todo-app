@@ -1,27 +1,29 @@
 rules_version = '2';
 service cloud.firestore {
+
   match /databases/{database}/documents {
 
     match /users/{userId} {
-      allow read: if isAuthenticated(); 
+      allow read: if isUserAuthenticated(); 
 
       match /tasks/{taskId} {
         allow read: if isUserAuthenticated();
-        allow create: if isUserAuthenticated() 
+        allow create: if isUserAuthenticated()
                       && isValidTaskScheme(incomingData())
                       && canCreateTask(incomingData());
 
         function isValidTaskScheme(task) {
           return task.size() == 4 
             && 'title' in task && task.title is string
-            && 'description' in task && isStringOrNull(task.description)
+            && 'description' in task && task.description is string
             && 'isCompleted' in task && task.isCompleted is bool
             && 'createdAt' in task && task.createdAt is timestamp;
         }
 
         function canCreateTask(task) {
           return hasSize(task.title, 1, 100)
-            && hasSizeOrNull(task.description, 1, 500)
+            && hasSize(task.description, 0, 500)
+            && task.isCompleted == false
             && task.createdAt == request.time;
         }
       }
@@ -29,28 +31,29 @@ service cloud.firestore {
       function isUserAuthenticated() {
         return isAuthenticated() && request.auth.uid == userId;
       }
-  }
+    }
 
-  function isAuthenticated() {
-    return request.auth != null;
-  }
+    function isAuthenticated() {
+      return request.auth != null;
+    }
 
-  function existingData() {
-    return resource.data;
-  }
-  function incomingData() {
-    return request.resource.data;
-  }
+    function existingData() {
+      return resource.data;
+    }
+    function incomingData() {
+      return request.resource.data;
+    }
 
-  function isStringOrNull(value) {
-    return value is string || value == null;
-  }
+    function isStringOrNull(value) {
+      return value is string || value == null;
+    }
 
-  function hasSize(value, min, max) {
-    return min <= value.size() && value.size() <= max;
-  }
+    function hasSize(value, min, max) {
+      return min <= value.size() && value.size() <= max;
+    }
 
-  function hasSizeOrNull(value, min, max) {
-    return (value == null || hasSize(value, min, max));
+    function hasSizeOrNull(value, min, max) {
+      return (value == null || hasSize(value, min, max));
+    }    
   }
 }

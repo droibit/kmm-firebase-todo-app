@@ -1,7 +1,8 @@
 {
   "name": "firestore-security-rules",
   "scripts": {
-    "test": "jest"
+    "test": "jest",
+    "test-on-emulators": "firebase emulators:exec --only firestore 'npm run test'"
   },
   "devDependencies": {
     "@firebase/rules-unit-testing": "^1.2.4",

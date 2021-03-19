@@ -1,5 +1,8 @@
 {
   "firestore": {
+    "predeploy": [
+      "npm --prefix \"$PROJECT_DIR/firestore\" run test-on-emulators"
+    ],
     "rules": "firestore/firestore.rules",
     "indexes": "firestore/firestore.indexes.json"
   },
