@@ -9,6 +9,7 @@ import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.DefaultLifecycleObserver
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.Lifecycle.Event.ON_RESUME
 import androidx.lifecycle.LifecycleEventObserver
@@ -44,8 +45,7 @@ class TaskListFragment :
     Fragment(),
     TaskListHeaderView.OnClickListener,
     TaskListAdapter.ItemClickListener,
-    Toolbar.OnMenuItemClickListener,
-    LifecycleEventObserver {
+    Toolbar.OnMenuItemClickListener {
 
     @Inject
     lateinit var listAdapter: TaskListAdapter
@@ -59,6 +59,24 @@ class TaskListFragment :
 
     private val currentBackStackEntry: NavBackStackEntry by lazy(NONE) {
         findNavController().getBackStackEntry(R.id.taskListFragment)
+    }
+
+    private val currentBackStackLifecycleObserver = object: DefaultLifecycleObserver {
+        override fun onResume(owner: LifecycleOwner) {
+            currentBackStackEntry.consumeResult<TaskFilter>(
+                RESULT_SELECTED_TASK_FILTER
+            )?.let {
+                Napier.d("Selected task filter: $it")
+                taskListViewModel.onTaskFilterChanged(it)
+            }
+
+            currentBackStackEntry.consumeResult<TaskSorting>(
+                RESULT_SELECTED_TASK_SORTING
+            )?.let {
+                Napier.d("Selected task sorting: $it")
+                taskListViewModel.onTaskSortingChange(it)
+            }
+        }
     }
 
     override fun onCreateView(
@@ -117,7 +135,7 @@ class TaskListFragment :
         }
 
         // ref. https://developer.android.com/guide/navigation/navigation-programmatic?hl=en
-        currentBackStackEntry.lifecycle.addObserver(this)
+        currentBackStackEntry.lifecycle.addObserver(currentBackStackLifecycleObserver)
 
         taskListViewModel.filterTaskNavigation.observe(viewLifecycleOwner) {
             it.consume()?.let { currentFilter ->
@@ -132,33 +150,9 @@ class TaskListFragment :
         }
     }
 
-    private fun beginDelayedTransition() {
-        TransitionManager.beginDelayedTransition(binding.root as ViewGroup)
-    }
-
-    override fun onStateChanged(source: LifecycleOwner, event: Lifecycle.Event) {
-        if (event != ON_RESUME) {
-            return
-        }
-
-        currentBackStackEntry.consumeResult<TaskFilter>(
-            RESULT_SELECTED_TASK_FILTER
-        )?.let {
-            Napier.d("Selected task filter: $it")
-            taskListViewModel.onTaskFilterChanged(it)
-        }
-
-        currentBackStackEntry.consumeResult<TaskSorting>(
-            RESULT_SELECTED_TASK_SORTING
-        )?.let {
-            Napier.d("Selected task sorting: $it")
-            taskListViewModel.onTaskSortingChange(it)
-        }
-    }
-
     override fun onDestroyView() {
         _binding = null
-        currentBackStackEntry.lifecycle.removeObserver(this)
+        currentBackStackEntry.lifecycle.removeObserver(currentBackStackLifecycleObserver)
         super.onDestroyView()
     }
 
