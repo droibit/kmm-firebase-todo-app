@@ -7,7 +7,7 @@ service cloud.firestore {
       allow read: if isUserAuthenticated(); 
 
       match /tasks/{taskId} {
-        allow read: if isUserAuthenticated();
+        allow read, delete: if isUserAuthenticated();
         allow create: if isUserAuthenticated()
                       && isValidTaskScheme(incomingData())
                       && canCreateTask(incomingData());

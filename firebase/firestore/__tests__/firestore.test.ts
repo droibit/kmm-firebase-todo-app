@@ -104,9 +104,10 @@ describe("Test `task` collection", () => {
   });
 
   describe("Create operation", () => {
+    const auth = { uid: "alice" };
+
     describe("Schema verification", () => {
       test("ドキュメントのキーが4つではない場合エラーとなること", async () => {
-        const auth = { uid: "alice" };
         const db = authedFirestore(auth);
         const tasksRef = db
           .collection("users")
@@ -129,7 +130,6 @@ describe("Test `task` collection", () => {
       });
 
       test("ドキュメントに未定義のキーが含まれている場合エラーとなること", async () => {
-        const auth = { uid: "alice" };
         const db = authedFirestore(auth);
         const tasksRef = db
           .collection("users")
@@ -146,7 +146,6 @@ describe("Test `task` collection", () => {
       });
 
       test("titleのがstring型では無い場合エラーになること", async () => {
-        const auth = { uid: "alice" };
         const db = authedFirestore(auth);
         const tasksRef = db
           .collection("users")
@@ -163,7 +162,6 @@ describe("Test `task` collection", () => {
       });
 
       test("descriptionがstring型では無い場合エラーになること", async () => {
-        const auth = { uid: "alice" };
         const db = authedFirestore(auth);
         const tasksRef = db
           .collection("users")
@@ -180,7 +178,6 @@ describe("Test `task` collection", () => {
       });
 
       test("completedがbool型では無い場合エラーになること", async () => {
-        const auth = { uid: "alice" };
         const db = authedFirestore(auth);
         const tasksRef = db
           .collection("users")
@@ -197,7 +194,6 @@ describe("Test `task` collection", () => {
       });
 
       test("createdAtがtimestamp型では無い場合エラーになること", async () => {
-        const auth = { uid: "alice" };
         const db = authedFirestore(auth);
         const tasksRef = db
           .collection("users")
@@ -216,7 +212,6 @@ describe("Test `task` collection", () => {
 
     describe("Data validation", () => {
       test("titleが1文字以上100以下ではない場合エラーになること", async () => {
-        const auth = { uid: "alice" };
         const db = authedFirestore(auth);
         const tasksRef = db
           .collection("users")
@@ -241,7 +236,6 @@ describe("Test `task` collection", () => {
       });
 
       test("descriptionが0文字以上500以下ではない場合エラーになること", async () => {
-        const auth = { uid: "alice" };
         const db = authedFirestore(auth);
         const tasksRef = db
           .collection("users")
@@ -258,7 +252,6 @@ describe("Test `task` collection", () => {
       });
 
       test("completedがtrueの場合エラーになること", async () => {
-        const auth = { uid: "alice" };
         const db = authedFirestore(auth);
         const tasksRef = db
           .collection("users")
@@ -502,6 +495,61 @@ describe("Test `task` collection", () => {
           completed: false,
         })
       );
+    });
+  });
+
+  describe("Delete Operation", () => {
+    const auth = { uid: "alice" };
+    const testTaskId = "task-1";
+
+    beforeEach(async () => {
+      const db = authedFirestore(auth);
+      const taskRef = db
+        .collection("users")
+        .doc(auth.uid)
+        .collection("tasks")
+        .doc(testTaskId);
+      await firebase.assertSucceeds(
+        taskRef.set({
+          title: "Task-1",
+          description: "",
+          completed: false,
+          createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+        })
+      );
+    });
+
+    test("未認証ユーザはタスクを削除できないこと", async () => {
+      const db = authedFirestore(null);
+      const taskRef = db
+        .collection("users")
+        .doc(auth.uid)
+        .collection("tasks")
+        .doc(testTaskId);
+
+      await firebase.assertFails(taskRef.delete());
+    });
+
+    test("他ユーザのタスクを削除できないこと", async () => {
+      const db = authedFirestore({ uid: "bob" });
+      const taskRef = db
+        .collection("users")
+        .doc(auth.uid)
+        .collection("tasks")
+        .doc(testTaskId);
+
+      await firebase.assertFails(taskRef.delete());
+    });
+
+    test("正常なタスクの場合は削除に成功すること", async () => {
+      const db = authedFirestore(auth);
+      const tasksRef = db
+        .collection("users")
+        .doc(auth.uid)
+        .collection("tasks")
+        .doc(testTaskId);
+
+      await firebase.assertSucceeds(tasksRef.delete());
     });
   });
 });
