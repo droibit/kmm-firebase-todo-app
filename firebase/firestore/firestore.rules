@@ -11,20 +11,29 @@ service cloud.firestore {
         allow create: if isUserAuthenticated()
                       && isValidTaskScheme(incomingData())
                       && canCreateTask(incomingData());
+        allow update: if isUserAuthenticated()
+                      && isValidTaskScheme(incomingData())
+                      && canUpdateTask(incomingData(), existingData());
 
         function isValidTaskScheme(task) {
           return task.size() == 4 
             && 'title' in task && task.title is string
             && 'description' in task && task.description is string
-            && 'isCompleted' in task && task.isCompleted is bool
+            && 'completed' in task && task.completed is bool
             && 'createdAt' in task && task.createdAt is timestamp;
         }
 
         function canCreateTask(task) {
           return hasSize(task.title, 1, 100)
             && hasSize(task.description, 0, 500)
-            && task.isCompleted == false
+            && task.completed == false
             && task.createdAt == request.time;
+        }
+
+        function canUpdateTask(newTask, oldTask) {
+          return hasSize(newTask.title, 1, 100)
+            && hasSize(newTask.description, 0, 500)
+            && newTask.createdAt == oldTask.createdAt;
         }
       }
 

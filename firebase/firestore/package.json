@@ -1,7 +1,7 @@
 {
   "name": "firestore-security-rules",
   "scripts": {
-    "test": "jest",
+    "test": "jest --detectOpenHandles",
     "test-on-emulators": "firebase emulators:exec --only firestore 'npm run test'"
   },
   "devDependencies": {

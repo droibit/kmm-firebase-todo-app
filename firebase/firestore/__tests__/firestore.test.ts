@@ -1,29 +1,12 @@
 import * as firebase from "@firebase/rules-unit-testing";
 import * as fs from "fs";
 import * as http from "http";
-
-// ref. https://github.com/firebase/quickstart-testing/blob/master/unit-test-security-rules/test/firestore.spec.js
-
-/**
- * The emulator will accept any project ID for testing.
- */
-const PROJECT_ID = "firebase-todo";
-
-/**
- * The FIRESTORE_EMULATOR_HOST environment variable is set automatically
- * by "firebase emulators:exec"
- */
-const COVERAGE_URL = `http://${process.env.FIRESTORE_EMULATOR_HOST}/emulator/v1/projects/${PROJECT_ID}:ruleCoverage.html`;
-
-function authedFirestore(auth: any) {
-  return firebase
-    .initializeTestApp({ projectId: PROJECT_ID, auth })
-    .firestore();
-}
-
-function adminFirestore() {
-  return firebase.initializeAdminApp({ projectId: PROJECT_ID }).firestore();
-}
+import {
+  PROJECT_ID,
+  COVERAGE_URL,
+  authedFirestore,
+  adminFirestore,
+} from "./firestore-utils";
 
 beforeAll(async () => {
   // Load the rules file before the tests begin
@@ -89,14 +72,6 @@ describe("Test `users` collection", () => {
   });
 });
 
-// // TODO: Share types with functions project.
-// interface Task {
-//   title: string;
-//   description: string;
-//   isCompleted: boolean;
-//   createdAt: any;
-// }
-
 describe("Test `task` collection", () => {
   describe("Read operation", () => {
     test("未認証ユーザはタスクを取得できないこと", async () => {
@@ -144,11 +119,28 @@ describe("Test `task` collection", () => {
         );
         await firebase.assertFails(
           tasksRef.add({
-            title1: "Error",
-            title2: "Error",
-            title3: "Error",
-            title4: "Error",
-            title5: "Error",
+            title: "1",
+            description: "",
+            completed: false,
+            createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+            unknownField: "Error",
+          })
+        );
+      });
+
+      test("ドキュメントに未定義のキーが含まれている場合エラーとなること", async () => {
+        const auth = { uid: "alice" };
+        const db = authedFirestore(auth);
+        const tasksRef = db
+          .collection("users")
+          .doc(auth.uid)
+          .collection("tasks");
+        await firebase.assertFails(
+          tasksRef.add({
+            title: "1",
+            description: "",
+            completed: false,
+            unknownField: "Error",
           })
         );
       });
@@ -164,7 +156,7 @@ describe("Test `task` collection", () => {
           tasksRef.add({
             title: 1,
             description: "",
-            isCompleted: false,
+            completed: false,
             createdAt: firebase.firestore.FieldValue.serverTimestamp(),
           })
         );
@@ -181,13 +173,13 @@ describe("Test `task` collection", () => {
           tasksRef.add({
             title: "Error",
             description: 1,
-            isCompleted: false,
+            completed: false,
             createdAt: firebase.firestore.FieldValue.serverTimestamp(),
           })
         );
       });
 
-      test("isCompletedがbool型では無い場合エラーになること", async () => {
+      test("completedがbool型では無い場合エラーになること", async () => {
         const auth = { uid: "alice" };
         const db = authedFirestore(auth);
         const tasksRef = db
@@ -198,7 +190,7 @@ describe("Test `task` collection", () => {
           tasksRef.add({
             title: "Error",
             description: "",
-            isCompleted: "false",
+            completed: "false",
             createdAt: firebase.firestore.FieldValue.serverTimestamp(),
           })
         );
@@ -215,8 +207,8 @@ describe("Test `task` collection", () => {
           tasksRef.add({
             title: "Error",
             description: "",
-            isCompleted: false,
-            createdAt: 0,
+            completed: false,
+            createdAt: "0",
           })
         );
       });
@@ -234,7 +226,7 @@ describe("Test `task` collection", () => {
           tasksRef.add({
             title: "",
             description: "",
-            isCompleted: false,
+            completed: false,
             createdAt: firebase.firestore.FieldValue.serverTimestamp(),
           })
         );
@@ -242,7 +234,7 @@ describe("Test `task` collection", () => {
           tasksRef.add({
             title: "a".repeat(101),
             description: "",
-            isCompleted: false,
+            completed: false,
             createdAt: firebase.firestore.FieldValue.serverTimestamp(),
           })
         );
@@ -259,13 +251,13 @@ describe("Test `task` collection", () => {
           tasksRef.add({
             title: "Error",
             description: "a".repeat(501),
-            isCompleted: false,
+            completed: false,
             createdAt: firebase.firestore.FieldValue.serverTimestamp(),
           })
         );
       });
 
-      test("isCompletedがtrueの場合エラーになること", async () => {
+      test("completedがtrueの場合エラーになること", async () => {
         const auth = { uid: "alice" };
         const db = authedFirestore(auth);
         const tasksRef = db
@@ -276,13 +268,41 @@ describe("Test `task` collection", () => {
           tasksRef.add({
             title: "Error",
             description: "",
-            isCompleted: true,
+            completed: true,
             createdAt: firebase.firestore.FieldValue.serverTimestamp(),
           })
         );
       });
 
       // TODO: Is createdAt data validation possible?
+    });
+
+    test("未認証ユーザはタスクを作成できないこと", async () => {
+      const db = authedFirestore(null);
+      const tasksRef = db.collection("users").doc("alice").collection("tasks");
+
+      await firebase.assertFails(
+        tasksRef.add({
+          title: "Error",
+          description: "",
+          completed: false,
+          createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+        })
+      );
+    });
+
+    test("他ユーザのタスクを作成できないこと", async () => {
+      const db = authedFirestore({ uid: "bob" });
+      const tasksRef = db.collection("users").doc("alice").collection("tasks");
+
+      await firebase.assertFails(
+        tasksRef.add({
+          title: "Error",
+          description: "",
+          completed: false,
+          createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+        })
+      );
     });
 
     test("正常なタスクの場合は作成に成功すること", async () => {
@@ -294,7 +314,7 @@ describe("Test `task` collection", () => {
         tasksRef.add({
           title: "1",
           description: "",
-          isCompleted: false,
+          completed: false,
           createdAt: firebase.firestore.FieldValue.serverTimestamp(),
         })
       );
@@ -303,8 +323,183 @@ describe("Test `task` collection", () => {
         tasksRef.add({
           title: "a".repeat(100),
           description: "b".repeat(500),
-          isCompleted: false,
+          completed: false,
           createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+        })
+      );
+    });
+  });
+
+  describe("Update Operation", () => {
+    const auth = { uid: "alice" };
+    const testTaskId = "task-1";
+
+    beforeEach(async () => {
+      const db = authedFirestore(auth);
+      const taskRef = db
+        .collection("users")
+        .doc(auth.uid)
+        .collection("tasks")
+        .doc(testTaskId);
+      await firebase.assertSucceeds(
+        taskRef.set({
+          title: "Task-1",
+          description: "",
+          completed: false,
+          createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+        })
+      );
+    });
+
+    describe("Schema verification", () => {
+      test("ドキュメントのキーが4つではない場合エラーとなること", async () => {
+        const db = authedFirestore(auth);
+        const taskRef = db
+          .collection("users")
+          .doc(auth.uid)
+          .collection("tasks")
+          .doc(testTaskId);
+        await firebase.assertFails(
+          taskRef.update({
+            title: "Task-1",
+            description: "",
+            completed: false,
+            unknownField1: "",
+            unknownField2: "",
+          })
+        );
+      });
+
+      test("ドキュメントに未定義のキーが含まれている場合エラーとなること", async () => {
+        const db = authedFirestore(auth);
+        const taskRef = db
+          .collection("users")
+          .doc(auth.uid)
+          .collection("tasks")
+          .doc(testTaskId);
+        await firebase.assertFails(
+          taskRef.update({
+            title: "Task-1",
+            description: "",
+            completed: false,
+            unknownField: "",
+          })
+        );
+      });
+
+      test("titleのがstring型では無い場合エラーになること", async () => {
+        const auth = { uid: "alice" };
+        const db = authedFirestore(auth);
+        const taskRef = db
+          .collection("users")
+          .doc(auth.uid)
+          .collection("tasks")
+          .doc(testTaskId);
+        await firebase.assertFails(taskRef.update({ title: 1 }));
+      });
+
+      test("descriptionがstring型では無い場合エラーになること", async () => {
+        const auth = { uid: "alice" };
+        const db = authedFirestore(auth);
+        const taskRef = db
+          .collection("users")
+          .doc(auth.uid)
+          .collection("tasks")
+          .doc(testTaskId);
+        await firebase.assertFails(taskRef.update({ description: 1 }));
+      });
+
+      test("completedがbool型では無い場合エラーになること", async () => {
+        const auth = { uid: "alice" };
+        const db = authedFirestore(auth);
+        const taskRef = db
+          .collection("users")
+          .doc(auth.uid)
+          .collection("tasks")
+          .doc(testTaskId);
+        await firebase.assertFails(taskRef.update({ completed: "false" }));
+      });
+
+      test("createdAtがtimestamp型では無い場合エラーになること", async () => {
+        const auth = { uid: "alice" };
+        const db = authedFirestore(auth);
+        const taskRef = db
+          .collection("users")
+          .doc(auth.uid)
+          .collection("tasks")
+          .doc(testTaskId);
+        await firebase.assertFails(taskRef.update({ createdAt: "0" }));
+      });
+    });
+
+    describe("Data verification", () => {
+      test("titleが1文字以上100以下ではない場合エラーになること", async () => {
+        const db = authedFirestore(auth);
+        const taskRef = db
+          .collection("users")
+          .doc(auth.uid)
+          .collection("tasks")
+          .doc(testTaskId);
+        await firebase.assertFails(taskRef.update({ title: "" }));
+        await firebase.assertFails(taskRef.update({ title: "a".repeat(101) }));
+      });
+
+      test("descriptionが0文字以上500以下ではない場合エラーになること", async () => {
+        const db = authedFirestore(auth);
+        const taskRef = db
+          .collection("users")
+          .doc(auth.uid)
+          .collection("tasks")
+          .doc(testTaskId);
+        await firebase.assertFails(
+          taskRef.update({ description: "a".repeat(501) })
+        );
+      });
+    });
+
+    test("未認証ユーザはタスクを更新できないこと", async () => {
+      const db = authedFirestore(null);
+      const taskRef = db
+        .collection("users")
+        .doc(auth.uid)
+        .collection("tasks")
+        .doc(testTaskId);
+
+      await firebase.assertFails(taskRef.update({ completed: true }));
+    });
+
+    test("他ユーザのタスクを更新できないこと", async () => {
+      const db = authedFirestore({ uid: "bob" });
+      const taskRef = db
+        .collection("users")
+        .doc(auth.uid)
+        .collection("tasks")
+        .doc(testTaskId);
+
+      await firebase.assertFails(taskRef.update({ completed: true }));
+    });
+
+    test("正常なタスクの場合は更新に成功すること", async () => {
+      const db = authedFirestore(auth);
+      const tasksRef = db
+        .collection("users")
+        .doc(auth.uid)
+        .collection("tasks")
+        .doc(testTaskId);
+
+      await firebase.assertSucceeds(
+        tasksRef.update({
+          title: "a",
+          description: "",
+          completed: true,
+        })
+      );
+
+      await firebase.assertSucceeds(
+        tasksRef.update({
+          title: "a".repeat(100),
+          description: "b".repeat(500),
+          completed: false,
         })
       );
     });
