@@ -37,6 +37,11 @@ service cloud.firestore {
         }
       }
 
+      match /statistics/{statisticsId} {
+        allow read: if isUserAuthenticated() 
+                    && statisticsId == 'task';
+      }
+
       function isUserAuthenticated() {
         return isAuthenticated() && request.auth.uid == userId;
       }
