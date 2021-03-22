@@ -4,5 +4,12 @@
   "editor.codeActionsOnSave": {
     "source.fixAll.eslint": true
   },
-  "git.ignoreLimitWarning": true
+  "git.ignoreLimitWarning": true,
+  "search.exclude": {
+    "**/node_modules": true,
+    "**/*.code-search": true,
+    "**/lib": true,
+    "**/build": true,
+    "**/Carthage": true
+  }
 }
