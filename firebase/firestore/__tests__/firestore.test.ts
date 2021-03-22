@@ -110,13 +110,16 @@ describe("Test `task` collection", () => {
 
   describe("Create operation", () => {
     describe("Schema verification", () => {
-      test("ドキュメントのキーが4つではない場合エラーとなること", async () => {
+      test("ドキュメントのキーが規定数ではない場合エラーとなること", async () => {
         const db = authedFirestore(testAuth);
         const tasksRef = db.collection(`users/${testAuth.uid}/tasks`);
 
         await firebase.assertFails(
           tasksRef.add({
-            title: "Error",
+            title: "1",
+            description: "",
+            completed: false,
+            createdAt: firebase.firestore.FieldValue.serverTimestamp(),
           })
         );
         await firebase.assertFails(
@@ -125,20 +128,7 @@ describe("Test `task` collection", () => {
             description: "",
             completed: false,
             createdAt: firebase.firestore.FieldValue.serverTimestamp(),
-            unknownField: "Error",
-          })
-        );
-      });
-
-      test("ドキュメントに未定義のキーが含まれている場合エラーとなること", async () => {
-        const db = authedFirestore(testAuth);
-        const tasksRef = db.collection(`users/${testAuth.uid}/tasks`);
-
-        await firebase.assertFails(
-          tasksRef.add({
-            title: "1",
-            description: "",
-            completed: false,
+            updatedAt: firebase.firestore.FieldValue.serverTimestamp(),
             unknownField: "Error",
           })
         );
@@ -154,6 +144,7 @@ describe("Test `task` collection", () => {
             description: "",
             completed: false,
             createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+            updatedAt: firebase.firestore.FieldValue.serverTimestamp(),
           })
         );
       });
@@ -168,6 +159,7 @@ describe("Test `task` collection", () => {
             description: 1,
             completed: false,
             createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+            updatedAt: firebase.firestore.FieldValue.serverTimestamp(),
           })
         );
       });
@@ -182,6 +174,7 @@ describe("Test `task` collection", () => {
             description: "",
             completed: "false",
             createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+            updatedAt: firebase.firestore.FieldValue.serverTimestamp(),
           })
         );
       });
@@ -196,6 +189,22 @@ describe("Test `task` collection", () => {
             description: "",
             completed: false,
             createdAt: "0",
+            updatedAt: firebase.firestore.FieldValue.serverTimestamp(),
+          })
+        );
+      });
+
+      test("updatedAtがtimestamp型では無い場合エラーになること", async () => {
+        const db = authedFirestore(testAuth);
+        const tasksRef = db.collection(`users/${testAuth.uid}/tasks`);
+
+        await firebase.assertFails(
+          tasksRef.add({
+            title: "Error",
+            description: "",
+            completed: false,
+            createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+            updatedAt: "0",
           })
         );
       });
@@ -212,6 +221,7 @@ describe("Test `task` collection", () => {
             description: "",
             completed: false,
             createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+            updatedAt: firebase.firestore.FieldValue.serverTimestamp(),
           })
         );
         await firebase.assertFails(
@@ -220,6 +230,7 @@ describe("Test `task` collection", () => {
             description: "",
             completed: false,
             createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+            updatedAt: firebase.firestore.FieldValue.serverTimestamp(),
           })
         );
       });
@@ -234,6 +245,7 @@ describe("Test `task` collection", () => {
             description: "a".repeat(501),
             completed: false,
             createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+            updatedAt: firebase.firestore.FieldValue.serverTimestamp(),
           })
         );
       });
@@ -248,11 +260,12 @@ describe("Test `task` collection", () => {
             description: "",
             completed: true,
             createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+            updatedAt: firebase.firestore.FieldValue.serverTimestamp(),
           })
         );
       });
 
-      // TODO: Is createdAt data validation possible?
+      // TODO: Is timestamp validation possible?
     });
 
     test("未認証ユーザはタスクを作成できないこと", async () => {
@@ -265,6 +278,7 @@ describe("Test `task` collection", () => {
           description: "",
           completed: false,
           createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+          updatedAt: firebase.firestore.FieldValue.serverTimestamp(),
         })
       );
     });
@@ -279,6 +293,7 @@ describe("Test `task` collection", () => {
           description: "",
           completed: false,
           createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+          updatedAt: firebase.firestore.FieldValue.serverTimestamp(),
         })
       );
     });
@@ -293,6 +308,7 @@ describe("Test `task` collection", () => {
           description: "",
           completed: false,
           createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+          updatedAt: firebase.firestore.FieldValue.serverTimestamp(),
         })
       );
 
@@ -302,6 +318,7 @@ describe("Test `task` collection", () => {
           description: "b".repeat(500),
           completed: false,
           createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+          updatedAt: firebase.firestore.FieldValue.serverTimestamp(),
         })
       );
     });
@@ -320,12 +337,13 @@ describe("Test `task` collection", () => {
           description: "",
           completed: false,
           createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+          updatedAt: firebase.firestore.FieldValue.serverTimestamp(),
         })
       );
     });
 
     describe("Schema verification", () => {
-      test("ドキュメントのキーが4つではない場合エラーとなること", async () => {
+      test("ドキュメントのキーが規定数ではない場合エラーとなること", async () => {
         const db = authedFirestore(testAuth);
         const taskRef = db.doc(`users/${testAuth.uid}/tasks/${testTaskId}`);
 
@@ -336,20 +354,7 @@ describe("Test `task` collection", () => {
             completed: false,
             unknownField1: "",
             unknownField2: "",
-          })
-        );
-      });
-
-      test("ドキュメントに未定義のキーが含まれている場合エラーとなること", async () => {
-        const db = authedFirestore(testAuth);
-        const taskRef = db.doc(`users/${testAuth.uid}/tasks/${testTaskId}`);
-
-        await firebase.assertFails(
-          taskRef.update({
-            title: "Task-1",
-            description: "",
-            completed: false,
-            unknownField: "",
+            updatedAt: firebase.firestore.FieldValue.serverTimestamp(),
           })
         );
       });
@@ -358,28 +363,55 @@ describe("Test `task` collection", () => {
         const db = authedFirestore(testAuth);
         const taskRef = db.doc(`users/${testAuth.uid}/tasks/${testTaskId}`);
 
-        await firebase.assertFails(taskRef.update({ title: 1 }));
+        await firebase.assertFails(
+          taskRef.update({
+            title: 1,
+            updatedAt: firebase.firestore.FieldValue.serverTimestamp(),
+          })
+        );
       });
 
       test("descriptionがstring型では無い場合エラーになること", async () => {
         const db = authedFirestore(testAuth);
         const taskRef = db.doc(`users/${testAuth.uid}/tasks/${testTaskId}`);
 
-        await firebase.assertFails(taskRef.update({ description: 1 }));
+        await firebase.assertFails(
+          taskRef.update({
+            description: 1,
+            updatedAt: firebase.firestore.FieldValue.serverTimestamp(),
+          })
+        );
       });
 
       test("completedがbool型では無い場合エラーになること", async () => {
         const db = authedFirestore(testAuth);
         const taskRef = db.doc(`users/${testAuth.uid}/tasks/${testTaskId}`);
 
-        await firebase.assertFails(taskRef.update({ completed: "false" }));
+        await firebase.assertFails(
+          taskRef.update({
+            completed: "false",
+            updatedAt: firebase.firestore.FieldValue.serverTimestamp(),
+          })
+        );
       });
 
       test("createdAtがtimestamp型では無い場合エラーになること", async () => {
         const db = authedFirestore(testAuth);
         const taskRef = db.doc(`users/${testAuth.uid}/tasks/${testTaskId}`);
 
-        await firebase.assertFails(taskRef.update({ createdAt: "0" }));
+        await firebase.assertFails(
+          taskRef.update({
+            createdAt: "0",
+            updatedAt: firebase.firestore.FieldValue.serverTimestamp(),
+          })
+        );
+      });
+
+      test("updateddAtがtimestamp型では無い場合エラーになること", async () => {
+        const db = authedFirestore(testAuth);
+        const taskRef = db.doc(`users/${testAuth.uid}/tasks/${testTaskId}`);
+
+        await firebase.assertFails(taskRef.update({ updatedAt: "0" }));
       });
     });
 
@@ -388,8 +420,18 @@ describe("Test `task` collection", () => {
         const db = authedFirestore(testAuth);
         const taskRef = db.doc(`users/${testAuth.uid}/tasks/${testTaskId}`);
 
-        await firebase.assertFails(taskRef.update({ title: "" }));
-        await firebase.assertFails(taskRef.update({ title: "a".repeat(101) }));
+        await firebase.assertFails(
+          taskRef.update({
+            title: "",
+            updatedAt: firebase.firestore.FieldValue.serverTimestamp(),
+          })
+        );
+        await firebase.assertFails(
+          taskRef.update({
+            title: "a".repeat(101),
+            updatedAt: firebase.firestore.FieldValue.serverTimestamp(),
+          })
+        );
       });
 
       test("descriptionが0文字以上500以下ではない場合エラーになること", async () => {
@@ -397,7 +439,22 @@ describe("Test `task` collection", () => {
         const taskRef = db.doc(`users/${testAuth.uid}/tasks/${testTaskId}`);
 
         await firebase.assertFails(
-          taskRef.update({ description: "a".repeat(501) })
+          taskRef.update({
+            description: "a".repeat(501),
+            updatedAt: firebase.firestore.FieldValue.serverTimestamp(),
+          })
+        );
+      });
+
+      test("createdAtが変更されている場合エラーになること", async () => {
+        const db = authedFirestore(testAuth);
+        const taskRef = db.doc(`users/${testAuth.uid}/tasks/${testTaskId}`);
+
+        await firebase.assertFails(
+          taskRef.update({
+            createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+            updatedAt: firebase.firestore.FieldValue.serverTimestamp(),
+          })
         );
       });
     });
@@ -406,14 +463,24 @@ describe("Test `task` collection", () => {
       const db = authedFirestore(null);
       const taskRef = db.doc(`users/${testAuth.uid}/tasks/${testTaskId}`);
 
-      await firebase.assertFails(taskRef.update({ completed: true }));
+      await firebase.assertFails(
+        taskRef.update({
+          completed: true,
+          updatedAt: firebase.firestore.FieldValue.serverTimestamp(),
+        })
+      );
     });
 
     test("他ユーザのタスクを更新できないこと", async () => {
       const db = authedFirestore({ uid: "bob" });
       const taskRef = db.doc(`users/${testAuth.uid}/tasks/${testTaskId}`);
 
-      await firebase.assertFails(taskRef.update({ completed: true }));
+      await firebase.assertFails(
+        taskRef.update({
+          completed: true,
+          updatedAt: firebase.firestore.FieldValue.serverTimestamp(),
+        })
+      );
     });
 
     test("正常なタスクの場合は更新に成功すること", async () => {
@@ -425,6 +492,7 @@ describe("Test `task` collection", () => {
           title: "a",
           description: "",
           completed: true,
+          updatedAt: firebase.firestore.FieldValue.serverTimestamp(),
         })
       );
 
@@ -433,6 +501,7 @@ describe("Test `task` collection", () => {
           title: "a".repeat(100),
           description: "b".repeat(500),
           completed: false,
+          updatedAt: firebase.firestore.FieldValue.serverTimestamp(),
         })
       );
     });
@@ -451,6 +520,7 @@ describe("Test `task` collection", () => {
           description: "",
           completed: false,
           createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+          updatedAt: firebase.firestore.FieldValue.serverTimestamp(),
         })
       );
     });
