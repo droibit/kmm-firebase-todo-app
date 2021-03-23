@@ -1,4 +1,5 @@
 import * as firebase from "@firebase/rules-unit-testing";
+import { TokenOptions } from "@firebase/rules-unit-testing/dist/src/api";
 import * as fs from "fs";
 import * as http from "http";
 import {
@@ -40,7 +41,7 @@ afterAll(async () => {
 });
 
 describe("Test `users` collection", () => {
-  const testAuth = { uid: "alice" };
+  const testAuth: TokenOptions = { uid: "alice" };
 
   describe("Read operation", () => {
     test("未認証ユーザはユーザ情報を取得できないこと", async () => {
@@ -74,7 +75,7 @@ describe("Test `users` collection", () => {
 });
 
 describe("Test `task` collection", () => {
-  const testAuth = { uid: "alice" };
+  const testAuth: TokenOptions = { uid: "alice" };
 
   describe("Read operation", () => {
     test("未認証ユーザはタスクを取得できないこと", async () => {
@@ -549,7 +550,7 @@ describe("Test `task` collection", () => {
 });
 
 describe("Test `statistics` document", () => {
-  const testAuth = { uid: "alice" };
+  const testAuth: TokenOptions = { uid: "alice" };
 
   describe("Read operation", () => {
     test("未認証ユーザはタスク統計を取得できないこと", async () => {

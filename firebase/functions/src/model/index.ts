@@ -1,6 +1,6 @@
 export interface Statistics {
-  readonly numberOfActiveTasks: FirebaseFirestore.FieldValue | number;
-  readonly numberOfCompletedTask: FirebaseFirestore.FieldValue | number;
+  readonly numberOfActiveTasks: number;
+  readonly numberOfCompletedTask: number;
   readonly updatedAt:
     | FirebaseFirestore.Timestamp
     | FirebaseFirestore.FieldValue;
