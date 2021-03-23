@@ -1,7 +1,7 @@
 import * as testInitializer from "firebase-functions-test";
 import * as admin from "firebase-admin";
 import { Statistics, User } from "../src/model";
-import * as userFunctions from "../src/user";
+import * as userFunctions from "../src/user-functions";
 
 // ref. https://github.com/firebase/quickstart-testing/tree/master/unit-test-cloud-functions
 

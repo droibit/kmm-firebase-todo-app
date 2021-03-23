@@ -1,5 +1,3 @@
-import * as admin from "firebase-admin";
-
 export interface Statistics {
   readonly numberOfActiveTasks: number;
   readonly numberOfCompletedTask: number;
