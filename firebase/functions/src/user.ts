@@ -19,5 +19,5 @@ export const onAuthUserCreate = functions.auth.user().onCreate(async (user) => {
   };
   newUserRef.collection("statistics").doc("task").set(initialStatistics);
 
-  batch.commit();
+  await batch.commit();
 });
