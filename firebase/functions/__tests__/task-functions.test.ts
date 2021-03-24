@@ -1,7 +1,7 @@
 import * as admin from "firebase-admin";
 import * as testInitializer from "firebase-functions-test";
 import { ContextOptions } from "firebase-functions-test/lib/main";
-import { Statistics, Task } from "../src/model";
+import { DocumentData, Statistics, Task } from "../src/model";
 import * as taskFunctions from "../src/task-functions";
 
 const functionsTest = testInitializer({
@@ -28,12 +28,12 @@ describe("#onUpdateTask", () => {
       numberOfActiveTasks: 0,
       numberOfCompletedTasks: 0,
       updatedAt: admin.firestore.Timestamp.fromMillis(1616425199),
-    } as Statistics);
+    } as DocumentData<Statistics>);
 
     const onCreateWrapped = functionsTest.wrap(taskFunctions.onCreateTask);
 
     // Create/Update at 2021-03-23 00:00:00.
-    const initialTask: Task = {
+    const initialTask: DocumentData<Task> = {
       title: "Test Task",
       description: "",
       completed: false,
@@ -54,8 +54,8 @@ describe("#onUpdateTask", () => {
     await onCreateWrapped(taskSnapshot, context);
     await onCreateWrapped(taskSnapshot, context);
 
-    const actualStatistics1 = (await statisticsRef.get()).data() as Statistics;
-    expect(actualStatistics1).toEqual({
+    const actualStatistics = (await statisticsRef.get()).data() as Statistics;
+    expect(actualStatistics).toEqual({
       numberOfActiveTasks: 1,
       numberOfCompletedTasks: 0,
       updatedAt: initialTask.createdAt,
@@ -65,7 +65,7 @@ describe("#onUpdateTask", () => {
 
 describe("#onUpdateTask", () => {
   // Create/Update at 2021-03-23 00:00:00.
-  const initialTask: Task = {
+  const initialTask: DocumentData<Task> = {
     title: "Test Task",
     description: "",
     completed: false,
@@ -87,11 +87,11 @@ describe("#onUpdateTask", () => {
       numberOfActiveTasks: 1,
       numberOfCompletedTasks: 0,
       updatedAt: initialTask.updatedAt,
-    } as Statistics);
+    } as DocumentData<Statistics>);
 
     const onUpdateWrapped = functionsTest.wrap(taskFunctions.onUpdateTask);
 
-    const completedTask: Task = {
+    const completedTask: DocumentData<Task> = {
       ...initialTask,
       completed: true,
       updatedAt: admin.firestore.Timestamp.fromMillis(1616425300),
@@ -115,7 +115,7 @@ describe("#onUpdateTask", () => {
       updatedAt: completedTask.updatedAt,
     } as Statistics);
 
-    const activeTask: Task = {
+    const activeTask: DocumentData<Task> = {
       ...initialTask,
       completed: false,
       updatedAt: admin.firestore.Timestamp.fromMillis(1616425400),
@@ -148,11 +148,11 @@ describe("#onUpdateTask", () => {
       numberOfActiveTasks: 1,
       numberOfCompletedTasks: 0,
       updatedAt: initialTask.updatedAt,
-    } as Statistics);
+    } as DocumentData<Statistics>);
 
     const onUpdateWrapped = functionsTest.wrap(taskFunctions.onUpdateTask);
 
-    const updateTask: Task = {
+    const updateTask: DocumentData<Task> = {
       ...initialTask,
       updatedAt: admin.firestore.Timestamp.fromMillis(1616425300),
     };
@@ -166,7 +166,6 @@ describe("#onUpdateTask", () => {
         `users/${userId}/tasks/${taskId}`
       )
     );
-
     await onUpdateWrapped(changeToBeCompleted, {
       params: { userId, taskId },
     });

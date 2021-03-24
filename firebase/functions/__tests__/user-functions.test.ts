@@ -1,6 +1,6 @@
 import * as testInitializer from "firebase-functions-test";
 import * as admin from "firebase-admin";
-import { Statistics, User } from "../src/model";
+import { DocumentData, Statistics, User } from "../src/model";
 import * as userFunctions from "../src/user-functions";
 
 // ref. https://github.com/firebase/quickstart-testing/tree/master/unit-test-cloud-functions
@@ -36,7 +36,7 @@ describe("#onAuthUserCreate", () => {
     expect(userSnapshot.data()).toEqual({
       name: displayName,
       photoURL,
-    } as User);
+    } as DocumentData<User>);
 
     const statisticsSnapshot = await admin
       .firestore()

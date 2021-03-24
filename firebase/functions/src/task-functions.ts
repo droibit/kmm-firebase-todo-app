@@ -1,6 +1,6 @@
 import * as functions from "firebase-functions";
 import * as admin from "firebase-admin";
-import { Statistics, Task } from "./model";
+import { DocumentData, Statistics, Task } from "./model";
 
 export const onCreateTask = functions.firestore
   .document("users/{userId}/tasks/{taskId}")
@@ -17,7 +17,7 @@ export const onCreateTask = functions.firestore
     await statisticsRef.update({
       numberOfActiveTasks: admin.firestore.FieldValue.increment(1),
       updatedAt: task.createdAt,
-    });
+    } as DocumentData<Statistics>);
   });
 
 export const onUpdateTask = functions.firestore
@@ -42,11 +42,11 @@ export const onUpdateTask = functions.firestore
         return;
       }
 
-      let newStatistics: Partial<Statistics>;
       const {
         numberOfActiveTasks,
         numberOfCompletedTasks: numberOfCompletedTask,
       } = statistics;
+      let newStatistics: DocumentData<Statistics>;
       if (newTask.completed) {
         newStatistics = {
           numberOfActiveTasks: Math.max(numberOfActiveTasks - 1, 0),
@@ -61,11 +61,10 @@ export const onUpdateTask = functions.firestore
         console.log("numberOfActiveTasks:+1, numberOfCompletedTask:-1");
       }
 
-      await transaction.set(statisticsRef, {
+      transaction.set(statisticsRef, {
         ...newStatistics,
         updatedAt: newTask.updatedAt,
-      } as Partial<Statistics>);
+      } as DocumentData<Statistics>);
     });
   });
 
-// export const onDelete
