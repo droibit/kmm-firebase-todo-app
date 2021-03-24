@@ -1,23 +1,24 @@
 import * as functions from "firebase-functions";
 import * as admin from "firebase-admin";
-import { Statistics, User } from "./model";
+import { DocumentData, Statistics, User } from "./model";
 
-export const onCreateAuthUser = functions.auth.user().onCreate(async (user) => {
-  const batch = admin.firestore().batch();
+export const onCreateAuthUser = functions.auth
+  .user()
+  .onCreate(async (user, context) => {
+    const batch = admin.firestore().batch();
 
-  const newUser: User = {
-    name: user.displayName!,
-    photoURL: user.photoURL,
-  };
-  const newUserRef = admin.firestore().doc(`users/${user.uid}`);
-  newUserRef.set(newUser);
+    const newUserRef = admin.firestore().doc(`users/${user.uid}`);
+    const newStatisticsRef = newUserRef.collection("statistics").doc("task");
+    batch
+      .create(newUserRef, {
+        name: user.displayName!,
+        photoURL: user.photoURL,
+      } as DocumentData<User>)
+      .create(newStatisticsRef, {
+        numberOfActiveTasks: 0,
+        numberOfCompletedTasks: 0,
+        updatedAt: admin.firestore.FieldValue.serverTimestamp(),
+      } as DocumentData<Statistics>);
 
-  const initialStatistics: Statistics = {
-    numberOfActiveTasks: 0,
-    numberOfCompletedTask: 0,
-    updatedAt: admin.firestore.FieldValue.serverTimestamp(),
-  };
-  newUserRef.collection("statistics").doc("task").set(initialStatistics);
-
-  await batch.commit();
-});
+    await batch.commit();
+  });
