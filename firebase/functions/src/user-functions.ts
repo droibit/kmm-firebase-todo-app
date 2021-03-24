@@ -2,7 +2,7 @@ import * as functions from "firebase-functions";
 import * as admin from "firebase-admin";
 import { Statistics, User } from "./model";
 
-export const onAuthUserCreate = functions.auth.user().onCreate(async (user) => {
+export const onCreateAuthUser = functions.auth.user().onCreate(async (user) => {
   const batch = admin.firestore().batch();
 
   const newUser: User = {

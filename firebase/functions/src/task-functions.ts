@@ -2,7 +2,7 @@ import * as functions from "firebase-functions";
 import * as admin from "firebase-admin";
 import { Statistics, Task } from "./model";
 
-export const onTaskCreate = functions.firestore
+export const onCreateTask = functions.firestore
   .document("users/{userId}/tasks/{taskId}")
   .onCreate(async (snapshot, context) => {
     const task = snapshot.data() as Task;
@@ -20,7 +20,7 @@ export const onTaskCreate = functions.firestore
     });
   });
 
-export const onTaskUpdate = functions.firestore
+export const onUpdateTask = functions.firestore
   .document("users/{userId}/tasks/{taskId}")
   .onUpdate(async (change, context) => {
     const oldTask = change.before.data() as Task;
@@ -42,18 +42,21 @@ export const onTaskUpdate = functions.firestore
         return;
       }
 
-      const { numberOfActiveTasks, numberOfCompletedTask } = statistics;
       let newStatistics: Partial<Statistics>;
+      const {
+        numberOfActiveTasks,
+        numberOfCompletedTasks: numberOfCompletedTask,
+      } = statistics;
       if (newTask.completed) {
         newStatistics = {
           numberOfActiveTasks: Math.max(numberOfActiveTasks - 1, 0),
-          numberOfCompletedTask: numberOfCompletedTask + 1,
+          numberOfCompletedTasks: numberOfCompletedTask + 1,
         };
         console.log("numberOfActiveTasks:-1, numberOfCompletedTask:+1");
       } else {
         newStatistics = {
           numberOfActiveTasks: numberOfActiveTasks + 1,
-          numberOfCompletedTask: Math.max(numberOfCompletedTask - 1, 0),
+          numberOfCompletedTasks: Math.max(numberOfCompletedTask - 1, 0),
         };
         console.log("numberOfActiveTasks:+1, numberOfCompletedTask:-1");
       }
@@ -64,3 +67,5 @@ export const onTaskUpdate = functions.firestore
       } as Partial<Statistics>);
     });
   });
+
+// export const onDelete

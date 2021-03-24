@@ -17,48 +17,50 @@ afterAll(() => {
   functionsTest.cleanup();
 });
 
-test("Task作成時に統計が更新されること", async () => {
-  const auth = { uid: `${new Date().getTime()}` };
-  const statisticsRef = admin
-    .firestore()
-    .doc(`users/${auth.uid}/statistics/task`);
+describe("#onUpdateTask", () => {
+  test("Task作成時に統計が更新されること", async () => {
+    const auth = { uid: `${new Date().getTime()}` };
+    const statisticsRef = admin
+      .firestore()
+      .doc(`users/${auth.uid}/statistics/task`);
 
-  await statisticsRef.set({
-    numberOfActiveTasks: 0,
-    numberOfCompletedTask: 0,
-    updatedAt: admin.firestore.Timestamp.fromMillis(1616425199),
-  } as Statistics);
+    await statisticsRef.set({
+      numberOfActiveTasks: 0,
+      numberOfCompletedTasks: 0,
+      updatedAt: admin.firestore.Timestamp.fromMillis(1616425199),
+    } as Statistics);
 
-  const onCreateWrapped = functionsTest.wrap(taskFunctions.onTaskCreate);
+    const onCreateWrapped = functionsTest.wrap(taskFunctions.onCreateTask);
 
-  // Create/Update at 2021-03-23 00:00:00.
-  const initialTask: Task = {
-    title: "Test Task",
-    description: "",
-    completed: false,
-    createdAt: admin.firestore.Timestamp.fromMillis(1616425200),
-    updatedAt: admin.firestore.Timestamp.fromMillis(1616425200),
-  };
-  const taskSnapshot = functionsTest.firestore.makeDocumentSnapshot(
-    initialTask,
-    `users/${auth.uid}/tasks/${auth.uid}`
-  );
+    // Create/Update at 2021-03-23 00:00:00.
+    const initialTask: Task = {
+      title: "Test Task",
+      description: "",
+      completed: false,
+      createdAt: admin.firestore.Timestamp.fromMillis(1616425200),
+      updatedAt: admin.firestore.Timestamp.fromMillis(1616425200),
+    };
+    const taskSnapshot = functionsTest.firestore.makeDocumentSnapshot(
+      initialTask,
+      `users/${auth.uid}/tasks/${auth.uid}`
+    );
 
-  const context: ContextOptions = {
-    params: {
-      userId: auth.uid,
-      taskId: auth.uid,
-    },
-  };
-  await onCreateWrapped(taskSnapshot, context);
-  await onCreateWrapped(taskSnapshot, context);
+    const context: ContextOptions = {
+      params: {
+        userId: auth.uid,
+        taskId: auth.uid,
+      },
+    };
+    await onCreateWrapped(taskSnapshot, context);
+    await onCreateWrapped(taskSnapshot, context);
 
-  const actualStatistics1 = (await statisticsRef.get()).data() as Statistics;
-  expect(actualStatistics1).toEqual({
-    numberOfActiveTasks: 1,
-    numberOfCompletedTask: 0,
-    updatedAt: initialTask.createdAt,
-  } as Statistics);
+    const actualStatistics1 = (await statisticsRef.get()).data() as Statistics;
+    expect(actualStatistics1).toEqual({
+      numberOfActiveTasks: 1,
+      numberOfCompletedTasks: 0,
+      updatedAt: initialTask.createdAt,
+    } as Statistics);
+  });
 });
 
 describe("#onUpdateTask", () => {
@@ -83,11 +85,11 @@ describe("#onUpdateTask", () => {
       .doc(`users/${userId}/statistics/task`);
     await statisticsRef.set({
       numberOfActiveTasks: 1,
-      numberOfCompletedTask: 0,
+      numberOfCompletedTasks: 0,
       updatedAt: initialTask.updatedAt,
     } as Statistics);
 
-    const onUpdateWrapped = functionsTest.wrap(taskFunctions.onTaskUpdate);
+    const onUpdateWrapped = functionsTest.wrap(taskFunctions.onUpdateTask);
 
     const completedTask: Task = {
       ...initialTask,
@@ -109,7 +111,7 @@ describe("#onUpdateTask", () => {
 
     expect((await statisticsRef.get()).data() as Statistics).toEqual({
       numberOfActiveTasks: 0,
-      numberOfCompletedTask: 1,
+      numberOfCompletedTasks: 1,
       updatedAt: completedTask.updatedAt,
     } as Statistics);
 
@@ -132,7 +134,7 @@ describe("#onUpdateTask", () => {
 
     expect((await statisticsRef.get()).data() as Statistics).toEqual({
       numberOfActiveTasks: 1,
-      numberOfCompletedTask: 0,
+      numberOfCompletedTasks: 0,
       updatedAt: activeTask.updatedAt,
     } as Statistics);
   });
@@ -144,11 +146,11 @@ describe("#onUpdateTask", () => {
       .doc(`users/${userId}/statistics/task`);
     await statisticsRef.set({
       numberOfActiveTasks: 1,
-      numberOfCompletedTask: 0,
+      numberOfCompletedTasks: 0,
       updatedAt: initialTask.updatedAt,
     } as Statistics);
 
-    const onUpdateWrapped = functionsTest.wrap(taskFunctions.onTaskUpdate);
+    const onUpdateWrapped = functionsTest.wrap(taskFunctions.onUpdateTask);
 
     const updateTask: Task = {
       ...initialTask,
@@ -171,7 +173,7 @@ describe("#onUpdateTask", () => {
 
     expect((await statisticsRef.get()).data() as Statistics).toEqual({
       numberOfActiveTasks: 1,
-      numberOfCompletedTask: 0,
+      numberOfCompletedTasks: 0,
       updatedAt: initialTask.updatedAt,
     } as Statistics);
   });

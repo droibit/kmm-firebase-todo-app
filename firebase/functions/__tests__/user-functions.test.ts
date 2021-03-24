@@ -20,7 +20,7 @@ afterAll(() => {
 
 describe("#onAuthUserCreate", () => {
   test("Firebaseユーザ生成時にユーザの初期設定を行うこと", async () => {
-    const wrapped = functionsTest.wrap(userFunctions.onAuthUserCreate);
+    const wrapped = functionsTest.wrap(userFunctions.onCreateAuthUser);
     const uid = `${new Date().getTime()}`;
     const displayName = "Taro Tanaka";
     const photoURL = "https://example.com/profile.jpg";
@@ -44,6 +44,6 @@ describe("#onAuthUserCreate", () => {
       .get();
     const actualStatistics = statisticsSnapshot.data() as Statistics;
     expect(actualStatistics.numberOfActiveTasks).toBe(0);
-    expect(actualStatistics.numberOfCompletedTask).toBe(0);
+    expect(actualStatistics.numberOfCompletedTasks).toBe(0);
   });
 });
