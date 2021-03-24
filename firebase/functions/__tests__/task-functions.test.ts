@@ -177,3 +177,85 @@ describe("#onUpdateTask", () => {
     } as Statistics);
   });
 });
+
+describe("#onDeleteTask", () => {
+  test("タスク削除時に統計が更新されること", async () => {
+    const userId = `${new Date().getTime()}`;
+    // Create/Update at 2021-03-23 00:00:00.
+    const activeTask: DocumentData<Task> = {
+      title: "Task",
+      description: "",
+      completed: false,
+      createdAt: admin.firestore.Timestamp.fromMillis(1616425200),
+      updatedAt: admin.firestore.Timestamp.fromMillis(1616425200),
+    };
+    const activeTaskId = `${new Date().getTime()}`;
+    await admin
+      .firestore()
+      .doc(`users/${userId}/tasks/${activeTaskId}`)
+      .set(activeTask);
+
+    const completedTask: DocumentData<Task> = {
+      ...activeTask,
+      completed: true,
+    };
+    const completedTaskId = `${new Date().getTime()}`;
+    await admin
+      .firestore()
+      .doc(`users/${userId}/tasks/${completedTaskId}`)
+      .set(completedTask);
+
+    const statisticsRef = admin
+      .firestore()
+      .doc(`users/${userId}/statistics/task`);
+    await statisticsRef.set({
+      numberOfActiveTasks: 1,
+      numberOfCompletedTasks: 1,
+      updatedAt: admin.firestore.Timestamp.fromMillis(1616425199),
+    } as DocumentData<Statistics>);
+
+    const onDeleteWrapped = functionsTest.wrap(taskFunctions.onDeleteTask);
+
+    const activeTaskSnapshot = functionsTest.firestore.makeDocumentSnapshot(
+      activeTask,
+      `users/${userId}/tasks/${activeTaskId}`
+    );
+    await onDeleteWrapped(activeTaskSnapshot, {
+      params: {
+        userId,
+        taskId: activeTaskId,
+      },
+    });
+
+    let actualStatistics = (await statisticsRef.get()).data() as Statistics;
+    expect(actualStatistics.numberOfActiveTasks).toBe(0);
+    expect(actualStatistics.numberOfCompletedTasks).toBe(1);
+
+    const completedTaskSnapshot = functionsTest.firestore.makeDocumentSnapshot(
+      completedTask,
+      `users/${userId}/tasks/${completedTaskId}`
+    );
+    await onDeleteWrapped(completedTaskSnapshot, {
+      params: {
+        userId,
+        taskId: completedTaskId,
+      },
+    });
+    actualStatistics = (await statisticsRef.get()).data() as Statistics;
+    expect(actualStatistics.numberOfActiveTasks).toBe(0);
+    expect(actualStatistics.numberOfCompletedTasks).toBe(0);
+
+    const deletedTaskRef = await admin
+      .firestore()
+      .doc(`users/${userId}/tasks/deleted`);
+    await onDeleteWrapped(deletedTaskRef.get(), {
+      params: {
+        userId,
+        taskId: "deleted",
+      },
+    });
+    actualStatistics = (await statisticsRef.get()).data() as Statistics;
+    expect(actualStatistics.numberOfActiveTasks).toBe(0);
+    expect(actualStatistics.numberOfCompletedTasks).toBe(0);
+  });
+});

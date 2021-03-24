@@ -68,3 +68,30 @@ export const onUpdateTask = functions.firestore
     });
   });
 
+export const onDeleteTask = functions.firestore
+  .document("users/{userId}/tasks/{taskId}")
+  .onDelete(async (snapshot, context) => {
+    if (!snapshot.exists) {
+      return;
+    }
+
+    const task = snapshot.data() as Task;
+    let numberOfTasks: DocumentData<Statistics>;
+    if (task.completed) {
+      numberOfTasks = {
+        numberOfCompletedTasks: admin.firestore.FieldValue.increment(-1),
+      };
+    } else {
+      numberOfTasks = {
+        numberOfActiveTasks: admin.firestore.FieldValue.increment(-1),
+      };
+    }
+
+    const statisticsRef = await admin
+      .firestore()
+      .doc(`users/${context.params.userId}/statistics/task`);
+    await statisticsRef.update({
+      ...numberOfTasks,
+      updatedAt: admin.firestore.FieldValue.serverTimestamp(),
+    } as DocumentData<Statistics>);
+  });
