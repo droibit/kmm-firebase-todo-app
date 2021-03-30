@@ -17,8 +17,8 @@
     <string name="new_task_create_failed">新しいTO-DOの作成に失敗しました。</string>
     <string name="new_task_create_successful">TO-DOを作成しました。</string>
     <string name="update_task_title">TO-DOの更新</string>
-    <string name="update_task_update.failed">TO-DOの更新に失敗しました。</string>
-    <string name="update_task_update.successful">TO-DOを更新しました。</string>
+    <string name="update_task_update_failed">TO-DOの更新に失敗しました。</string>
+    <string name="update_task_update_successful">TO-DOを更新しました。</string>
     <string name="edit_task_title_label">タイトル</string>
     <string name="edit_task_description_label">説明</string>
     <string name="edit_task_validation_empty_title">TO-DOのタイトルを入力してください。</string>

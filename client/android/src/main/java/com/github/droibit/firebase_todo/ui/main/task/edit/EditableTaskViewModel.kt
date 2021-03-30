@@ -7,4 +7,5 @@ interface EditableTaskViewModel {
     val title: MutableLiveData<String>
     val description: MutableLiveData<String>
     val isEditCompleted: LiveData<Boolean>
+    val isInProgress: LiveData<Boolean>
 }

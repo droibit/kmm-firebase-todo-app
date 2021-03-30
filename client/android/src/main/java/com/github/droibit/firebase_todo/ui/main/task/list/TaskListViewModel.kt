@@ -43,7 +43,7 @@ class TaskListViewModel(
     init {
         // TODO: Must Remove the test code.
         viewModelScope.launch {
-            emitUiState(inProgress = true)
+            emitUiModel(inProgress = true)
             delay(1000)
 
             val tasks = List(30) {
@@ -52,10 +52,11 @@ class TaskListViewModel(
                     title = "Title-$it",
                     description = if (it % 3 == 0) "Description-$it" else "",
                     isCompleted = it % 2 == 0,
-                    createdAt = System.currentTimeMillis()
+                    createdAt = System.currentTimeMillis().toDouble(),
+                    updatedAt = System.currentTimeMillis().toDouble(),
                 )
             }
-            emitUiState(
+            emitUiModel(
                 success = TaskListUiModel(
                     sourceTasks = tasks,
                     taskFilter = TaskFilter.DEFAULT,
@@ -80,17 +81,17 @@ class TaskListViewModel(
     @UiThread
     fun onTaskFilterChanged(newTaskFilter: TaskFilter) {
         val ui = uiModelSink.value?.success ?: return
-        emitUiState(success = ui.filtered(newTaskFilter))
+        emitUiModel(success = ui.filtered(newTaskFilter))
     }
 
     @UiThread
     fun onTaskSortingChange(newTaskSorting: TaskSorting) {
         val ui = uiModelSink.value?.success ?: return
-        emitUiState(success = ui.sorted(newTaskSorting))
+        emitUiModel(success = ui.sorted(newTaskSorting))
     }
 
     @UiThread
-    private fun emitUiState(
+    private fun emitUiModel(
         inProgress: Boolean = false,
         success: TaskListUiModel? = null,
         error: MessageUiModel? = null

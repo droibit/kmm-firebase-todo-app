@@ -20,6 +20,9 @@ class UpdateTaskViewModel(
 
     override val isEditCompleted: LiveData<Boolean> = title.map { it.isNotBlank() }
 
+    override val isInProgress: LiveData<Boolean>
+        get() = TODO("Not implemeted yet.")
+
     @Inject
     constructor(
         taskRepository: TaskRepository,
