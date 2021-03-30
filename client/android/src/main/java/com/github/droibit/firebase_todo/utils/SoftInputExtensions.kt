@@ -12,9 +12,14 @@ fun Fragment.toggleSofInputVisibility(visible: Boolean, contentView: View = chec
     if (visible) {
         focusedView.toggleSofInputVisibility(visible = true)
     } else {
-        if (isRemoving) {
-            focusedView.toggleSofInputVisibility(visible = false)
-        }
+        focusedView.toggleSofInputVisibility(visible = false)
+    }
+}
+
+fun Fragment.hideSofInputIfIsRemoving(contentView: View = checkNotNull(view)) {
+    val focusedView = contentView.allViews.firstOrNull { it.isFocused } ?: return
+    if (isRemoving) {
+        focusedView.toggleSofInputVisibility(visible = false)
     }
 }
 

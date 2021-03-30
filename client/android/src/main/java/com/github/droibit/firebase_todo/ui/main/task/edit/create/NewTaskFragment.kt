@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.github.droibit.firebase_todo.R
 import com.github.droibit.firebase_todo.databinding.FragmentEditTaskBinding
+import com.github.droibit.firebase_todo.utils.hideSofInputIfIsRemoving
 import com.github.droibit.firebase_todo.utils.toggleSofInputVisibility
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -41,7 +42,7 @@ class NewTaskFragment : Fragment() {
     override fun onPause() {
         super.onPause()
 
-        toggleSofInputVisibility(visible = false)
+        hideSofInputIfIsRemoving()
     }
 
     override fun onDestroyView() {
