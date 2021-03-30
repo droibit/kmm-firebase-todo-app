@@ -68,6 +68,7 @@ dependencies {
     implementation(Deps.Androidx.Navigation.runtime)
     implementation(Deps.Androidx.Navigation.fragment)
     implementation(Deps.Androidx.Navigation.ui)
+    implementation(Deps.Androidx.Lifecycle.runtime)
     implementation(Deps.Androidx.Lifecycle.liveData)
     implementation(Deps.Androidx.Lifecycle.viewModel)
     implementation(Deps.Androidx.constraintLayout)

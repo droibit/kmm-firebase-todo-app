@@ -47,8 +47,9 @@ object Deps {
 
         object Lifecycle {
             private const val version = "2.4.0-alpha01"
+            const val runtime = "androidx.lifecycle:lifecycle-runtime-ktx:$version"
             const val liveData = "androidx.lifecycle:lifecycle-livedata-ktx:$version"
-            const val viewModel = "androidx.navigation:navigation-fragment-ktx:$version"
+            const val viewModel = "androidx.lifecycle:lifecycle-viewmodel-ktx:$version"
         }
     }
 

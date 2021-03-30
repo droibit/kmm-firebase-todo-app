@@ -37,7 +37,7 @@ kotlin {
                 implementation(Deps.Stately.common)
                 
                 api(Deps.Firebase.MPP.auth)
-                // implementation(Deps.Firebase.MPP.firestore)
+                api(Deps.Firebase.MPP.firestore)
                 // implementation(Deps.Firebase.MPP.functions)
 
                 implementation(Deps.Settings.core)
