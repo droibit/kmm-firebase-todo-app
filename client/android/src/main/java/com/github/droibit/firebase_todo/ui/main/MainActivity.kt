@@ -2,6 +2,7 @@ package com.github.droibit.firebase_todo.ui.main
 
 import android.content.Context
 import android.content.Intent
+import android.content.res.Configuration
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
@@ -27,6 +28,12 @@ class MainActivity :
     private lateinit var binding: ActivityMainBinding
 
     private var currentNavController: LiveData<NavController>? = null
+
+    private val isInDarkMode: Boolean
+        get() {
+            val currentNightMode = resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK
+            return currentNightMode == Configuration.UI_MODE_NIGHT_YES
+        }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -63,6 +70,12 @@ class MainActivity :
         //     setupActionBarWithNavController(navController)
         // }
         currentNavController = controller
+
+        if (isInDarkMode) {
+            // workaround for removing the elevation color overlay
+            // https://github.com/material-components/material-components-android/issues/1148
+            binding.bottomNav.elevation = 0f
+        }
     }
 
     override fun onSupportNavigateUp(): Boolean {
