@@ -15,6 +15,8 @@ import dagger.hilt.components.SingletonComponent
 import dev.gitlive.firebase.Firebase
 import dev.gitlive.firebase.auth.FirebaseAuth
 import dev.gitlive.firebase.auth.auth
+import dev.gitlive.firebase.firestore.FirebaseFirestore
+import dev.gitlive.firebase.firestore.firestore
 import javax.inject.Singleton
 
 @Module
@@ -35,6 +37,10 @@ object FirebaseModule {
     @Singleton
     @Provides
     fun provideFirebaseAuth(): FirebaseAuth = Firebase.auth
+
+    @Singleton
+    @Provides
+    fun provideFirebaseFirestore(): FirebaseFirestore = Firebase.firestore
 }
 
 @Module
