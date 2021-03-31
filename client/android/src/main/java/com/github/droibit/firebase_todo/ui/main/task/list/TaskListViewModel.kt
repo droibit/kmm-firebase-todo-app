@@ -6,15 +6,19 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.github.droibit.firebase_todo.shared.data.repository.task.TaskRepository
-import com.github.droibit.firebase_todo.shared.model.task.Task
 import com.github.droibit.firebase_todo.shared.model.task.TaskFilter
 import com.github.droibit.firebase_todo.shared.model.task.TaskSorting
 import com.github.droibit.firebase_todo.shared.utils.Event
 import com.github.droibit.firebase_todo.ui.common.MessageUiModel
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.launch
 import javax.inject.Inject
+import kotlin.LazyThreadSafetyMode.NONE
 
 @HiltViewModel
 class TaskListViewModel(
@@ -24,7 +28,22 @@ class TaskListViewModel(
     private val sortTaskNavSink: MutableLiveData<Event<TaskSorting>>,
 ) : ViewModel() {
 
-    val uiModel: LiveData<GetTaskListUiModel> get() = uiModelSink
+    val uiModel: LiveData<GetTaskListUiModel> by lazy(NONE) {
+        combine(
+            taskRepository.taskList,
+            taskRepository.taskFilter,
+            taskRepository.taskSorting
+        ) { tasks, filter, sorting ->
+            TaskListUiModel(tasks, filter, sorting)
+        }
+            .onStart { emitUiModel(inProgress = true) }
+            .onEach { emitUiModel(success = it) }
+            .catch {
+                // TODO: Error handling.
+            }
+            .launchIn(viewModelScope)
+        uiModelSink
+    }
 
     val filterTaskNavigation: LiveData<Event<TaskFilter>> get() = filterTaskNavSink
 
@@ -40,32 +59,6 @@ class TaskListViewModel(
         MutableLiveData()
     )
 
-    init {
-        // TODO: Must Remove the test code.
-        viewModelScope.launch {
-            emitUiModel(inProgress = true)
-            delay(1000)
-
-            val tasks = List(30) {
-                Task(
-                    id = "id-$it",
-                    title = "Title-$it",
-                    description = if (it % 3 == 0) "Description-$it" else "",
-                    isCompleted = it % 2 == 0,
-                    createdAt = System.currentTimeMillis().toDouble(),
-                    updatedAt = System.currentTimeMillis().toDouble(),
-                )
-            }
-            emitUiModel(
-                success = TaskListUiModel(
-                    sourceTasks = tasks,
-                    taskFilter = TaskFilter.DEFAULT,
-                    taskSorting = TaskSorting.DEFAULT
-                )
-            )
-        }
-    }
-
     @UiThread
     fun onFilterTaskClick() {
         val ui = uiModelSink.value?.success ?: return
@@ -80,14 +73,16 @@ class TaskListViewModel(
 
     @UiThread
     fun onTaskFilterChanged(newTaskFilter: TaskFilter) {
-        val ui = uiModelSink.value?.success ?: return
-        emitUiModel(success = ui.filtered(newTaskFilter))
+        viewModelScope.launch {
+            taskRepository.setTaskFilter(newTaskFilter)
+        }
     }
 
     @UiThread
     fun onTaskSortingChange(newTaskSorting: TaskSorting) {
-        val ui = uiModelSink.value?.success ?: return
-        emitUiModel(success = ui.sorted(newTaskSorting))
+        viewModelScope.launch {
+            taskRepository.setTaskSorting(newTaskSorting)
+        }
     }
 
     @UiThread
