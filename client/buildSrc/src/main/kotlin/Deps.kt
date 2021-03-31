@@ -1,14 +1,15 @@
 object Deps {
     object Plugins {
-        object Kotlin {
-            private const val version = "1.4.31"
-            const val gradle = "org.jetbrains.kotlin:kotlin-gradle-plugin:$version"
-            const val serialization = "org.jetbrains.kotlin:kotlin-serialization:$version"
-        }
         const val android = "com.android.tools.build:gradle:4.2.0-beta06"
         const val googleServices = "com.google.gms:google-services:4.3.4"
         const val daggerHilt = "com.google.dagger:hilt-android-gradle-plugin:${Dagger.version}"
         const val navSafeArgs = "androidx.navigation:navigation-safe-args-gradle-plugin:${Androidx.Navigation.version}"
+
+        object Kotlin {
+            private const val version = "1.4.32"
+            const val gradle = "org.jetbrains.kotlin:kotlin-gradle-plugin:$version"
+            const val serialization = "org.jetbrains.kotlin:kotlin-serialization:$version"
+        }
 
         object Spotless {
             const val id = "com.diffplug.spotless"
