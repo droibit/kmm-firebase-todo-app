@@ -1,17 +1,26 @@
 package com.github.droibit.firebase_todo.shared.data.repository.task
 
 import com.chrynan.inject.Inject
+import com.chrynan.inject.Named
 import com.chrynan.inject.Singleton
 import com.github.aakira.napier.Napier
 import com.github.droibit.firebase_todo.shared.data.source.settings.UserSettingsDataSource
 import com.github.droibit.firebase_todo.shared.data.source.task.TaskDataSource
 import com.github.droibit.firebase_todo.shared.data.source.user.UserDataSource
+import com.github.droibit.firebase_todo.shared.model.task.Task
 import com.github.droibit.firebase_todo.shared.model.task.TaskException
 import com.github.droibit.firebase_todo.shared.model.task.TaskFilter
 import com.github.droibit.firebase_todo.shared.model.task.TaskSorting
 import com.github.droibit.firebase_todo.shared.utils.CFlow
 import com.github.droibit.firebase_todo.shared.utils.CoroutinesDispatcherProvider
 import com.github.droibit.firebase_todo.shared.utils.wrap
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.flatMapLatest
+import kotlinx.coroutines.flow.onCompletion
+import kotlinx.coroutines.flow.onStart
+import kotlinx.coroutines.flow.shareIn
 import kotlinx.coroutines.withContext
 import kotlin.coroutines.cancellation.CancellationException
 
@@ -20,17 +29,33 @@ class TaskRepository @Inject constructor(
     private val userDataSource: UserDataSource,
     private val taskDataSource: TaskDataSource,
     private val settingsDataSource: UserSettingsDataSource,
-    private val dispatcherProvider: CoroutinesDispatcherProvider
+    private val dispatcherProvider: CoroutinesDispatcherProvider,
+    @Named("applicationScope") private val externalScope: CoroutineScope
 ) {
-    val taskFilter: CFlow<TaskFilter>
-        get() = settingsDataSource.taskFilter.wrap()
+    val taskFilter: CFlow<TaskFilter> = settingsDataSource.taskFilter
+        .shareIn(externalScope, started = SharingStarted.Lazily, replay = 1)
+        .wrap()
 
-    val taskSorting: CFlow<TaskSorting>
-        get() = settingsDataSource.taskSorting.wrap()
+    val taskSorting: CFlow<TaskSorting> = settingsDataSource.taskSorting
+        .shareIn(externalScope, started = SharingStarted.Lazily, replay = 1)
+        .wrap()
+
+    // TODO: Error handling.
+    val taskList: CFlow<List<Task>> = combine(taskFilter, taskSorting) { filter, sorting ->
+        filter to sorting
+    }.flatMapLatest { (filter, sorting) ->
+        val user = requireNotNull(userDataSource.currentUser)
+        taskDataSource.getTaskList(user.uid, filter, sorting)
+    }
+        .onStart { Napier.d("Start creating a task list.") }
+        .onCompletion { Napier.d("Finish creating a task list.") }
+        .shareIn(externalScope, started = SharingStarted.WhileSubscribed(), replay = 1)
+        .wrap()
 
     suspend fun setTaskFilter(taskFilter: TaskFilter) {
         settingsDataSource.setTaskFilter(taskFilter)
     }
+
     suspend fun setTaskSorting(taskSorting: TaskSorting) {
         settingsDataSource.setTaskSorting(taskSorting)
     }
