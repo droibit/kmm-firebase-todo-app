@@ -52,5 +52,5 @@ class UserSettingsDataSource @Inject constructor(
 }
 
 private fun TaskSorting.toCSV(): String {
-    return "$key,$order"
+    return "${key.id},${order.id}"
 }
