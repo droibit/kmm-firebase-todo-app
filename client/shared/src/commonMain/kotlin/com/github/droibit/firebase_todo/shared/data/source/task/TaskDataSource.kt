@@ -108,7 +108,7 @@ class TaskDataSource @Inject constructor(
             )
             Napier.d("Created task: ${result.id}")
         } catch (e: FirebaseFirestoreException) {
-            Napier.e("Create task error(${e.code}):", e)
+            Napier.w("Create task error(${e.code}):", e)
             throw TaskException(cause = e)
         }
     }
@@ -140,9 +140,9 @@ class TaskDataSource @Inject constructor(
                 throw TaskException("The specified task($taskId) does not exist.")
             }
 
-            taskRef.update(strategy, data)
+            taskRef.update(strategy, data, encodeDefaults = true)
         } catch (e: FirebaseFirestoreException) {
-            Napier.e("Update task error(${e.code}):", e)
+            Napier.w("Update task error(${e.code}):", e)
             throw TaskException(cause = e)
         }
     }
