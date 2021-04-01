@@ -36,6 +36,7 @@
     <!-- Task detail -->
     <string name="task_detail_menu_delete">Delete</string>
     <string name="task_detail_created_at_label">Created at %1$s</string>
+    <string name="task_detail_delete_failed">Failed to delete TO-DO.</string>
 
     <!-- Statistics -->
     <string name="statistics_title">Statistics</string>

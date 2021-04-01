@@ -7,6 +7,10 @@
         <variable
             name="task"
             type="com.github.droibit.firebase_todo.shared.model.task.Task" />
+
+        <variable
+            name="viewModel"
+            type="com.github.droibit.firebase_todo.ui.main.task.detail.TaskDetailViewModel" />
     </data>
 
     <FrameLayout
@@ -26,11 +30,12 @@
                 app:navigationIcon="@drawable/ic_round_arrow_back"
                 app:menu="@menu/task_detail" />
 
-            <FrameLayout
+            <androidx.coordinatorlayout.widget.CoordinatorLayout
+                android:id="@+id/container"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
-                <ScrollView
+                <androidx.core.widget.NestedScrollView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
 
@@ -103,7 +108,7 @@
                             tools:ignore="UnusedAttribute" />
 
                     </androidx.constraintlayout.widget.ConstraintLayout>
-                </ScrollView>
+                </androidx.core.widget.NestedScrollView>
 
                 <com.google.android.material.floatingactionbutton.FloatingActionButton
                     android:id="@+id/fab"
@@ -116,7 +121,8 @@
                     app:srcCompat="@drawable/ic_round_edit"
                     app:fabSize="normal"
                     tools:ignore="ContentDescription" />
-            </FrameLayout>
+
+            </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
         </LinearLayout>
 
@@ -124,7 +130,7 @@
             android:id="@+id/progress"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:visibleUnless="@{false}"
+            app:visibleUnless="@{viewModel.deleteTaskUiModel.inProgress}"
             tools:visibility="gone" />
     </FrameLayout>
 </layout>

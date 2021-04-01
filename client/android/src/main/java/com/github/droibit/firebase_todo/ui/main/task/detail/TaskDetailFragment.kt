@@ -5,14 +5,19 @@ import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import androidx.transition.TransitionManager
 import com.github.droibit.firebase_todo.R
 import com.github.droibit.firebase_todo.databinding.FragmentTaskDetailBinding
+import com.github.droibit.firebase_todo.shared.utils.consume
 import com.github.droibit.firebase_todo.ui.main.task.detail.TaskDetailFragmentDirections.Companion.toUpdateTask
 import com.github.droibit.firebase_todo.utils.navigateSafely
+import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -25,6 +30,8 @@ class TaskDetailFragment :
 
     private val args: TaskDetailFragmentArgs by navArgs()
 
+    private val viewModel: TaskDetailViewModel by viewModels()
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -33,6 +40,7 @@ class TaskDetailFragment :
         return FragmentTaskDetailBinding.inflate(inflater, container, false)
             .also {
                 it.lifecycleOwner = viewLifecycleOwner
+                it.viewModel = viewModel
                 _binding = it
             }.root
     }
@@ -51,7 +59,26 @@ class TaskDetailFragment :
                 .navigateSafely(toUpdateTask(task = args.task))
         }
 
-        binding.task = args.task
+        viewModel.task.observe(viewLifecycleOwner) {
+            binding.task = it
+        }
+        subscribeDeleteTaskUiModel()
+    }
+
+    private fun subscribeDeleteTaskUiModel() {
+        viewModel.deleteTaskUiModel.observe(viewLifecycleOwner) { uiModel ->
+            if (uiModel.inProgress) {
+                TransitionManager.beginDelayedTransition(binding.container)
+            }
+
+            uiModel.error.consume()?.let { message ->
+                Snackbar.make(binding.container, message.id, Snackbar.LENGTH_SHORT).show()
+            }
+
+            uiModel.success.consume()?.let {
+                findNavController().popBackStack()
+            }
+        }
     }
 
     override fun onDestroyView() {
@@ -64,8 +91,7 @@ class TaskDetailFragment :
     override fun onMenuItemClick(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.delete_task -> {
-                // TODO: Remove behavior check code.
-                findNavController().popBackStack()
+                viewModel.deleteTask()
             }
         }
         return true
