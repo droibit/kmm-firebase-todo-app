@@ -147,6 +147,16 @@ class TaskDataSource @Inject constructor(
         }
     }
 
+    suspend fun deleteTask(userId: String, taskId: String) {
+        try {
+            val taskRef = firestore.document(Paths.task(userId, taskId))
+            taskRef.delete()
+        } catch (e: FirebaseFirestoreException) {
+            Napier.w("Update task error(${e.code}):", e)
+            throw TaskException(cause = e)
+        }
+    }
+
     internal object Fields {
         const val TITLE = "title"
         const val COMPLETED = "completed"

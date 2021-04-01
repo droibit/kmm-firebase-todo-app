@@ -83,4 +83,12 @@ class TaskRepository @Inject constructor(
             taskDataSource.updateTask(user.uid, taskId, completed)
         }
     }
+
+    @Throws(TaskException::class, CancellationException::class)
+    suspend fun deleteTask(taskId: String) {
+        withContext(dispatcherProvider.io) {
+            val user = requireNotNull(userDataSource.currentUser)
+            taskDataSource.deleteTask(user.uid, taskId)
+        }
+    }
 }
