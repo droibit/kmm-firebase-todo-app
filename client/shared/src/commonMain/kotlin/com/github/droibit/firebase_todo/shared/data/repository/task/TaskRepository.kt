@@ -60,6 +60,12 @@ class TaskRepository @Inject constructor(
         settingsDataSource.setTaskSorting(taskSorting)
     }
 
+    fun getTask(taskId: String): CFlow<Task?> {
+        val user = requireNotNull(userDataSource.currentUser)
+        return taskDataSource.getTask(user.uid, taskId)
+            .wrap()
+    }
+
     @Throws(TaskException::class, CancellationException::class)
     suspend fun createTask(title: String, description: String) {
         withContext(dispatcherProvider.io) {

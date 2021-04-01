@@ -38,9 +38,6 @@ class TaskDataSource @Inject constructor(
             .orderBy(taskSorting)
             .limit(100)
             .snapshots
-            .catch { error ->
-                throw TaskException(cause = error)
-            }
             // Workaround to exclude tasks with null serverTimestamp
             // e.g. Immediately after creating a task.
             .filter { !it.metadata.hasPendingWrites }
@@ -51,6 +48,27 @@ class TaskDataSource @Inject constructor(
                     it.data(Task.serializer())
                         .copy(id = it.id)
                 }
+            }
+            .catch { error ->
+                throw TaskException(cause = error)
+            }
+    }
+
+    fun getTask(userId: String, taskId: String): Flow<Task?> {
+        return firestore.document(Paths.task(userId, taskId))
+            .snapshots
+            // Workaround to exclude tasks with null serverTimestamp
+            // e.g. Immediately after creating a task.
+            .filter { !it.metadata.hasPendingWrites }
+            .map {
+                if (it.exists) {
+                    it.data(Task.serializer()).copy(id = it.id)
+                } else {
+                    null
+                }
+            }
+            .catch { error ->
+                throw TaskException(cause = error)
             }
     }
 
@@ -150,6 +168,7 @@ class TaskDataSource @Inject constructor(
     suspend fun deleteTask(userId: String, taskId: String) {
         try {
             val taskRef = firestore.document(Paths.task(userId, taskId))
+            // Deleting a non-existent document will not throw an error.
             taskRef.delete()
         } catch (e: FirebaseFirestoreException) {
             Napier.w("Update task error(${e.code}):", e)
