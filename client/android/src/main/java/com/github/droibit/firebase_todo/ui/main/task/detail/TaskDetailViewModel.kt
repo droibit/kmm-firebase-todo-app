@@ -33,6 +33,15 @@ class TaskDetailViewModel(
 ) : ViewModel() {
 
     val task: LiveData<Task> by lazy(NONE) {
+        taskRepository.getTask(taskSink.requireValue().id)
+            .mapNotNull { it }
+            .onEach {
+                taskSink.value = it
+            }
+            .catch {
+                // TODO: Error handling.
+            }
+            .launchIn(viewModelScope)
         taskSink
     }
 
