@@ -19,34 +19,15 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.flow.map
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
+import kotlinx.serialization.SerializationStrategy
+import kotlin.coroutines.cancellation.CancellationException
 
 @Singleton
 class TaskDataSource @Inject constructor(
     private val firestore: FirebaseFirestore
 ) {
-    suspend fun createTask(userId: String, title: String, description: String) {
-        try {
-            val tasksRef = firestore.collection(Paths.tasks(userId))
-            val newTask = Task(
-                title = title,
-                description = description,
-                isCompleted = false,
-                createdAt = FieldValue.serverTimestamp,
-                updatedAt = FieldValue.serverTimestamp
-            )
-
-            val result = tasksRef.add(
-                Task.serializer(),
-                newTask,
-                encodeDefaults = false
-            )
-            Napier.d("Created task: ${result.id}")
-        } catch (e: FirebaseFirestoreException) {
-            Napier.e("Create task error(${e.code}):", e)
-            throw TaskException(cause = e)
-        }
-    }
-
     fun getTaskList(
         userId: String,
         taskFilter: TaskFilter,
@@ -58,7 +39,7 @@ class TaskDataSource @Inject constructor(
             .limit(100)
             .snapshots
             .catch { error ->
-                throw TaskException(error)
+                throw TaskException(cause = error)
             }
             // Workaround to exclude tasks with null serverTimestamp
             // e.g. Immediately after creating a task.
@@ -108,6 +89,64 @@ class TaskDataSource @Inject constructor(
         }
     }
 
+    @Throws(TaskException::class, CancellationException::class)
+    suspend fun createTask(userId: String, title: String, description: String) {
+        try {
+            val tasksRef = firestore.collection(Paths.tasks(userId))
+            val newTask = Task(
+                title = title,
+                description = description,
+                isCompleted = false,
+                createdAt = FieldValue.serverTimestamp,
+                updatedAt = FieldValue.serverTimestamp
+            )
+
+            val result = tasksRef.add(
+                Task.serializer(),
+                newTask,
+                encodeDefaults = false
+            )
+            Napier.d("Created task: ${result.id}")
+        } catch (e: FirebaseFirestoreException) {
+            Napier.e("Create task error(${e.code}):", e)
+            throw TaskException(cause = e)
+        }
+    }
+
+    @Throws(TaskException::class, CancellationException::class)
+    suspend fun updateTask(userId: String, taskId: String, title: String, description: String) {
+        updateTask(userId, taskId,
+            UpdateTitleDescription(
+                title = title,
+                description = description,
+            ),
+            UpdateTitleDescription.serializer()
+        )
+    }
+
+    @Throws(TaskException::class, CancellationException::class)
+    suspend fun updateTask(userId: String, taskId: String, completed: Boolean) {
+        updateTask(userId, taskId,
+            UpdateCompleted(isCompleted = completed),
+            UpdateCompleted.serializer()
+        )
+    }
+
+    @Throws(TaskException::class, CancellationException::class)
+    private suspend fun <T>updateTask(userId: String, taskId: String, data: T, strategy: SerializationStrategy<T>) {
+        try {
+            val taskRef = firestore.document(Paths.task(userId, taskId))
+            if (!taskRef.get().exists) {
+                throw TaskException("The specified task($taskId) does not exist.")
+            }
+
+            taskRef.update(strategy, data)
+        } catch (e: FirebaseFirestoreException) {
+            Napier.e("Update task error(${e.code}):", e)
+            throw TaskException(cause = e)
+        }
+    }
+
     internal object Fields {
         const val TITLE = "title"
         const val COMPLETED = "completed"
@@ -116,5 +155,28 @@ class TaskDataSource @Inject constructor(
 
     internal object Paths {
         fun tasks(userId: String) = "users/$userId/tasks"
+
+        fun task(userId: String, taskId: String) = "${tasks(userId)}/$taskId"
     }
 }
+
+/**
+ * Workaround for crash when `DocumentReference#update` has values of multiple types.
+ * - SerializationException: Serializer for class 'Any' is not found.
+ */
+@Serializable
+private class UpdateTitleDescription(
+    val title: String,
+    val description: String,
+    val updatedAt: Double = FieldValue.serverTimestamp
+)
+
+/**
+ * Workaround for crash when `DocumentReference#update` has values of multiple types.
+ * - SerializationException: Serializer for class 'Any' is not found.
+ */
+@Serializable
+private class UpdateCompleted(
+    @SerialName("completed") val isCompleted: Boolean,
+    val updatedAt: Double = FieldValue.serverTimestamp,
+)

@@ -1,3 +1,6 @@
 package com.github.droibit.firebase_todo.shared.model.task
 
-class TaskException(cause: Throwable) : Exception(cause)
+class TaskException(
+    message: String? = null,
+    cause: Throwable? = null
+) : Exception(message, cause)

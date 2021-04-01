@@ -30,8 +30,7 @@ class NewTaskViewModel(
     val createTaskUiModel: LiveData<EditTaskUiModel>
         get() = createTaskUiModelSink
 
-    override val isInProgress: LiveData<Boolean>
-        get() = createTaskUiModelSink.map { it.inProgress }
+    override val isInProgress: LiveData<Boolean> = createTaskUiModelSink.map { it.inProgress }
 
     override val isEditCompleted: LiveData<Boolean> = title.map {
         it.also { Napier.d("title: $it") }.isNotBlank()
