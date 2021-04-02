@@ -2,9 +2,9 @@ name: Firebase-TodoApp
 options:
   xcodeVersion: "12.0"
   deploymentTarget:
-    iOS:  "14.0"
+    iOS: "14.0"
   developmentLanguage: ja
-  postGenCommand: rbenv exec bundle exec pod install  
+  postGenCommand: rbenv exec bundle exec pod install
 
 settings:
   base:
@@ -14,7 +14,7 @@ settings:
 packages:
   CombineSchedulers:
     url: https://github.com/pointfreeco/combine-schedulers
-    version: 0.1.2
+    version: 0.5.0
   PKHUD:
     url: https://github.com/pkluz/PKHUD.git
     version: 5.4.0
@@ -30,11 +30,11 @@ targets:
         MARKETING_VERSION: 1.0.0
         CURRENT_PROJECT_VERSION: 1
         ENABLE_PREVIEWS: true
-        DEVELOPMENT_ASSET_PATHS: "\"${TARGET_NAME}/Resources/Preview Content\""
+        DEVELOPMENT_ASSET_PATHS: '"${TARGET_NAME}/Resources/Preview Content"'
     sources:
       - path: TodoApp
         excludes:
-          - "**/.gitignore"      
+          - "**/.gitignore"
       - path: TodoApp/DI/NeedleGenerated.swift
         optional: true
         createIntermediateGroups: true
@@ -46,22 +46,22 @@ targets:
         createIntermediateGroups: true
       - path: TodoApp/Resources/Generated/XCAssets+Generated.swift
         optional: true
-        createIntermediateGroups: true         
+        createIntermediateGroups: true
     dependencies:
       - carthage: NeedleFoundation
-      - package: CombineSchedulers  
+      - package: CombineSchedulers
       - package: PKHUD
     preBuildScripts:
       - name: Run needle
         outputFiles:
           - $SRCROOT/$TARGET_NAME/DI/NeedleGenerated.swift
-        script:  ./scripts/needle.sh
+        script: ./scripts/needle.sh
       - name: Run SwiftGen
         path: /bin/sh
         outputFiles:
           - $SRCROOT/$TARGET_NAME/Resources/Generated/Strings+Generated.swift
           - $SRCROOT/$TARGET_NAME/Resources/Generated/XCAssets+Generated.swift
-        script: ./scripts/swiftgen.sh        
+        script: ./scripts/swiftgen.sh
     postCompileScripts:
       - name: Run SwiftFormat
         script: ./scripts/swiftformat.sh
@@ -77,9 +77,9 @@ schemes:
       config: Debug
     test:
       config: Debug
-    profile: 
+    profile:
       config: Debug
     analyze:
       config: Debug
-    archive: 
-      config: Debug      
+    archive:
+      config: Debug
