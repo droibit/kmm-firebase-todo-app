@@ -30,7 +30,7 @@ subprojects {
         mavenCentral()
         jcenter()
         maven {
-            url = uri("https://dl.bintray.com/chrynan/chrynan")
+            url = uri("https://repo.repsy.io/mvn/chrynan/public")
         }
     }
 

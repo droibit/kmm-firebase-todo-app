@@ -95,7 +95,7 @@ object Deps {
     const val materialDesign = "com.google.android.material:material:1.4.0-alpha01"
     const val coil = "io.coil-kt:coil:1.1.1"
     const val napier = "com.github.aakira:napier:1.4.1"
-    const val inject = "com.chrynan.inject:inject-common:0.7.0"
+    const val inject = "com.chrynan.inject:inject:0.8.0"
 
     object Version {
         const val ktlint = "0.40.0"
