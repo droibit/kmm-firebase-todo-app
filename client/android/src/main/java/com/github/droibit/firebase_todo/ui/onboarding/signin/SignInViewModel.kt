@@ -12,6 +12,7 @@ import com.github.droibit.firebase_todo.shared.data.repository.user.UserReposito
 import com.github.droibit.firebase_todo.shared.model.user.AuthException
 import com.github.droibit.firebase_todo.shared.utils.Event
 import com.github.droibit.firebase_todo.ui.common.MessageUiModel
+import com.google.android.gms.auth.api.accounttransfer.AccountTransferStatusCodes
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.common.api.ApiException
@@ -59,7 +60,10 @@ class SignInViewModel(
             val account = checkNotNull(getSignedInAccountTask.getResult(ApiException::class.java))
             signInWithGoogle(checkNotNull(account.idToken))
         } catch (e: ApiException) {
-            Napier.e("Google sign in failed", e)
+            Napier.e(
+                "Google sign in failed: ${AccountTransferStatusCodes.getStatusCodeString(e.statusCode)}",
+                e
+            )
             emitUiModel(
                 inProgress = false,
                 error = Event(MessageUiModel(R.string.sign_in_failed))
