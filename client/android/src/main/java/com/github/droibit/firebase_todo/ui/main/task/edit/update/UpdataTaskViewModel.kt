@@ -12,8 +12,8 @@ import com.github.droibit.firebase_todo.shared.model.task.Task
 import com.github.droibit.firebase_todo.shared.model.task.TaskException
 import com.github.droibit.firebase_todo.shared.utils.Event
 import com.github.droibit.firebase_todo.ui.common.MessageUiModel
-import com.github.droibit.firebase_todo.ui.main.task.edit.EditTaskUiModel
-import com.github.droibit.firebase_todo.ui.main.task.edit.EditableTaskViewModel
+import com.github.droibit.firebase_todo.ui.main.task.edit.EditTaskContentUiModel
+import com.github.droibit.firebase_todo.ui.main.task.edit.EditableTaskContentViewModel
 import com.github.droibit.firebase_todo.utils.requireValue
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -25,11 +25,11 @@ class UpdateTaskViewModel(
     private val taskRepository: TaskRepository,
     override val title: MutableLiveData<String>,
     override val description: MutableLiveData<String>,
-    private val updateTaskUiModelSink: MutableLiveData<EditTaskUiModel>,
+    private val updateTaskUiModelSink: MutableLiveData<EditTaskContentUiModel>,
     private val taskId: String
-) : ViewModel(), EditableTaskViewModel {
+) : ViewModel(), EditableTaskContentViewModel {
 
-    val updateTaskUiModel: LiveData<EditTaskUiModel>
+    val updateTaskUiModel: LiveData<EditTaskContentUiModel>
         get() = updateTaskUiModelSink
 
     override val isEditCompleted: LiveData<Boolean> = title.map { it.isNotBlank() }
@@ -79,6 +79,6 @@ class UpdateTaskViewModel(
         success: Event<MessageUiModel>? = null,
         error: Event<MessageUiModel>? = null,
     ) {
-        updateTaskUiModelSink.value = EditTaskUiModel(inProgress, success, error)
+        updateTaskUiModelSink.value = EditTaskContentUiModel(inProgress, success, error)
     }
 }

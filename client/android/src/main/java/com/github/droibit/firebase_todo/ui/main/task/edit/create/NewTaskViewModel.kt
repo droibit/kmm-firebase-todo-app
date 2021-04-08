@@ -12,8 +12,8 @@ import com.github.droibit.firebase_todo.shared.data.repository.task.TaskReposito
 import com.github.droibit.firebase_todo.shared.model.task.TaskException
 import com.github.droibit.firebase_todo.shared.utils.Event
 import com.github.droibit.firebase_todo.ui.common.MessageUiModel
-import com.github.droibit.firebase_todo.ui.main.task.edit.EditTaskUiModel
-import com.github.droibit.firebase_todo.ui.main.task.edit.EditableTaskViewModel
+import com.github.droibit.firebase_todo.ui.main.task.edit.EditTaskContentUiModel
+import com.github.droibit.firebase_todo.ui.main.task.edit.EditableTaskContentViewModel
 import com.github.droibit.firebase_todo.utils.requireValue
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -24,10 +24,10 @@ class NewTaskViewModel(
     private val taskRepository: TaskRepository,
     override val title: MutableLiveData<String>,
     override val description: MutableLiveData<String>,
-    private val createTaskUiModelSink: MutableLiveData<EditTaskUiModel>
-) : ViewModel(), EditableTaskViewModel {
+    private val createTaskUiModelSink: MutableLiveData<EditTaskContentUiModel>
+) : ViewModel(), EditableTaskContentViewModel {
 
-    val createTaskUiModel: LiveData<EditTaskUiModel>
+    val createTaskUiModel: LiveData<EditTaskContentUiModel>
         get() = createTaskUiModelSink
 
     override val isInProgress: LiveData<Boolean> = createTaskUiModelSink.map { it.inProgress }
@@ -75,6 +75,6 @@ class NewTaskViewModel(
         success: Event<MessageUiModel>? = null,
         error: Event<MessageUiModel>? = null,
     ) {
-        createTaskUiModelSink.value = EditTaskUiModel(inProgress, success, error)
+        createTaskUiModelSink.value = EditTaskContentUiModel(inProgress, success, error)
     }
 }
