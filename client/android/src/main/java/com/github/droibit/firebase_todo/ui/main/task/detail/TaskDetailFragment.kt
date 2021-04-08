@@ -59,10 +59,15 @@ class TaskDetailFragment :
                 .navigateSafely(toUpdateTask(task = args.task))
         }
 
+        binding.completedCheckBox.setOnClickListener {
+            viewModel.toggleTaskCompletion()
+        }
+
         viewModel.task.observe(viewLifecycleOwner) {
             binding.task = it
         }
         subscribeDeleteTaskUiModel()
+        subscribeUpdateTaskCompletionUiModel()
     }
 
     private fun subscribeDeleteTaskUiModel() {
@@ -77,6 +82,14 @@ class TaskDetailFragment :
 
             uiModel.success.consume()?.let {
                 findNavController().popBackStack()
+            }
+        }
+    }
+
+    private fun subscribeUpdateTaskCompletionUiModel() {
+        viewModel.updateTaskCompletionUiModel.observe(viewLifecycleOwner) { uiModel ->
+            uiModel.error.consume()?.let { message ->
+                Snackbar.make(binding.container, message.id, Snackbar.LENGTH_SHORT).show()
             }
         }
     }
