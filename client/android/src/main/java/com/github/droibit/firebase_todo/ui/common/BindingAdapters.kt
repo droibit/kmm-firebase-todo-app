@@ -1,7 +1,9 @@
 package com.github.droibit.firebase_todo.ui.common
 
+import android.text.format.DateUtils
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.appcompat.widget.Toolbar
 import androidx.core.view.isGone
 import androidx.core.view.isVisible
@@ -69,4 +71,21 @@ fun Toolbar.bindEnabledPopBackNavigation(previousEnabled: Boolean, enabled: Bool
         navigationIcon = null
         setNavigationOnClickListener(null)
     }
+}
+
+@BindingAdapter("textTaskCreatedAt")
+fun TextView.bindTaskCreatedAt(previousCreatedAtMillis: Long, createdAtMillis: Long) {
+    if (previousCreatedAtMillis == createdAtMillis) {
+        return
+    }
+
+    text = DateUtils.formatDateTime(
+        context,
+        createdAtMillis,
+        DateUtils.FORMAT_SHOW_YEAR or
+            DateUtils.FORMAT_SHOW_DATE or
+            DateUtils.FORMAT_SHOW_WEEKDAY or
+            DateUtils.FORMAT_ABBREV_ALL or
+            DateUtils.FORMAT_SHOW_TIME
+    )
 }
