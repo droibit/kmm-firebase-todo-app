@@ -8,7 +8,6 @@ buildscript {
     repositories {
         google()
         mavenCentral()
-        jcenter()
     }
     dependencies {
         classpath(Deps.Plugins.Kotlin.gradle)

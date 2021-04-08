@@ -1,6 +1,6 @@
 object Deps {
     object Plugins {
-        const val android = "com.android.tools.build:gradle:4.2.0-beta06"
+        const val android = "com.android.tools.build:gradle:4.2.0-rc01"
         const val googleServices = "com.google.gms:google-services:4.3.4"
         const val daggerHilt = "com.google.dagger:hilt-android-gradle-plugin:${Dagger.version}"
         const val navSafeArgs = "androidx.navigation:navigation-safe-args-gradle-plugin:${Androidx.Navigation.version}"
@@ -31,16 +31,16 @@ object Deps {
 
     object Androidx {
         const val core = "androidx.core:core-ktx:1.6.0-alpha01"
-        const val activity = "androidx.activity:activity-ktx:1.3.0-alpha05"
+        const val activity = "androidx.activity:activity-ktx:1.3.0-alpha06"
         const val fragment = "androidx.fragment:fragment-ktx:1.3.2"
         const val appCompat = "androidx.appcompat:appcompat:1.3.0-rc01"
         const val constraintLayout = "androidx.constraintlayout:constraintlayout:2.0.4"
-        const val recyclerView = "androidx.recyclerview:recyclerview:1.2.0-rc01"
+        const val recyclerView = "androidx.recyclerview:recyclerview:1.2.0"
         const val dataStore = "androidx.datastore:datastore-preferences:1.0.0-alpha08"
         const val preference = "androidx.preference:preference-ktx:1.1.1"
 
         object Navigation {
-            internal const val version = "2.3.4"
+            internal const val version = "2.3.5"
             const val runtime = "androidx.navigation:navigation-runtime-ktx:$version"
             const val fragment = "androidx.navigation:navigation-fragment-ktx:$version"
             const val ui = "androidx.navigation:navigation-ui-ktx:$version"
