@@ -4,6 +4,7 @@ import com.chrynan.inject.Inject
 import com.chrynan.inject.Singleton
 import com.github.aakira.napier.Napier
 import com.github.droibit.firebase_todo.shared.data.source.FirestorePaths
+import com.github.droibit.firebase_todo.shared.model.task.Statistics
 import com.github.droibit.firebase_todo.shared.model.task.Task
 import com.github.droibit.firebase_todo.shared.model.task.TaskException
 import com.github.droibit.firebase_todo.shared.model.task.TaskFilter
@@ -175,6 +176,19 @@ class TaskDataSource @Inject constructor(
             Napier.w("Update task error(${e.code}):", e)
             throw TaskException(cause = e)
         }
+    }
+
+    fun getTaskStatistics(userId: String): Flow<Statistics> {
+        // TODO: We must deploy firebase functions.
+        return firestore.document(FirestorePaths.statistics(userId))
+            .snapshots
+            .filter { it.exists }
+            .map {
+                it.data(Statistics.serializer())
+            }
+            .catch { error ->
+                throw TaskException(cause = error)
+            }
     }
 
     internal object TaskFields {

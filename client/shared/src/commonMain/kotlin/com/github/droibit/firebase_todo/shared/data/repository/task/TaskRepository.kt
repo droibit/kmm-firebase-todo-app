@@ -7,6 +7,7 @@ import com.github.aakira.napier.Napier
 import com.github.droibit.firebase_todo.shared.data.source.settings.UserSettingsDataSource
 import com.github.droibit.firebase_todo.shared.data.source.task.TaskDataSource
 import com.github.droibit.firebase_todo.shared.data.source.user.UserDataSource
+import com.github.droibit.firebase_todo.shared.model.task.Statistics
 import com.github.droibit.firebase_todo.shared.model.task.Task
 import com.github.droibit.firebase_todo.shared.model.task.TaskException
 import com.github.droibit.firebase_todo.shared.model.task.TaskFilter
@@ -18,6 +19,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.flatMapLatest
+import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.onCompletion
 import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.flow.shareIn
@@ -40,7 +42,7 @@ class TaskRepository @Inject constructor(
         .shareIn(externalScope, started = SharingStarted.Lazily, replay = 1)
         .wrap()
 
-    // TODO: Error handling.
+    // TODO: Ensure that the stream is not disconnected when an error occurs.
     val taskList: CFlow<List<Task>> = combine(taskFilter, taskSorting) { filter, sorting ->
         filter to sorting
     }.flatMapLatest { (filter, sorting) ->
@@ -50,6 +52,15 @@ class TaskRepository @Inject constructor(
         .onStart { Napier.d("Start creating a task list.") }
         .onCompletion { Napier.d("Finish creating a task list.") }
         .shareIn(externalScope, started = SharingStarted.WhileSubscribed(), replay = 1)
+        .wrap()
+
+    // TODO: Ensure that the stream is not disconnected when an error occurs.
+    val statistics: CFlow<Statistics> = flow {
+        val user = requireNotNull(userDataSource.currentUser)
+        emit(user.uid)
+    }.flatMapLatest {
+        taskDataSource.getTaskStatistics(userId = it)
+    }.shareIn(externalScope, started = SharingStarted.WhileSubscribed(), replay = 1)
         .wrap()
 
     suspend fun setTaskFilter(taskFilter: TaskFilter) {
