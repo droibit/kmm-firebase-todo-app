@@ -18,4 +18,8 @@ data class Task(
     val updatedAt: Double,
 ) : Parcelable {
     val isActive: Boolean get() = !isCompleted
+
+    val createdAtMills: Long get() = createdAt.toLong()
+
+    val updatedAtMillis: Long get() = updatedAt.toLong()
 }
