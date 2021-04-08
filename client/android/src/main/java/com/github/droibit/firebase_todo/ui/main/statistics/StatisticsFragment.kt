@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.github.droibit.firebase_todo.R
 import com.github.droibit.firebase_todo.databinding.FragmentStatisticsBinding
@@ -24,6 +25,8 @@ class StatisticsFragment :
 
     private val mainViewModel: MainViewModel by activityViewModels()
 
+    private val statisticsViewModel: StatisticsViewModel by viewModels()
+
     private var _binding: FragmentStatisticsBinding? = null
     private val binding get() = checkNotNull(_binding)
 
@@ -35,6 +38,7 @@ class StatisticsFragment :
         return FragmentStatisticsBinding.inflate(inflater, container, false)
             .also {
                 it.lifecycleOwner = this.viewLifecycleOwner
+                it.viewModel = statisticsViewModel
                 this._binding = it
             }.root
     }
@@ -47,9 +51,19 @@ class StatisticsFragment :
             binding.toolbar.setUserIcon(it)
         }
 
-        // TODO: Remove behavior check code.
-        binding.numOfActiveTasks.text = "100"
-        binding.numOfCompletedTasks.text = "10"
+        subscribeUiModel()
+    }
+
+    private fun subscribeUiModel() {
+        statisticsViewModel.uiModel.observe(viewLifecycleOwner) { uiModel ->
+            uiModel.success?.let {
+                binding.statistics = it
+            }
+
+            uiModel.error?.let {
+                // TODO:
+            }
+        }
     }
 
     override fun onDestroyView() {

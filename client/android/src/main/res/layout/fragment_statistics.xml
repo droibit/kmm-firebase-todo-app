@@ -5,73 +5,98 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+        <variable
+            name="statistics"
+            type="com.github.droibit.firebase_todo.shared.model.task.Statistics" />
 
+        <variable
+            name="viewModel"
+            type="com.github.droibit.firebase_todo.ui.main.statistics.StatisticsViewModel" />
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:marginBottomNavInsets="@{true}">
 
-        <com.google.android.material.appbar.MaterialToolbar
-            android:id="@+id/toolbar"
-            android:layout_width="0dp"
-            android:layout_height="?attr/actionBarSize"
-            app:title="@string/app_name"
-            app:menu="@menu/main"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/container"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
-        <TextView
-            android:text="@string/statistics_active_tasks"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/activeTasksLabel"
-            android:textAppearance="?attr/textAppearanceHeadline5"
-            android:textColor="@color/material_on_surface_emphasis_medium"
-            app:layout_constraintTop_toBottomOf="@+id/toolbar"
-            app:layout_constraintBottom_toTopOf="@+id/numOfActiveTasks"
-            app:layout_constraintVertical_chainStyle="packed"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
+            <com.google.android.material.appbar.MaterialToolbar
+                android:id="@+id/toolbar"
+                android:layout_width="0dp"
+                android:layout_height="?attr/actionBarSize"
+                app:title="@string/app_name"
+                app:menu="@menu/main"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" />
 
-        <TextView
-            android:id="@+id/numOfActiveTasks"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:textAppearance="?attr/textAppearanceHeadline5"
-            app:layout_constraintTop_toBottomOf="@+id/activeTasksLabel"
-            app:layout_constraintBottom_toTopOf="@+id/completedTasksLabel"
-            app:layout_constraintStart_toStartOf="@+id/activeTasksLabel"
-            app:layout_constraintEnd_toEndOf="@+id/activeTasksLabel"
-            tools:text="0" />
+            <TextView
+                android:text="@string/statistics_active_tasks"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/activeTasksLabel"
+                android:textAppearance="?attr/textAppearanceHeadline5"
+                android:textColor="@color/material_on_surface_emphasis_medium"
+                app:layout_constraintTop_toBottomOf="@+id/toolbar"
+                app:layout_constraintBottom_toTopOf="@+id/numOfActiveTasks"
+                app:layout_constraintVertical_chainStyle="packed"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" />
 
-        <TextView
-            android:id="@+id/completedTasksLabel"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
-            android:text="@string/statistics_completed_tasks"
-            android:textAppearance="?attr/textAppearanceHeadline5"
-            android:textColor="@color/material_on_surface_emphasis_medium"
-            app:layout_constraintTop_toBottomOf="@+id/numOfActiveTasks"
-            app:layout_constraintBottom_toTopOf="@+id/numOfCompletedTasks"
-            app:layout_constraintStart_toStartOf="@+id/numOfActiveTasks"
-            app:layout_constraintEnd_toEndOf="@+id/numOfActiveTasks" />
+            <TextView
+                android:id="@+id/numOfActiveTasks"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:textAppearance="?attr/textAppearanceHeadline5"
+                android:text="@{String.valueOf(statistics.numberOfActiveTasks)}"
+                app:layout_constraintTop_toBottomOf="@+id/activeTasksLabel"
+                app:layout_constraintBottom_toTopOf="@+id/completedTasksLabel"
+                app:layout_constraintStart_toStartOf="@+id/activeTasksLabel"
+                app:layout_constraintEnd_toEndOf="@+id/activeTasksLabel"
+                tools:text="0" />
 
-        <TextView
-            android:id="@+id/numOfCompletedTasks"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:textAppearance="?attr/textAppearanceHeadline5"
-            app:layout_constraintTop_toBottomOf="@+id/completedTasksLabel"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="@+id/completedTasksLabel"
-            app:layout_constraintEnd_toEndOf="@+id/completedTasksLabel"
-            tools:text="0"/>
+            <TextView
+                android:id="@+id/completedTasksLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:text="@string/statistics_completed_tasks"
+                android:textAppearance="?attr/textAppearanceHeadline5"
+                android:textColor="@color/material_on_surface_emphasis_medium"
+                app:layout_constraintTop_toBottomOf="@+id/numOfActiveTasks"
+                app:layout_constraintBottom_toTopOf="@+id/numOfCompletedTasks"
+                app:layout_constraintStart_toStartOf="@+id/numOfActiveTasks"
+                app:layout_constraintEnd_toEndOf="@+id/numOfActiveTasks" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            <TextView
+                android:id="@+id/numOfCompletedTasks"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:textAppearance="?attr/textAppearanceHeadline5"
+                android:text="@{String.valueOf(statistics.numberOfCompletedTasks)}"
+                app:layout_constraintTop_toBottomOf="@+id/completedTasksLabel"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/completedTasksLabel"
+                app:layout_constraintEnd_toEndOf="@+id/completedTasksLabel"
+                tools:text="0"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <com.github.droibit.firebase_todo.ui.common.ProgressView
+            android:id="@+id/progress"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="?attr/actionBarSize"
+            android:background="?android:attr/colorBackground"
+            app:visibleUnless="@{viewModel.uiModel.inProgress}"
+            tools:visibility="gone" />
+
+    </FrameLayout>
+
 </layout>

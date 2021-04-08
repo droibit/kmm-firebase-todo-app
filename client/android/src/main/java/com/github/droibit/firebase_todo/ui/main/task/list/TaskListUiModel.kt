@@ -8,7 +8,6 @@ import com.github.droibit.firebase_todo.shared.model.task.TaskFilter
 import com.github.droibit.firebase_todo.shared.model.task.TaskSorting
 import com.github.droibit.firebase_todo.ui.common.MessageUiModel
 
-// TODO: Need review.
 data class GetTaskListUiModel(
     val inProgress: Boolean,
     val success: TaskListUiModel?,

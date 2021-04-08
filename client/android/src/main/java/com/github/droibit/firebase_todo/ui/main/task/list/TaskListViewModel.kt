@@ -133,6 +133,7 @@ class TaskListViewModel(
         )
     }
 
+    @UiThread
     private fun emitUpdateCompletionUiModel(
         inProgress: Boolean = false,
         success: Event<Unit>? = null,
