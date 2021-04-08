@@ -10,6 +10,7 @@ import com.github.droibit.firebase_todo.shared.model.task.TaskFilter
 import com.github.droibit.firebase_todo.shared.model.task.TaskSorting
 import com.github.droibit.firebase_todo.shared.utils.Event
 import com.github.droibit.firebase_todo.ui.common.MessageUiModel
+import com.github.droibit.firebase_todo.ui.main.task.edit.EditTaskCompletionUiModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.combine
@@ -23,12 +24,13 @@ import kotlin.LazyThreadSafetyMode.NONE
 @HiltViewModel
 class TaskListViewModel(
     private val taskRepository: TaskRepository,
-    private val uiModelSink: MutableLiveData<GetTaskListUiModel>,
+    private val taskListUiModelSink: MutableLiveData<GetTaskListUiModel>,
     private val filterTaskNavSink: MutableLiveData<Event<TaskFilter>>,
     private val sortTaskNavSink: MutableLiveData<Event<TaskSorting>>,
+    private val updateTaskCompletionUiModelSink: MutableLiveData<EditTaskCompletionUiModel>
 ) : ViewModel() {
 
-    val uiModel: LiveData<GetTaskListUiModel> by lazy(NONE) {
+    val taskListUiModel: LiveData<GetTaskListUiModel> by lazy(NONE) {
         combine(
             taskRepository.taskList,
             taskRepository.taskFilter,
@@ -36,13 +38,13 @@ class TaskListViewModel(
         ) { tasks, filter, sorting ->
             TaskListUiModel(tasks, filter, sorting)
         }
-            .onStart { emitUiModel(inProgress = true) }
-            .onEach { emitUiModel(success = it) }
+            .onStart { emitTaskListUiModel(inProgress = true) }
+            .onEach { emitTaskListUiModel(success = it) }
             .catch {
                 // TODO: Error handling.
             }
             .launchIn(viewModelScope)
-        uiModelSink
+        taskListUiModelSink
     }
 
     val filterTaskNavigation: LiveData<Event<TaskFilter>> get() = filterTaskNavSink
@@ -54,20 +56,21 @@ class TaskListViewModel(
         taskRepository: TaskRepository
     ) : this(
         taskRepository,
-        MutableLiveData(),
-        MutableLiveData(),
-        MutableLiveData()
+        taskListUiModelSink = MutableLiveData(),
+        filterTaskNavSink = MutableLiveData(),
+        sortTaskNavSink = MutableLiveData(),
+        updateTaskCompletionUiModelSink = MutableLiveData()
     )
 
     @UiThread
     fun onFilterTaskClick() {
-        val ui = uiModelSink.value?.success ?: return
+        val ui = taskListUiModelSink.value?.success ?: return
         filterTaskNavSink.value = Event(ui.taskFilter)
     }
 
     @UiThread
     fun onChangeSortKeyClick() {
-        val ui = uiModelSink.value?.success ?: return
+        val ui = taskListUiModelSink.value?.success ?: return
         sortTaskNavSink.value = Event(ui.taskSorting)
     }
 
@@ -86,12 +89,12 @@ class TaskListViewModel(
     }
 
     @UiThread
-    private fun emitUiModel(
+    private fun emitTaskListUiModel(
         inProgress: Boolean = false,
         success: TaskListUiModel? = null,
         error: MessageUiModel? = null
     ) {
-        uiModelSink.value = GetTaskListUiModel(
+        taskListUiModelSink.value = GetTaskListUiModel(
             inProgress = inProgress,
             success = success,
             error = error

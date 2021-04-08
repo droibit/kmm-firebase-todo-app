@@ -10,15 +10,11 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.DefaultLifecycleObserver
-import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.Lifecycle.Event.ON_RESUME
-import androidx.lifecycle.LifecycleEventObserver
 import androidx.lifecycle.LifecycleOwner
 import androidx.navigation.NavBackStackEntry
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.transition.TransitionManager
 import com.github.aakira.napier.Napier
 import com.github.droibit.firebase_todo.R
 import com.github.droibit.firebase_todo.databinding.FragmentTaskListBinding
@@ -114,7 +110,15 @@ class TaskListFragment :
         }
         binding.taskListHeaderView.onClickListener = this
 
-        taskListViewModel.uiModel.observe(viewLifecycleOwner) { uiModel ->
+        // ref. https://developer.android.com/guide/navigation/navigation-programmatic?hl=en
+        currentBackStackEntry.lifecycle.addObserver(currentBackStackLifecycleObserver)
+
+        subscribeTaskListUiModel()
+        subscribeNavigationEvents()
+    }
+
+    private fun subscribeTaskListUiModel() {
+        taskListViewModel.taskListUiModel.observe(viewLifecycleOwner) { uiModel ->
             uiModel.success?.let {
                 binding.taskListHeaderView.apply {
                     setTaskFilter(it.taskFilter)
@@ -133,10 +137,9 @@ class TaskListFragment :
                 // TODO:
             }
         }
+    }
 
-        // ref. https://developer.android.com/guide/navigation/navigation-programmatic?hl=en
-        currentBackStackEntry.lifecycle.addObserver(currentBackStackLifecycleObserver)
-
+    private fun subscribeNavigationEvents() {
         taskListViewModel.filterTaskNavigation.observe(viewLifecycleOwner) {
             it.consume()?.let { currentFilter ->
                 findNavController().navigateSafely(toFilterTaskBottomSheet(currentFilter))

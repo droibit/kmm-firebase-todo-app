@@ -53,7 +53,7 @@
                 android:scrollbars="vertical"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 app:layout_behavior="@string/appbar_scrolling_view_behavior"
-                app:visibleUnless="@{viewModel.uiModel.showsTaskList}"
+                app:visibleUnless="@{viewModel.taskListUiModel.showsTaskList}"
                 tools:listitem="@layout/list_item_task" />
 
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -61,7 +61,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginTop="?attr/actionBarSize"
-                app:visibleUnless="@{viewModel.uiModel.showsEmptyView}"
+                app:visibleUnless="@{viewModel.taskListUiModel.showsEmptyView}"
                 tools:visibility="gone">
 
                 <ImageView
@@ -113,7 +113,7 @@
             android:layout_height="match_parent"
             android:layout_marginTop="?attr/actionBarSize"
             android:background="?android:attr/colorBackground"
-            app:visibleUnless="@{viewModel.uiModel.inProgress}"
+            app:visibleUnless="@{viewModel.taskListUiModel.inProgress}"
             tools:visibility="gone" />
     </FrameLayout>
 </layout>
