@@ -3,6 +3,7 @@ package com.github.droibit.firebase_todo.shared.data.source.task
 import com.chrynan.inject.Inject
 import com.chrynan.inject.Singleton
 import com.github.aakira.napier.Napier
+import com.github.droibit.firebase_todo.shared.data.source.FirestorePaths
 import com.github.droibit.firebase_todo.shared.model.task.Task
 import com.github.droibit.firebase_todo.shared.model.task.TaskException
 import com.github.droibit.firebase_todo.shared.model.task.TaskFilter
@@ -33,7 +34,7 @@ class TaskDataSource @Inject constructor(
         taskFilter: TaskFilter,
         taskSorting: TaskSorting
     ): Flow<List<Task>> {
-        return firestore.collection(Paths.tasks(userId))
+        return firestore.collection(FirestorePaths.tasks(userId))
             .where(taskFilter)
             .orderBy(taskSorting)
             .limit(100)
@@ -55,7 +56,7 @@ class TaskDataSource @Inject constructor(
     }
 
     fun getTask(userId: String, taskId: String): Flow<Task?> {
-        return firestore.document(Paths.task(userId, taskId))
+        return firestore.document(FirestorePaths.task(userId, taskId))
             .snapshots
             // Workaround to exclude tasks with null serverTimestamp
             // e.g. Immediately after creating a task.
@@ -75,8 +76,8 @@ class TaskDataSource @Inject constructor(
     private fun Query.where(filter: TaskFilter): Query {
         return when (filter) {
             TaskFilter.ALL -> this
-            TaskFilter.COMPLETED -> this.where(Fields.COMPLETED, equalTo = true)
-            TaskFilter.ACTIVE -> this.where(Fields.COMPLETED, equalTo = false)
+            TaskFilter.COMPLETED -> this.where(TaskFields.COMPLETED, equalTo = true)
+            TaskFilter.ACTIVE -> this.where(TaskFields.COMPLETED, equalTo = false)
         }
     }
 
@@ -86,22 +87,22 @@ class TaskDataSource @Inject constructor(
         return when (sorting.key) {
             TaskSorting.Key.TITLE -> when (sorting.order) {
                 TaskSorting.Order.ASC -> {
-                    orderBy(Fields.TITLE, Direction.ASCENDING)
-                        .orderBy(Fields.CREATED_AT, Direction.ASCENDING)
+                    orderBy(TaskFields.TITLE, Direction.ASCENDING)
+                        .orderBy(TaskFields.CREATED_AT, Direction.ASCENDING)
                 }
                 TaskSorting.Order.DESC -> {
-                    orderBy(Fields.TITLE, Direction.DESCENDING)
-                        .orderBy(Fields.CREATED_AT, Direction.DESCENDING)
+                    orderBy(TaskFields.TITLE, Direction.DESCENDING)
+                        .orderBy(TaskFields.CREATED_AT, Direction.DESCENDING)
                 }
             }
             TaskSorting.Key.CREATED_DATE -> when (sorting.order) {
                 TaskSorting.Order.ASC -> {
-                    orderBy(Fields.CREATED_AT, Direction.ASCENDING)
-                        .orderBy(Fields.TITLE, Direction.ASCENDING)
+                    orderBy(TaskFields.CREATED_AT, Direction.ASCENDING)
+                        .orderBy(TaskFields.TITLE, Direction.ASCENDING)
                 }
                 TaskSorting.Order.DESC -> {
-                    orderBy(Fields.CREATED_AT, Direction.DESCENDING)
-                        .orderBy(Fields.TITLE, Direction.DESCENDING)
+                    orderBy(TaskFields.CREATED_AT, Direction.DESCENDING)
+                        .orderBy(TaskFields.TITLE, Direction.DESCENDING)
                 }
             }
         }
@@ -110,7 +111,7 @@ class TaskDataSource @Inject constructor(
     @Throws(TaskException::class, CancellationException::class)
     suspend fun createTask(userId: String, title: String, description: String) {
         try {
-            val tasksRef = firestore.collection(Paths.tasks(userId))
+            val tasksRef = firestore.collection(FirestorePaths.tasks(userId))
             val newTask = Task(
                 title = title,
                 description = description,
@@ -153,7 +154,7 @@ class TaskDataSource @Inject constructor(
     @Throws(TaskException::class, CancellationException::class)
     private suspend fun <T>updateTask(userId: String, taskId: String, data: T, strategy: SerializationStrategy<T>) {
         try {
-            val taskRef = firestore.document(Paths.task(userId, taskId))
+            val taskRef = firestore.document(FirestorePaths.task(userId, taskId))
             if (!taskRef.get().exists) {
                 throw TaskException("The specified task($taskId) does not exist.")
             }
@@ -167,7 +168,7 @@ class TaskDataSource @Inject constructor(
 
     suspend fun deleteTask(userId: String, taskId: String) {
         try {
-            val taskRef = firestore.document(Paths.task(userId, taskId))
+            val taskRef = firestore.document(FirestorePaths.task(userId, taskId))
             // Deleting a non-existent document will not throw an error.
             taskRef.delete()
         } catch (e: FirebaseFirestoreException) {
@@ -176,16 +177,10 @@ class TaskDataSource @Inject constructor(
         }
     }
 
-    internal object Fields {
+    internal object TaskFields {
         const val TITLE = "title"
         const val COMPLETED = "completed"
         const val CREATED_AT = "createdAt"
-    }
-
-    internal object Paths {
-        fun tasks(userId: String) = "users/$userId/tasks"
-
-        fun task(userId: String, taskId: String) = "${tasks(userId)}/$taskId"
     }
 }
 
