@@ -1,6 +1,7 @@
 package com.github.droibit.firebase_todo.ui.main.task.detail
 
 import androidx.annotation.MainThread
+import androidx.annotation.UiThread
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -84,6 +85,7 @@ class TaskDetailViewModel(
         }
     }
 
+    @UiThread
     fun toggleTaskCompletion() {
         if (updateTaskCompletionUiModelSink.requireValue().inProgress) {
             return
