@@ -6,7 +6,7 @@ object Deps {
         const val navSafeArgs = "androidx.navigation:navigation-safe-args-gradle-plugin:${Androidx.Navigation.version}"
 
         object Kotlin {
-            private const val version = "1.4.32"
+            private const val version = "1.5.0"
             const val gradle = "org.jetbrains.kotlin:kotlin-gradle-plugin:$version"
             const val serialization = "org.jetbrains.kotlin:kotlin-serialization:$version"
         }
@@ -55,7 +55,7 @@ object Deps {
     }
 
     object Dagger {
-        internal const val version = "2.33-beta"
+        internal const val version = "2.35.1"
         const val hilt = "com.google.dagger:hilt-android:$version"
         const val compiler = "com.google.dagger:hilt-android-compiler:$version"
     }

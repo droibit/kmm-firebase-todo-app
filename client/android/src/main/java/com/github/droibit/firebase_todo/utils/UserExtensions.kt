@@ -13,7 +13,8 @@ fun User.getIconURL(packageName: String = BuildConfig.APPLICATION_ID): UserIconU
 }
 
 @Suppress("MemberVisibilityCanBePrivate")
-inline class UserIconURL(val url: String) {
+@JvmInline
+value class UserIconURL(val url: String) {
     init {
         require(url.isNotEmpty())
     }
