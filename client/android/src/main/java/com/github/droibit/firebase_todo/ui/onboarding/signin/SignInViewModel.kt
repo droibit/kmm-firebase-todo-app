@@ -6,7 +6,6 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.github.aakira.napier.Napier
 import com.github.droibit.firebase_todo.R
 import com.github.droibit.firebase_todo.shared.data.repository.user.UserRepository
 import com.github.droibit.firebase_todo.shared.model.user.AuthException
@@ -18,6 +17,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.common.api.ApiException
 import com.google.android.gms.tasks.Task
 import dagger.hilt.android.lifecycle.HiltViewModel
+import io.github.aakira.napier.Napier
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 

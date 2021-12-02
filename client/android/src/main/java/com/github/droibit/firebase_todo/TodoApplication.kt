@@ -1,11 +1,11 @@
 package com.github.droibit.firebase_todo
 
 import android.app.Application
-import com.github.aakira.napier.Antilog
-import com.github.aakira.napier.Napier
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.ktx.initialize
 import dagger.hilt.android.HiltAndroidApp
+import io.github.aakira.napier.Antilog
+import io.github.aakira.napier.Napier
 import javax.inject.Inject
 
 @HiltAndroidApp

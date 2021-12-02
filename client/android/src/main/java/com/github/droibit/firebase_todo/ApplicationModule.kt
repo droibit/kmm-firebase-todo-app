@@ -1,13 +1,13 @@
 package com.github.droibit.firebase_todo
 
-import com.github.aakira.napier.Antilog
-import com.github.aakira.napier.DebugAntilog
-import com.github.aakira.napier.Napier
 import com.github.droibit.firebase_todo.shared.model.app.AppVersion
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
+import io.github.aakira.napier.Antilog
+import io.github.aakira.napier.DebugAntilog
+import io.github.aakira.napier.Napier
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.SupervisorJob
 import javax.inject.Named

@@ -12,7 +12,6 @@ import androidx.navigation.fragment.findNavController
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
 import coil.imageLoader
-import com.github.aakira.napier.Napier
 import com.github.droibit.chopstick.preference.bindPreference
 import com.github.droibit.firebase_todo.R
 import com.github.droibit.firebase_todo.shared.utils.consume
@@ -24,6 +23,7 @@ import com.github.droibit.firebase_todo.utils.UserIconURL
 import com.github.droibit.firebase_todo.utils.consumeResult
 import com.github.droibit.firebase_todo.utils.navigateSafely
 import dagger.hilt.android.AndroidEntryPoint
+import io.github.aakira.napier.Napier
 import kotlin.LazyThreadSafetyMode.NONE
 
 @AndroidEntryPoint

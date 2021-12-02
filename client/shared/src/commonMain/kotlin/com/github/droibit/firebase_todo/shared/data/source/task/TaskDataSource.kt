@@ -2,7 +2,6 @@ package com.github.droibit.firebase_todo.shared.data.source.task
 
 import com.chrynan.inject.Inject
 import com.chrynan.inject.Singleton
-import com.github.aakira.napier.Napier
 import com.github.droibit.firebase_todo.shared.data.source.FirestorePaths
 import com.github.droibit.firebase_todo.shared.model.task.Statistics
 import com.github.droibit.firebase_todo.shared.model.task.Task
@@ -17,6 +16,7 @@ import dev.gitlive.firebase.firestore.Query
 import dev.gitlive.firebase.firestore.code
 import dev.gitlive.firebase.firestore.orderBy
 import dev.gitlive.firebase.firestore.where
+import io.github.aakira.napier.Napier
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.filter

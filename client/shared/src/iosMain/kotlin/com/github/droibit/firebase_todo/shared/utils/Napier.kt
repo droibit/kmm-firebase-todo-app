@@ -1,6 +1,6 @@
 package com.github.droibit.firebase_todo.shared.utils
 
-import com.github.aakira.napier.Napier as Original
+import io.github.aakira.napier.Napier as Original
 
 object Napier {
     fun d(message: String, throwable: Throwable? = null) {

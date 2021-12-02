@@ -15,7 +15,6 @@ import androidx.navigation.NavBackStackEntry
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.github.aakira.napier.Napier
 import com.github.droibit.firebase_todo.R
 import com.github.droibit.firebase_todo.databinding.FragmentTaskListBinding
 import com.github.droibit.firebase_todo.shared.model.task.Task
@@ -35,6 +34,7 @@ import com.github.droibit.firebase_todo.utils.consumeResult
 import com.github.droibit.firebase_todo.utils.navigateSafely
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
+import io.github.aakira.napier.Napier
 import javax.inject.Inject
 import kotlin.LazyThreadSafetyMode.NONE
 

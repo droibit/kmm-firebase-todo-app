@@ -4,11 +4,11 @@ package com.github.droibit.firebase_todo.shared.data.repository.user
 
 import com.chrynan.inject.Inject
 import com.chrynan.inject.Singleton
-import com.github.aakira.napier.Napier
 import com.github.droibit.firebase_todo.shared.data.source.user.UserDataSource
 import com.github.droibit.firebase_todo.shared.model.user.AuthException
 import com.github.droibit.firebase_todo.shared.model.user.User
 import com.github.droibit.firebase_todo.shared.utils.CoroutinesDispatcherProvider
+import io.github.aakira.napier.Napier
 import kotlinx.coroutines.withContext
 import kotlin.coroutines.cancellation.CancellationException
 

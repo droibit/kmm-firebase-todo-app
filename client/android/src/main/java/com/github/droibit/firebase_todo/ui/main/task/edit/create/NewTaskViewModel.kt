@@ -6,7 +6,6 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.map
 import androidx.lifecycle.viewModelScope
-import com.github.aakira.napier.Napier
 import com.github.droibit.firebase_todo.R
 import com.github.droibit.firebase_todo.shared.data.repository.task.TaskRepository
 import com.github.droibit.firebase_todo.shared.model.task.TaskException
@@ -16,6 +15,7 @@ import com.github.droibit.firebase_todo.ui.main.task.edit.EditTaskContentUiModel
 import com.github.droibit.firebase_todo.ui.main.task.edit.EditableTaskContentViewModel
 import com.github.droibit.firebase_todo.utils.requireValue
 import dagger.hilt.android.lifecycle.HiltViewModel
+import io.github.aakira.napier.Napier
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 

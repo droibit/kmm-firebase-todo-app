@@ -5,13 +5,13 @@ package com.github.droibit.firebase_todo.shared.data.source.user
 import co.touchlab.stately.freeze
 import com.chrynan.inject.Inject
 import com.chrynan.inject.Singleton
-import com.github.aakira.napier.Napier
 import com.github.droibit.firebase_todo.shared.model.user.AuthException
 import com.github.droibit.firebase_todo.shared.model.user.User
 import com.github.droibit.firebase_todo.shared.utils.GoogleAuthProvider
 import dev.gitlive.firebase.FirebaseException
 import dev.gitlive.firebase.auth.FirebaseAuth
 import dev.gitlive.firebase.auth.FirebaseUser
+import io.github.aakira.napier.Napier
 import kotlin.coroutines.cancellation.CancellationException
 
 @Singleton
