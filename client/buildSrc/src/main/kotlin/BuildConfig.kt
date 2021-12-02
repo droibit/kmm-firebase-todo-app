@@ -1,5 +1,5 @@
 object BuildConfig {
-    const val compileSdkVersion = 30
-    const val targetSdkVersion = 30
-    const val minSdkVersion = 23
+    const val compileSdk = 30
+    const val targetSdk = 30
+    const val minSdk = 23
 }

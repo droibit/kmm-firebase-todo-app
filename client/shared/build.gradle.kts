@@ -71,21 +71,19 @@ kotlin {
 // }
 
 android {
-    compileSdkVersion(BuildConfig.compileSdkVersion)
+    compileSdk = BuildConfig.compileSdk
 
     defaultConfig {
-        minSdkVersion(BuildConfig.minSdkVersion)
-        targetSdkVersion(BuildConfig.targetSdkVersion)
-        versionCode = 1
-        versionName = "${project.version}"
+        minSdk = BuildConfig.minSdk
+        targetSdk = BuildConfig.targetSdk
 
-        resConfigs("en", "ja")
+        resourceConfigurations + listOf("en", "ja")
         consumerProguardFiles("consumer-rules.pro")
     }
 
     buildTypes {
         getByName("release") {
-            isMinifyEnabled = true
+            isMinifyEnabled = false
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"

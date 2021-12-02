@@ -8,16 +8,16 @@ plugins {
 }
 
 android {
-    compileSdkVersion(BuildConfig.compileSdkVersion)
+    compileSdk = BuildConfig.compileSdk
 
     defaultConfig {
         applicationId = "com.github.droibit.firebase_todo"
-        minSdkVersion(BuildConfig.minSdkVersion)
-        targetSdkVersion(BuildConfig.targetSdkVersion)
+        minSdk = BuildConfig.minSdk
+        targetSdk = BuildConfig.targetSdk
         versionCode = 1
         versionName = "1.0"
 
-        resConfigs("en", "ja")
+        resourceConfigurations + listOf("en", "ja")
         vectorDrawables.useSupportLibrary = true
     }
 
