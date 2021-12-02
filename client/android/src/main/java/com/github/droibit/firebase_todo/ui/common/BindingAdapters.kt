@@ -38,6 +38,11 @@ fun View.bindGoneUnless(gone: Boolean, requestFocus: Boolean = false) {
     }
 }
 
+@BindingAdapter("android:checked")
+fun CheckableImageView.bindChecked(checked: Boolean) {
+    isChecked = checked
+}
+
 @BindingAdapter("marginBottomNavInsets")
 fun View.bindMarginBottomNavInsets(
     previousApplyBottom: Boolean,

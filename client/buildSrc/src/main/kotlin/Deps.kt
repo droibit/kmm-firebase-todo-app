@@ -30,24 +30,24 @@ object Deps {
     }
 
     object Androidx {
-        const val core = "androidx.core:core-ktx:1.6.0-alpha01"
-        const val activity = "androidx.activity:activity-ktx:1.3.0-alpha06"
-        const val fragment = "androidx.fragment:fragment-ktx:1.3.2"
-        const val appCompat = "androidx.appcompat:appcompat:1.3.0-rc01"
-        const val constraintLayout = "androidx.constraintlayout:constraintlayout:2.0.4"
-        const val recyclerView = "androidx.recyclerview:recyclerview:1.2.0"
-        const val dataStore = "androidx.datastore:datastore-preferences:1.0.0-alpha08"
-        const val preference = "androidx.preference:preference-ktx:1.1.1"
+        const val core = "androidx.core:core-ktx:1.7.0"
+        const val activity = "androidx.activity:activity-ktx:1.4.0"
+        const val fragment = "androidx.fragment:fragment-ktx:1.4.0"
+        const val appCompat = "androidx.appcompat:appcompat:1.4.0"
+        const val constraintLayout = "androidx.constraintlayout:constraintlayout:2.1.2"
+        const val recyclerView = "androidx.recyclerview:recyclerview:1.2.1"
+        const val dataStore = "androidx.datastore:datastore-preferences:1.0.0"
+        const val preference = "androidx.preference:preference-ktx:1.2.0-beta01"
 
         object Navigation {
-            internal const val version = "2.3.5"
+            internal const val version = "2.4.0-beta02"
             const val runtime = "androidx.navigation:navigation-runtime-ktx:$version"
             const val fragment = "androidx.navigation:navigation-fragment-ktx:$version"
             const val ui = "androidx.navigation:navigation-ui-ktx:$version"
         }
 
         object Lifecycle {
-            private const val version = "2.4.0-alpha01"
+            private const val version = "2.4.0"
             const val runtime = "androidx.lifecycle:lifecycle-runtime-ktx:$version"
             const val liveData = "androidx.lifecycle:lifecycle-livedata-ktx:$version"
             const val viewModel = "androidx.lifecycle:lifecycle-viewmodel-ktx:$version"
