@@ -7,6 +7,7 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 buildscript {
     repositories {
         google()
+        gradlePluginPortal()
         mavenCentral()
     }
     dependencies {
@@ -19,20 +20,19 @@ buildscript {
     }
 }
 
+allprojects {
+    repositories {
+        google()
+        mavenCentral()
+        maven { url = uri("https://repo.repsy.io/mvn/chrynan/public") }
+    }
+}
+
 plugins {
     id(Deps.Plugins.Spotless.id) version Deps.Plugins.Spotless.version
 }
 
 subprojects {
-    repositories {
-        google()
-        mavenCentral()
-        jcenter()
-        maven {
-            url = uri("https://repo.repsy.io/mvn/chrynan/public")
-        }
-    }
-
     apply(plugin = "com.diffplug.spotless")
 
     spotless {
@@ -56,7 +56,6 @@ subprojects {
 
     tasks.withType(KotlinCompile::class.java) {
         kotlinOptions {
-            useIR = true
             jvmTarget = "1.8"
             freeCompilerArgs = listOf(
                 "-Xinline-classes",
