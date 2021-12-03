@@ -7,7 +7,7 @@ import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import io.github.aakira.napier.Antilog
 import io.github.aakira.napier.DebugAntilog
-import io.github.aakira.napier.Napier
+import io.github.aakira.napier.LogLevel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.SupervisorJob
 import javax.inject.Named
@@ -25,9 +25,9 @@ object ApplicationModule {
     fun provideAntilog(@Named("debuggable") debuggable: Boolean): Antilog {
         return if (debuggable) DebugAntilog() else {
             object : Antilog() {
-                override fun isEnable(priority: Napier.Level, tag: String?): Boolean = false
+                override fun isEnable(priority: LogLevel, tag: String?): Boolean = false
                 override fun performLog(
-                    priority: Napier.Level,
+                    priority: LogLevel,
                     tag: String?,
                     throwable: Throwable?,
                     message: String?

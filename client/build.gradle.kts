@@ -60,6 +60,7 @@ subprojects {
             freeCompilerArgs = listOf(
                 "-Xinline-classes",
                 "-Xopt-in=kotlin.ExperimentalMultiplatform",
+                "-Xopt-in=kotlinx.coroutines.ExperimentalCoroutinesApi",
                 "-Xopt-in=com.russhwolf.settings.ExperimentalSettingsApi",
                 "-Xopt-in=com.russhwolf.settings.ExperimentalSettingsImplementation"
             )

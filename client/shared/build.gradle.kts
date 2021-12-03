@@ -1,9 +1,9 @@
 plugins {
     kotlin("multiplatform")
     kotlin("native.cocoapods")
+    id("com.android.library")
     id("kotlinx-serialization")
     id("kotlin-parcelize")
-    id("com.android.library")
 
     // When using `native.cocoapods` and` dagger.hilt.android.plugin` plugin at the same time,
     // following error occurs, so the dagger plugin is disabled.
@@ -13,6 +13,30 @@ plugins {
 }
 
 version = "1.0"
+
+android {
+    compileSdk = BuildConfig.compileSdk
+
+    defaultConfig {
+        minSdk = BuildConfig.minSdk
+        targetSdk = BuildConfig.targetSdk
+
+        resourceConfigurations + listOf("en", "ja")
+        consumerProguardFiles("consumer-rules.pro")
+    }
+
+    buildTypes {
+        getByName("release") {
+            isMinifyEnabled = false
+            proguardFiles(
+                getDefaultProguardFile("proguard-android-optimize.txt"),
+                "proguard-rules.pro"
+            )
+        }
+    }
+
+    sourceSets["main"].manifest.srcFile("src/androidMain/AndroidManifest.xml")
+}
 
 kotlin {
     android()
@@ -24,9 +48,12 @@ kotlin {
         homepage = "https://github.com/droibit/kmm-firebase-todo-app"
         authors = "Shinya Kumagai"
         license = "Apache License, Version 2.0"
-        frameworkName = "Shared"
-
         ios.deploymentTarget = "14.0"
+        podfile = project.file("../ios/Podfile")
+
+        framework {
+            baseName = "Shared"
+        }
     }
 
     sourceSets {
@@ -69,30 +96,6 @@ kotlin {
 // dependencies {
 //     "kapt"(Deps.Dagger.compiler)
 // }
-
-android {
-    compileSdk = BuildConfig.compileSdk
-
-    defaultConfig {
-        minSdk = BuildConfig.minSdk
-        targetSdk = BuildConfig.targetSdk
-
-        resourceConfigurations + listOf("en", "ja")
-        consumerProguardFiles("consumer-rules.pro")
-    }
-
-    buildTypes {
-        getByName("release") {
-            isMinifyEnabled = false
-            proguardFiles(
-                getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro"
-            )
-        }
-    }
-
-    sourceSets["main"].manifest.srcFile("src/androidMain/AndroidManifest.xml")
-}
 
 // kapt {
 //     correctErrorTypes = true

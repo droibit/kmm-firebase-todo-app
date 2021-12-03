@@ -6,7 +6,7 @@ object Deps {
         const val navSafeArgs = "androidx.navigation:navigation-safe-args-gradle-plugin:${Androidx.Navigation.version}"
 
         object Kotlin {
-            private const val version = "1.5.0"
+            private const val version = "1.6.0"
             const val gradle = "org.jetbrains.kotlin:kotlin-gradle-plugin:$version"
             const val serialization = "org.jetbrains.kotlin:kotlin-serialization:$version"
         }
@@ -19,14 +19,14 @@ object Deps {
 
     object Coroutines {
         // Strictly requires `native-mt` version.
-        private const val version = "1.4.3-native-mt!!"
+        private const val version = "1.5.2-native-mt!!"
         const val core = "org.jetbrains.kotlinx:kotlinx-coroutines-core:${version}"
         const val android = "org.jetbrains.kotlinx:kotlinx-coroutines-android:$version"
         const val test = "org.jetbrains.kotlinx:kotlinx-coroutines-test:$version"
     }
 
     object Stately {
-        const val common = "co.touchlab:stately-common:1.1.4"
+        const val common = "co.touchlab:stately-common:1.2.0"
     }
 
     object Androidx {
@@ -62,22 +62,22 @@ object Deps {
 
     object Firebase {
         object MPP {
-            private const val version = "1.2.0"
+            private const val version = "1.4.3"
             const val app = "dev.gitlive:firebase-app:$version"
             const val auth = "dev.gitlive:firebase-auth:$version"
             const val firestore = "dev.gitlive:firebase-firestore:$version"
             const val functions = "dev.gitlive:firebase-functions:$version"
         }
 
-        const val analytics = "com.google.firebase:firebase-analytics-ktx:18.0.2"
+        const val analytics = "com.google.firebase:firebase-analytics:20.0.0"
     }
 
     object PlayServices {
-        const val auth = "com.google.android.gms:play-services-auth:19.0.0"
+        const val auth = "com.google.android.gms:play-services-auth:19.2.0"
     }
 
     object Settings {
-        private const val version = "0.7.4"
+        private const val version = "0.8.1"
         const val core = "com.russhwolf:multiplatform-settings:$version"
         const val coroutines = "com.russhwolf:multiplatform-settings-coroutines-native-mt:$version"
         const val datastore = "com.russhwolf:multiplatform-settings-datastore:$version"
@@ -88,14 +88,14 @@ object Deps {
     }
 
     object Test {
-        const val junit = "junit:junit:4.13.1"
+        const val junit = "junit:junit:4.13.2"
     }
 
-    const val serialization = "org.jetbrains.kotlinx:kotlinx-serialization-core:1.1.0"
+    const val serialization = "org.jetbrains.kotlinx:kotlinx-serialization-core:1.3.1"
     const val materialDesign = "com.google.android.material:material:1.4.0-alpha01"
     const val coil = "io.coil-kt:coil:1.1.1"
-    const val napier = "io.github.aakira:napier:1.5.0"
-    const val inject = "com.chrynan.inject:inject:0.8.0"
+    const val napier = "io.github.aakira:napier:2.2.0"
+    const val inject = "com.chrynan.inject:inject:1.0.0"
 
     object Version {
         const val ktlint = "0.40.0"
