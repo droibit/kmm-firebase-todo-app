@@ -77,6 +77,7 @@ dependencies {
     implementation(Deps.Androidx.preference)
 
     implementation(Deps.materialDesign)
+    implementation(Deps.insetter)
     implementation(Deps.coil)
 
     implementation(Deps.PlayServices.auth)
