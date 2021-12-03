@@ -19,15 +19,15 @@ extension SingletonComponent {
         }
     }
 
-    var taskRepository: TaskRepository {
-        shared {
-            TaskRepositoryCombineAdapter(
-                delegate: TaskRepositoryFactory().make(
-                    userSettingsDataSource: userSettingsDataSource
-                )
-            )
-        }
-    }
+//    var taskRepository: TaskRepository {
+//        shared {
+//            TaskRepositoryCombineAdapter(
+//                delegate: TaskRepositoryFactory().make(
+//                    userSettingsDataSource: userSettingsDataSource
+//                )
+//            )
+//        }
+//    }
 }
 
 // MARK: - Provide Data sources

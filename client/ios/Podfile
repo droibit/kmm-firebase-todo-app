@@ -10,6 +10,7 @@ target 'TodoApp' do
   pod 'GoogleSignIn', '5.0.2'
   pod 'Firebase/Auth', '7.9.0'
   pod 'Firebase/Analytics', '7.9.0'
+  pod 'Firebase/Firestore', '7.9.0'
 
   pod 'shared', :path => '../shared'
 end

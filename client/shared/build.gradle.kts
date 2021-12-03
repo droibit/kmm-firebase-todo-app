@@ -53,6 +53,7 @@ kotlin {
 
         framework {
             baseName = "Shared"
+            isStatic = false // SwiftUI preview requires dynamic framework
         }
     }
 
