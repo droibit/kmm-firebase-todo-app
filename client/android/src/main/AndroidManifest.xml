@@ -12,7 +12,9 @@
         android:supportsRtl="false"
         android:theme="@style/Theme.TodoApp"
         tools:ignore="MissingApplicationIcon">
-        <activity android:name=".ui.onboarding.OnBoardingActivity">
+        <activity
+            android:name=".ui.onboarding.OnBoardingActivity"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
