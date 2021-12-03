@@ -135,7 +135,8 @@ class TaskDataSource @Inject constructor(
 
     @Throws(TaskException::class, CancellationException::class)
     suspend fun updateTask(userId: String, taskId: String, title: String, description: String) {
-        updateTask(userId, taskId,
+        updateTask(
+            userId, taskId,
             UpdateTitleDescription(
                 title = title,
                 description = description,
@@ -146,14 +147,15 @@ class TaskDataSource @Inject constructor(
 
     @Throws(TaskException::class, CancellationException::class)
     suspend fun updateTask(userId: String, taskId: String, completed: Boolean) {
-        updateTask(userId, taskId,
+        updateTask(
+            userId, taskId,
             UpdateCompleted(isCompleted = completed),
             UpdateCompleted.serializer()
         )
     }
 
     @Throws(TaskException::class, CancellationException::class)
-    private suspend fun <T>updateTask(userId: String, taskId: String, data: T, strategy: SerializationStrategy<T>) {
+    private suspend fun <T> updateTask(userId: String, taskId: String, data: T, strategy: SerializationStrategy<T>) {
         try {
             val taskRef = firestore.document(FirestorePaths.task(userId, taskId))
             if (!taskRef.get().exists) {

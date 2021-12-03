@@ -35,7 +35,7 @@ extension SingletonComponent {
 extension SingletonComponent {
     var firebaseAuth: Firebase_authFirebaseAuth {
         shared {
-            FirebaseAuthProvider().auth
+            FirebaseProvider().auth
         }
     }
 

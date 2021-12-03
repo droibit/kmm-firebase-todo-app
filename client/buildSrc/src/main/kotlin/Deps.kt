@@ -13,7 +13,7 @@ object Deps {
 
         object Spotless {
             const val id = "com.diffplug.spotless"
-            const val version = "5.10.1"
+            const val version = "6.0.1"
         }
     }
 
@@ -98,6 +98,6 @@ object Deps {
     const val inject = "com.chrynan.inject:inject:1.0.0"
 
     object Version {
-        const val ktlint = "0.40.0"
+        const val ktlint = "0.43.2"
     }
 }

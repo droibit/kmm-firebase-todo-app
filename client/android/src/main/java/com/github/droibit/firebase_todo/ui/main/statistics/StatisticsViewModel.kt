@@ -19,7 +19,7 @@ import kotlin.LazyThreadSafetyMode.NONE
 class StatisticsViewModel(
     private val taskRepository: TaskRepository,
     private val getStatisticsUiModelSink: MutableLiveData<GetStatisticsUiModel>
-): ViewModel() {
+) : ViewModel() {
     val uiModel: LiveData<GetStatisticsUiModel> by lazy(NONE) {
         taskRepository.statistics
             .onStart { emitUiModel(inProgress = true) }

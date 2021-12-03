@@ -59,7 +59,7 @@ class TaskListFragment :
         findNavController().getBackStackEntry(R.id.taskListFragment)
     }
 
-    private val currentBackStackLifecycleObserver = object: DefaultLifecycleObserver {
+    private val currentBackStackLifecycleObserver = object : DefaultLifecycleObserver {
         override fun onResume(owner: LifecycleOwner) {
             currentBackStackEntry.consumeResult<TaskFilter>(
                 RESULT_SELECTED_TASK_FILTER
