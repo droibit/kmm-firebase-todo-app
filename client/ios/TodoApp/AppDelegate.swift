@@ -4,6 +4,7 @@
 //
 //  Created by Shinya Kumagai on 2021/01/18.
 //
+// swiftlint:disable discouraged_optional_collection
 
 import Firebase
 import GoogleSignIn
