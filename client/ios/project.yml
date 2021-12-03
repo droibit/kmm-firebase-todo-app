@@ -1,9 +1,9 @@
 name: Firebase-TodoApp
 options:
-  xcodeVersion: "12.0"
+  xcodeVersion: "13.0"
   deploymentTarget:
     iOS: "14.0"
-  developmentLanguage: ja
+  developmentLanguage: en
   postGenCommand: rbenv exec bundle exec pod install
 
 settings:
@@ -14,7 +14,7 @@ settings:
 packages:
   CombineSchedulers:
     url: https://github.com/pointfreeco/combine-schedulers
-    version: 0.5.0
+    version: 0.5.3
   PKHUD:
     url: https://github.com/pkluz/PKHUD.git
     version: 5.4.0
