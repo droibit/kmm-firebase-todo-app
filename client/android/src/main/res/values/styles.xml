@@ -1,19 +1,16 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
 
     <!-- Toolbar -->
-    <style name="Widget.TodoApp.Toolbar" parent="Widget.MaterialComponents.Toolbar.Surface">
+    <style name="Widget.TodoApp.Toolbar" parent="Widget.Material3.Toolbar.Surface">
         <item name="titleTextColor">@color/material_on_surface_emphasis_medium</item>
     </style>
 
     <!-- Bottom Navigation -->
-    <style name="Widget.TodoApp.BottomNavigationView" parent="@style/Widget.MaterialComponents.BottomNavigationView">
+    <style name="Widget.TodoApp.BottomNavigationView" parent="@style/Widget.Material3.BottomNavigationView">
     </style>
 
-    <!--
-        Bottom Sheets
-        ref. https://github.com/material-components/material-components-android-examples/blob/develop/MaterialThemeBuilder/app/src/main/res/values/styles.xml
-     -->
-    <style name="ThemeOverlay.TodoApp.BottomSheetDialog" parent="ThemeOverlay.MaterialComponents.Dialog">
+    <!-- Bottom Sheets -->
+    <style name="ThemeOverlay.TodoApp.BottomSheetDialog" parent="ThemeOverlay.Material3.BottomSheetDialog">
         <item name="android:windowIsFloating">false</item>
         <item name="android:windowBackground">@android:color/transparent</item>
         <item name="android:windowAnimationStyle">@style/Animation.TodoApp.BottomSheet.Modal</item>
@@ -25,10 +22,10 @@
         </item>
     </style>
 
-    <style name="Widget.TodoApp.BottomSheet.Modal" parent="Widget.MaterialComponents.BottomSheet.Modal">
+    <style name="Widget.TodoApp.BottomSheet.Modal" parent="Widget.Material3.BottomSheet.Modal">
         <item name="shapeAppearanceOverlay">?attr/shapeAppearanceLargeComponent</item>
     </style>
 
-    <style name="ThemeOverlay.TodoApp.MaterialAlertDialog" parent="ThemeOverlay.MaterialComponents.MaterialAlertDialog">
+    <style name="ThemeOverlay.TodoApp.MaterialAlertDialog" parent="ThemeOverlay.Material3.MaterialAlertDialog">
     </style>
 </resources>

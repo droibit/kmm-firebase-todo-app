@@ -35,26 +35,29 @@
         Base application theme.
         ref. https://github.com/material-components/material-components-android-examples/blob/develop/MaterialThemeBuilder/app/src/main/res/values/themes.xml
      -->
-    <style name="Base.Theme.TodoApp" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+    <style name="Base.Theme.TodoApp" parent="Theme.Material3.DayNight.NoActionBar">
         <item name="android:statusBarColor" tools:ignore="NewApi">?attr/colorSurface</item>
         <item name="android:navigationBarColor" tools:ignore="NewApi">
             ?attr/colorSurface
         </item>
 
         <!--Material type attributes-->
-        <item name="textAppearanceHeadline1">@style/TextAppearance.TodoApp.Headline1</item>
-        <item name="textAppearanceHeadline2">@style/TextAppearance.TodoApp.Headline2</item>
-        <item name="textAppearanceHeadline3">@style/TextAppearance.TodoApp.Headline3</item>
-        <item name="textAppearanceHeadline4">@style/TextAppearance.TodoApp.Headline4</item>
-        <item name="textAppearanceHeadline5">@style/TextAppearance.TodoApp.Headline5</item>
-        <item name="textAppearanceHeadline6">@style/TextAppearance.TodoApp.Headline6</item>
-        <item name="textAppearanceSubtitle1">@style/TextAppearance.TodoApp.Subtitle1</item>
-        <item name="textAppearanceSubtitle2">@style/TextAppearance.TodoApp.Subtitle2</item>
-        <item name="textAppearanceBody1">@style/TextAppearance.TodoApp.Body1</item>
-        <item name="textAppearanceBody2">@style/TextAppearance.TodoApp.Body2</item>
-        <item name="textAppearanceButton">@style/TextAppearance.TodoApp.Button</item>
-        <item name="textAppearanceCaption">@style/TextAppearance.TodoApp.Caption</item>
-        <item name="textAppearanceOverline">@style/TextAppearance.TodoApp.Overline</item>
+        <item name="textAppearanceDisplayLarge">@style/TextAppearance.TodoApp.DisplayLarge</item>
+        <item name="textAppearanceDisplayMedium">@style/TextAppearance.TodoApp.DisplayMedium</item>
+        <item name="textAppearanceDisplaySmall">@style/TextAppearance.TodoApp.DisplaySmall</item>
+        <item name="textAppearanceHeadlineLarge">@style/TextAppearance.TodoApp.HeadlineLarge</item>
+        <item name="textAppearanceHeadlineMedium">@style/TextAppearance.TodoApp.HeadlineMedium
+        </item>
+        <item name="textAppearanceHeadlineSmall">@style/TextAppearance.TodoApp.HeadlineSmall</item>
+        <item name="textAppearanceTitleLarge">@style/TextAppearance.TodoApp.TitleLarge</item>
+        <item name="textAppearanceTitleMedium">@style/TextAppearance.TodoApp.TitleMedium</item>
+        <item name="textAppearanceTitleSmall">@style/TextAppearance.TodoApp.TitleSmall</item>
+        <item name="textAppearanceBodyLarge">@style/TextAppearance.TodoApp.BodyLarge</item>
+        <item name="textAppearanceBodyMedium">@style/TextAppearance.TodoApp.BodyMedium</item>
+        <item name="textAppearanceBodySmall">@style/TextAppearance.TodoApp.BodySmall</item>
+        <item name="textAppearanceLabelLarge">@style/TextAppearance.TodoApp.LabelLarge</item>
+        <item name="textAppearanceLabelMedium">@style/TextAppearance.TodoApp.LabelMedium</item>
+        <item name="textAppearanceLabelSmall">@style/TextAppearance.TodoApp.LabelSmall</item>
 
         <!--Material shape attributes-->
         <item name="shapeAppearanceSmallComponent">@style/ShapeAppearance.TodoApp.SmallComponent
