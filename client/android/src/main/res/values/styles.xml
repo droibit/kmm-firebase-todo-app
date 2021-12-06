@@ -1,8 +1,8 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
 
     <!-- Toolbar -->
-    <style name="Widget.TodoApp.Toolbar" parent="Widget.Material3.Toolbar.Surface">
-        <item name="titleTextColor">@color/material_on_surface_emphasis_medium</item>
+    <style name="Widget.TodoApp.Toolbar" parent="Widget.Material3.Toolbar.OnSurface">
+        <item name="titleCentered">true</item>
     </style>
 
     <!-- Bottom Navigation -->
@@ -23,7 +23,6 @@
     </style>
 
     <style name="Widget.TodoApp.BottomSheet.Modal" parent="Widget.Material3.BottomSheet.Modal">
-        <item name="shapeAppearanceOverlay">?attr/shapeAppearanceLargeComponent</item>
     </style>
 
     <style name="ThemeOverlay.TodoApp.MaterialAlertDialog" parent="ThemeOverlay.Material3.MaterialAlertDialog">

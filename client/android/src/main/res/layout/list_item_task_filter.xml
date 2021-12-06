@@ -17,7 +17,7 @@
             android:layout_marginTop="8dp"
             android:layout_marginStart="16dp"
             android:layout_marginEnd="16dp"
-            app:tint="?attr/colorSecondaryVariant"
+            app:tint="?attr/colorSecondary"
             app:srcCompat="@drawable/ic_round_check_circle"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"

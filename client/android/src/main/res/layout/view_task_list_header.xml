@@ -9,7 +9,7 @@
 
     <!-- TODO: Make ripple colors the same. -->
     <Button
-        style="@style/Widget.MaterialComponents.Button.TextButton.Icon"
+        style="@style/Widget.Material3.Button.TextButton.Icon"
         android:id="@+id/filterTaskButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -25,7 +25,7 @@
         tools:text="@string/task_list_header_all" />
 
     <Button
-        style="@style/Widget.MaterialComponents.Button.TextButton.Icon"
+        style="@style/Widget.Material3.Button.TextButton.Icon"
         android:id="@+id/sortTaskButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
