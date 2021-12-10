@@ -34,6 +34,7 @@ import com.github.droibit.firebase_todo.utils.consumeResult
 import com.github.droibit.firebase_todo.utils.navigateSafely
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
+import dev.chrisbanes.insetter.applyInsetter
 import io.github.aakira.napier.Napier
 import javax.inject.Inject
 import kotlin.LazyThreadSafetyMode.NONE
@@ -97,8 +98,16 @@ class TaskListFragment :
             binding.toolbar.setUserIcon(it)
         }
 
-        binding.fab.setOnClickListener {
-            findNavController().navigateSafely(toNewTask())
+        binding.fab.apply {
+            setOnClickListener {
+                findNavController().navigateSafely(toNewTask())
+            }
+
+            applyInsetter {
+                type(navigationBars = true) {
+                    margin()
+                }
+            }
         }
 
         binding.taskList.apply {

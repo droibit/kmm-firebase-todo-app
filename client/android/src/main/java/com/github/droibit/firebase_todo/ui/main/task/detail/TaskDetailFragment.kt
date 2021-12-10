@@ -18,6 +18,7 @@ import com.github.droibit.firebase_todo.ui.main.task.detail.TaskDetailFragmentDi
 import com.github.droibit.firebase_todo.utils.navigateSafely
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
+import dev.chrisbanes.insetter.applyInsetter
 
 @AndroidEntryPoint
 class TaskDetailFragment :
@@ -53,9 +54,16 @@ class TaskDetailFragment :
             }
         }
 
-        binding.fab.setOnClickListener {
-            findNavController()
-                .navigateSafely(toUpdateTask(task = args.task))
+        binding.fab.apply {
+            setOnClickListener {
+                findNavController()
+                    .navigateSafely(toUpdateTask(task = args.task))
+            }
+            applyInsetter {
+                type(navigationBars = true) {
+                    margin()
+                }
+            }
         }
 
         binding.completedCheckBox.setOnClickListener {

@@ -16,6 +16,7 @@ import com.github.droibit.firebase_todo.utils.hideSofInputIfIsRemoving
 import com.github.droibit.firebase_todo.utils.toggleSofInputVisibility
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
+import dev.chrisbanes.insetter.applyInsetter
 
 @AndroidEntryPoint
 class UpdateTaskFragment : Fragment() {
@@ -41,9 +42,16 @@ class UpdateTaskFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.toolbar.setTitle(R.string.update_task_title)
-        binding.fab.setOnClickListener {
-            toggleSofInputVisibility(visible = false)
-            viewModel.updateTask()
+        binding.fab.apply {
+            setOnClickListener {
+                toggleSofInputVisibility(visible = false)
+                viewModel.updateTask()
+            }
+            applyInsetter {
+                type(navigationBars = true) {
+                    margin()
+                }
+            }
         }
         toggleSofInputVisibility(visible = true)
 

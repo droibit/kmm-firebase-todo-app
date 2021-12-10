@@ -11,20 +11,21 @@
 
     <!-- Bottom Sheets -->
     <style name="ThemeOverlay.TodoApp.BottomSheetDialog" parent="ThemeOverlay.Material3.BottomSheetDialog">
+        <item name="android:statusBarColor">@android:color/transparent</item>
         <item name="android:windowIsFloating">false</item>
         <item name="android:windowBackground">@android:color/transparent</item>
         <item name="android:windowAnimationStyle">@style/Animation.TodoApp.BottomSheet.Modal</item>
-        <item name="android:statusBarColor">@android:color/transparent</item>
-        <item name="bottomSheetStyle">@style/Widget.TodoApp.BottomSheet.Modal</item>
-        <item name="android:navigationBarColor">?attr/colorSurface</item>
+        <item name="android:windowLightNavigationBar" tools:ignore="NewApi">true</item>
         <item name="android:navigationBarDividerColor" tools:ignore="NewApi">
             @android:color/transparent
         </item>
+        <item name="bottomSheetStyle">@style/Widget.TodoApp.BottomSheet.Modal</item>
     </style>
 
     <style name="Widget.TodoApp.BottomSheet.Modal" parent="Widget.Material3.BottomSheet.Modal">
     </style>
 
     <style name="ThemeOverlay.TodoApp.MaterialAlertDialog" parent="ThemeOverlay.Material3.MaterialAlertDialog">
+        <item name="android:windowBackground">@android:color/transparent</item>
     </style>
 </resources>
