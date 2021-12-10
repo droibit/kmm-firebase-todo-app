@@ -5,6 +5,7 @@ import android.content.Intent
 import android.content.res.Configuration
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.WindowCompat
 import androidx.core.view.isVisible
 import androidx.databinding.DataBindingUtil
 import androidx.navigation.NavController
@@ -14,6 +15,7 @@ import androidx.navigation.ui.setupWithNavController
 import com.github.droibit.firebase_todo.R
 import com.github.droibit.firebase_todo.databinding.ActivityMainBinding
 import dagger.hilt.android.AndroidEntryPoint
+import dev.chrisbanes.insetter.applyInsetter
 
 @AndroidEntryPoint
 class MainActivity :
@@ -33,8 +35,16 @@ class MainActivity :
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        WindowCompat.setDecorFitsSystemWindows(window, false)
+
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
         binding.lifecycleOwner = this
+
+        binding.navHostContainer.applyInsetter {
+            type(statusBars = true) {
+                padding()
+            }
+        }
 
         val navHostFragment = binding.navHostContainer.getFragment<NavHostFragment>()
         navController = navHostFragment.navController
